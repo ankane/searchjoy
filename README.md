@@ -51,7 +51,9 @@ mount Intel::Engine => "admin/searches"
 
 Be sure to protect the endpoint in production.
 
-[show example]
+[show basic auth]
+
+[show devise]
 
 ## Contributing
 
