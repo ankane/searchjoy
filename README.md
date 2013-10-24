@@ -27,7 +27,7 @@ Use the `track` option to track searches.
 Item.search "apple", track: true
 ```
 
-Want to track more attributes?  Just add them to the `searches` table with migrations and pass the values to the `track` option.
+Want to track more attributes? Use migrations to add them to the `searches` table. Then, pass the values to the `track` option.
 
 ```ruby
 Item.search "apple", track: {user_id: 1, source: "web"}
