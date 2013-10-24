@@ -35,6 +35,12 @@ Item.search "apple", track: {user_id: 1, source: "web"}
 
 It’s that easy!
 
+Query the searches with:
+
+```ruby
+Intel::Search.all
+```
+
 ## View the Data [coming soon]
 
 Add the dashboards to your `config/routes.rb`.
