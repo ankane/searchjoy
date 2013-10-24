@@ -46,7 +46,7 @@ Intel::Search.all
 Add the dashboards to your `config/routes.rb`.
 
 ```ruby
-mount Intel::Engine => "searches"
+mount Intel::Engine => "admin/searches"
 ```
 
 Be sure to protect the endpoint in production.
