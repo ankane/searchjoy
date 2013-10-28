@@ -10,5 +10,9 @@ class <%= migration_class_name %> < ActiveRecord::Migration
       t.timestamp :converted_at
       t.integer :position
     end
+
+    add_index :searches, [:created_at]
+    add_index :searches, [:search_type, :created_at]
+    add_index :searches, [:convertable_id, :convertable_type]
   end
 end
