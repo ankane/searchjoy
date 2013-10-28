@@ -6,6 +6,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration
       t.integer :results_count
       t.timestamp :created_at
       t.integer :convertable_id
+      t.string :convertable_type
       t.timestamp :converted_at
       t.integer :position
     end
