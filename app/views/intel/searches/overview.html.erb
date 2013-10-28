@@ -11,11 +11,11 @@
 <h1>Top Searches</h1>
 <%= link_to "View all", intel.searches_path(search_type: params[:search_type]) %>
 <% @top_searches.each do |row| %>
-  <p><%= row %></p>
+  <p><%= row["query"] %> - <%= row["searches_count"] %></p>
 <% end %>
 
 <h1>Low Conversions</h1>
 <%= link_to "View all", intel.searches_path(search_type: params[:search_type], sort: "conversion_rate") %>
 <% @bad_conversion_rate.each do |row| %>
-  <p><%= row %></p>
+  <p><%= row["query"] %> - <%= number_to_percentage row["conversion_rate"], precision: 0 %></p>
 <% end %>

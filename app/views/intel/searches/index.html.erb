@@ -4,18 +4,18 @@
   <thead>
     <tr>
       <th>Query</th>
-      <th><%= link_to "Searches", params.except(:sort) %></th>
-      <th><%= link_to "Conversions", params.merge(sort: "conversion_rate") %></th>
-      <th></th>
+      <th class="num" style="width: 25%;"><%= link_to "Searches", params.except(:sort) %></th>
+      <th class="num" style="width: 25%;">Conversions</th>
+      <th class="num" style="width: 25%;"><%= link_to "%", params.merge(sort: "conversion_rate") %></th>
     </tr>
   </thead>
   <tbody>
     <% @searches.each do |search| %>
       <tr>
         <td><%= search["query"] %></td>
-        <td><%= search["searches_count"] %></td>
-        <td><%= search["conversions_count"] %></td>
-        <td><%= number_to_percentage search["conversion_rate"].to_f, precision: 0 %></td>
+        <td class="num"><%= search["searches_count"] %></td>
+        <td class="num"><%= search["conversions_count"] %></td>
+        <td class="num"><%= number_to_percentage search["conversion_rate"].to_f, precision: 0 %></td>
       </tr>
     <% end %>
   </tbody>
