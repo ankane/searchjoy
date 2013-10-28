@@ -14,5 +14,9 @@ if defined?(Searchkick)
       alias_method :search_without_track, :search
       alias_method :search, :search_with_track
     end
+
+    class Results
+      attr_accessor :search
+    end
   end
 end

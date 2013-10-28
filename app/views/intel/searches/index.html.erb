@@ -54,6 +54,14 @@
         <h1>Live Stream <small id="stream-updated"></small></h1>
 
         <div id="stream"></div>
+
+        <h1>No Results</h1>
+        <%= @no_results.inspect %>
+
+        <h1>Low Conversions</h1>
+        <% @bad_conversion_rate.each do |row| %>
+          <%= row %>
+        <% end %>
       <% else %>
         <p>No data</p>
         <pre>

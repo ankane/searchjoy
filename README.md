@@ -43,6 +43,27 @@ Query the searches with:
 Intel::Search.all
 ```
 
+## Track Conversions
+
+Tracking search conversions is super important.  Intel makes this easy!
+
+```ruby
+@items = Item.search "apple", track: true
+@items.search # returns search object
+```
+
+Add an end point to track conversions to your `config/routes.rb`.
+
+```ruby
+mount Intel::Conversions, at: "intel/conversions"
+```
+
+There are a few ways to hit this end point.
+
+```ruby
+intel.conversions_path(search_id: @items.search.id, convertable_id: 1, position: 3)
+```
+
 ## View the Data
 
 Add the dashboards to your `config/routes.rb`.
