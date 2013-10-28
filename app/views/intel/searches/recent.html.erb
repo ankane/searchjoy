@@ -4,7 +4,7 @@
       <%= time_ago_in_words search.created_at %> ago
       <div><%= pluralize search.results_count, "result" %></div>
     </div>
-    <%= search.search_type %>
+    <span style="background-color: #428bca; color: #fff; padding: 4px; border-radius: 4px;"><%= search.search_type %></span>
     <div><%= search.query %></div>
     <% if search.converted_at %>
       <%= (search.converted_at - search.created_at).round %> sec

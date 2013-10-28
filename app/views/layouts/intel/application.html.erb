@@ -45,6 +45,7 @@
 
       #header {
         border-bottom: solid 1px #ddd;
+        padding-bottom: 20px;
       }
 
       .nav, .nav li {
@@ -111,7 +112,7 @@
       <div id="header" class="cf">
         <% if %w[overview index].include?(params[:action]) %>
           <div style="float: right;">
-            <p><%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %></p>
+            <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
           </div>
         <% end %>
 
