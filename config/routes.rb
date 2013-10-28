@@ -1,4 +1,5 @@
 Intel::Engine.routes.draw do
+  resources :searches, only: [:index]
   get "searches/recent"
-  root to: "searches#index"
+  root to: "searches#stream"
 end
