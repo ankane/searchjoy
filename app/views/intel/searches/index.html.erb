@@ -24,19 +24,65 @@
         font-size: 20px;
       }
 
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        border-bottom: solid 1px #ccc;
+        padding: 20px 0;
+      }
+
       .container {
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
       }
+
+      /**
+       * For modern browsers
+       * 1. The space content is one way to avoid an Opera bug when the
+       *    contenteditable attribute is included anywhere else in the document.
+       *    Otherwise it causes space to appear at the top and bottom of elements
+       *    that are clearfixed.
+       * 2. The use of `table` rather than `block` is only necessary if using
+       *    `:before` to contain the top-margins of child elements.
+       */
+      .cf:before,
+      .cf:after {
+          content: " "; /* 1 */
+          display: table; /* 2 */
+      }
+
+      .cf:after {
+          clear: both;
+      }
+
+      /**
+       * For IE 6/7 only
+       * Include this rule to trigger hasLayout and contain floats.
+       */
+      .cf {
+          *zoom: 1;
+      }
     </style>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
+      // var sinceId = 0;
       function fetchRecentSearches() {
         $("#stream").load("<%= intel.searches_recent_path %>");
-        $("#stream-updated").text(new Date())
-        setTimeout(fetchRecentSearches, 10 * 1000);
+        // $("#stream-updated").text(new Date())
+        // $.getJSON("<%= intel.searches_recent_path %>", {since_id: sinceId}, function(response) {
+        //   sinceId = response[0] && response[0].id;
+        //   for (var i = 0; i < response.length; i++) {
+        //     console.log(response[i]);
+        //     var li = $("<li>").html(JSON.stringify(response[i]));
+        //     $("#stream").prepend(li);
+        //   }
+        // });
+        setTimeout(fetchRecentSearches, 5 * 1000);
       }
       $( function() {
         fetchRecentSearches();
@@ -47,13 +93,21 @@
   <body>
     <div class="container">
       <% if Intel::Search.count > 0 %>
-        <h1>Searches</h1>
+        Dig Deeper
+        <ul>
+          <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
+            <li><%= search_type %></li>
+          <% end %>
+        </ul>
+        <ul id="stream"></ul>
+
+<!--         <h1>Searches</h1>
 
         <%= line_chart @searches_by_week %>
 
         <h1>Live Stream <small id="stream-updated"></small></h1>
 
-        <div id="stream"></div>
+        <div id="stream2"></div>
 
         <h1>No Results</h1>
         <%= @no_results.inspect %>
@@ -61,7 +115,7 @@
         <h1>Low Conversions</h1>
         <% @bad_conversion_rate.each do |row| %>
           <%= row %>
-        <% end %>
+        <% end %> -->
       <% else %>
         <p>No data</p>
         <pre>

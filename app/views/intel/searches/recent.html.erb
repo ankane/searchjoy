@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th>Type</th>
@@ -10,7 +10,7 @@
   <tbody>
     <% @searches.each do |search| %>
       <tr>
-        <td><%= search.searchable_type %></td>
+        <td><%= search.search_type %></td>
         <td><%= search.query %></td>
         <td><%= time_ago_in_words search.created_at %> ago</td>
         <td><%= search.results_count %></td>
@@ -18,3 +18,19 @@
     <% end %>
   </tbody>
 </table>
+ -->
+
+<% @searches.each do |search| %>
+  <li class="cf">
+    <div style="float: right; text-align: right;">
+      <%= time_ago_in_words search.created_at %> ago
+      <div><%= pluralize search.results_count, "result" %></div>
+    </div>
+    <%= search.search_type %>
+    <div><%= search.query %></div>
+    <% if search.converted_at %>
+      <%= (search.converted_at - search.created_at).round %> sec
+      <%= search.convertable.try(:name) %>
+    <% end %>
+  </li>
+<% end %>
