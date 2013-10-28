@@ -114,6 +114,7 @@
           <% if %w[overview index].include?(params[:action]) and @time_range %>
             <div style="float: right;">
               <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
+              <span style="color: #999;"><%= Time.zone.name.sub(" (US & Canada)", "") %></span>
             </div>
           <% end %>
 
