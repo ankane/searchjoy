@@ -1,8 +1,12 @@
 <h4><%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %></h4>
 
-<h1>Searches</h1>
+<h1>Conversion Rate</h1>
 
-<%= line_chart @searches_by_week %>
+<%= line_chart @conversion_rate_by_week %>
+
+<h1>Volume</h1>
+
+<%= line_chart [{name: "Searches", data: @searches_by_week}, {name: "Conversions", data: @conversions_by_week}] %>
 
 <h1>Top Searches</h1>
 <%= link_to "View all", intel.searches_path(search_type: params[:search_type]) %>

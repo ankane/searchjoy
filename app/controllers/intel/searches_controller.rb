@@ -16,9 +16,15 @@ module Intel
 
     def overview
       @time_range = 12.weeks.ago.beginning_of_week(:sunday)..Time.now
-      @searches_by_week = Intel::Search.where(search_type: params[:search_type]).group_by_week(:created_at, Time.zone, @time_range).count
+      relation = Intel::Search.where(search_type: params[:search_type])
+      @searches_by_week = relation.group_by_week(:created_at, Time.zone, @time_range).count
+      @conversions_by_week = relation.where("converted_at is not null").group_by_week(:created_at, Time.zone, @time_range).count
       @top_searches = @searches.first(10)
       @bad_conversion_rate = @searches.sort_by{|s| [s["conversion_rate"].to_f, s["query"]] }.first(10).select{|s| s["conversion_rate"] < 50 }
+      @conversion_rate_by_week = {}
+      @searches_by_week.each do |week, searches_count|
+        @conversion_rate_by_week[week] = searches_count > 0 ? (100.0 * @conversions_by_week[week] / searches_count).round : 0
+      end
     end
 
     def stream
