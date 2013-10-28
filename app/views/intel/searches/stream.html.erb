@@ -1,13 +1,4 @@
-<% if Intel::Search.count > 0 %>
-  <ul id="stream"></ul>
-<% else %>
-  <p>No data</p>
-  <pre>
-    <code>
-      Item.search "apple", track: true
-    </code>
-  </pre>
-<% end %>
+<ul id="stream"></ul>
 
 <script>
   function fetchRecentSearches() {
