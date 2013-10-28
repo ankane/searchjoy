@@ -16,8 +16,8 @@ module Intel
         @time_range = 12.weeks.ago.beginning_of_week(:sunday)..Time.now
         relation = Intel::Search.where(search_type: params[:search_type])
         @searches_by_week = relation.group_by_week(:created_at, Time.zone, @time_range).count
-        @top_searches = @searches
-        @bad_conversion_rate = @searches.sort_by{|s| [s["conversion_rate"].to_f, s["query"]] }
+        @top_searches = @searches.first(10)
+        @bad_conversion_rate = @searches.sort_by{|s| [s["conversion_rate"].to_f, s["query"]] }.first(10)
       rescue ActiveRecord::StatementInvalid # TODO more selective rescue
         render text: "Be sure to run rails generate intel:install"
       end
@@ -38,7 +38,8 @@ module Intel
     end
 
     def set_searches
-      @searches = Intel::Search.connection.select_all(Intel::Search.select("query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count").where(created_at: @time_range, search_type: params[:search_type]).group("query").order("searches_count desc, query asc").limit(100).to_sql).to_a
+      @limit = params[:limit] || 100
+      @searches = Intel::Search.connection.select_all(Intel::Search.select("query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count").where(created_at: @time_range, search_type: params[:search_type]).group("query").order("searches_count desc, query asc").limit(@limit).to_sql).to_a
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
       end
