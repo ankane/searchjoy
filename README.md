@@ -91,7 +91,7 @@ authenticate :user, lambda{|user| user.admin? } do
 end
 ```
 
-## Customize
+## Customize [coming soon]
 
 Add the controllers and views to your app and customize away.
 
