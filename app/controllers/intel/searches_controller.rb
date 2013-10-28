@@ -1,5 +1,7 @@
 module Intel
   class SearchesController < ActionController::Base
+    layout "intel/application"
+
     http_basic_authenticate_with name: ENV["INTEL_USERNAME"], password: ENV["INTEL_PASSWORD"] if ENV["INTEL_PASSWORD"]
 
     before_filter :set_time_range, only: [:index, :overview]
