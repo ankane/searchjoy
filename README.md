@@ -65,7 +65,7 @@ ENV["INTEL_PASSWORD"] = "secret"
 #### Devise
 
 ```ruby
-authenticate :user, lambda{|u| u.admin? } do
+authenticate :user, lambda{|user| user.admin? } do
   mount Intel::Engine, at: "admin/intel"
 end
 ```
