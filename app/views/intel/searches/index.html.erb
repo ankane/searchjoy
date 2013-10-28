@@ -1,16 +1,20 @@
-<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-
-<h1>Searches</h1>
-
-<%= line_chart @searches_by_week %>
-
-<h1>Top Searches</h1>
-<%= @top_searches.inspect %>
-
-<h1>No Results</h1>
-<%= @no_results.inspect %>
-
-<h1>Low Conversions</h1>
-<% @bad_conversion_rate.each do |row| %>
-  <%= row %>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th>Searches</th>
+      <th>Conversions</th>
+      <th>Conversion Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @searches.each do |search| %>
+      <tr>
+        <td><%= search["query"] %></td>
+        <td><%= search["searches_count"] %></td>
+        <td><%= search["conversions_count"] %></td>
+        <td><%= number_to_percentage search["conversion_rate"].to_f, precision: 0 %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
