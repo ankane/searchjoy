@@ -109,21 +109,23 @@
   </head>
   <body>
     <div class="container">
-      <div id="header" class="cf">
-        <% if %w[overview index].include?(params[:action]) %>
-          <div style="float: right;">
-            <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
-          </div>
-        <% end %>
-
-        <%= link_to "Live Stream", intel.root_path %>
-        <span style="color: #999; margin-left: 20px; margin-right: 20px;">Dig Deeper</span>
-        <ul class="nav">
-          <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
-            <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
+      <% if !@no_data %>
+        <div id="header" class="cf">
+          <% if %w[overview index].include?(params[:action]) and @time_range %>
+            <div style="float: right;">
+              <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
+            </div>
           <% end %>
-        </ul>
-      </div>
+
+          <%= link_to "Live Stream", intel.root_path %>
+          <span style="color: #999; margin-left: 20px; margin-right: 20px;">Dig Deeper</span>
+          <ul class="nav">
+            <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
+              <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
       <%= yield %>
     </div>
