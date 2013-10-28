@@ -17,7 +17,7 @@ module Intel
         relation = Intel::Search.where(search_type: params[:search_type])
         @searches_by_week = relation.group_by_week(:created_at, Time.zone, @time_range).count
         @top_searches = @searches.first(10)
-        @bad_conversion_rate = @searches.sort_by{|s| [s["conversion_rate"].to_f, s["query"]] }.first(10)
+        @bad_conversion_rate = @searches.sort_by{|s| [s["conversion_rate"].to_f, s["query"]] }.first(10).select{|s| s["conversion_rate"] < 50 }
       rescue ActiveRecord::StatementInvalid # TODO more selective rescue
         render text: "Be sure to run rails generate intel:install"
       end
