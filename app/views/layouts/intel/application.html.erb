@@ -29,7 +29,11 @@
         padding: 0;
       }
 
-      li {
+      .nav, .nav li {
+        display: inline;
+      }
+
+      #stream li {
         border-bottom: solid 1px #ccc;
         padding: 20px 0;
       }
@@ -82,9 +86,15 @@
   <body>
     <div class="container">
       <div id="header">
+        <% if %w[overview index].include?(params[:action]) %>
+          <div style="float: right;">
+            <h4><%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %></h4>
+          </div>
+        <% end %>
+
         <%= link_to "Intel", intel.root_path %>
         Dig Deeper
-        <ul>
+        <ul class="nav">
           <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
             <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
           <% end %>
