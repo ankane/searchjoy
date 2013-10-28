@@ -91,6 +91,14 @@ authenticate :user, lambda{|user| user.admin? } do
 end
 ```
 
+## Customize
+
+Add the controllers and views to your app and customize away.
+
+```ruby
+rails generate intel:engine
+```
+
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
