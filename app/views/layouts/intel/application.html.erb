@@ -10,14 +10,20 @@
         font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
         margin: 0;
         padding: 20px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333;
       }
 
       table {
         width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
       }
 
       th {
         text-align: left;
+        border-bottom: solid 2px #ddd;
       }
 
       h1 {
@@ -29,17 +35,34 @@
         padding: 0;
       }
 
+      table td, table th {
+        padding: 8px;
+      }
+
+      td {
+        border-top: solid 1px #ddd;
+      }
+
+      #header {
+        border-bottom: solid 1px #ddd;
+      }
+
       .nav, .nav li {
         display: inline;
       }
 
       #stream li {
-        border-bottom: solid 1px #ccc;
+        border-bottom: solid 1px #ddd;
         padding: 20px 0;
       }
 
-      a, a:visited, a:active, a:hover {
-        color: blue;
+      a, a:visited, a:active {
+        color: #428bca;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
       }
 
       .num {
@@ -85,15 +108,14 @@
   </head>
   <body>
     <div class="container">
-      <div id="header">
+      <div id="header" class="cf">
         <% if %w[overview index].include?(params[:action]) %>
           <div style="float: right;">
-            <h4><%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %></h4>
+            <p><%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %></p>
           </div>
         <% end %>
 
-        <%= link_to "Intel", intel.root_path %>
-        Dig Deeper
+        <%= link_to "Live Stream", intel.root_path %>
         <ul class="nav">
           <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
             <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
