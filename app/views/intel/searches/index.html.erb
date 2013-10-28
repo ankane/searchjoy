@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Intel</title>
+
+    <meta charset="utf-8" />
+
+    <style>
+      body {
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      th {
+        text-align: left;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      function fetchRecentSearches() {
+        $("#stream").load("<%= intel.searches_recent_path %>");
+        $("#stream-updated").text(new Date())
+        setTimeout(fetchRecentSearches, 10 * 1000);
+      }
+      $( function() {
+        fetchRecentSearches();
+      });
+    </script>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+  </head>
+  <body>
+    <div class="container">
+      <% if Intel::Search.count > 0 %>
+        <h1>Searches</h1>
+
+        <%= line_chart @searches_by_week %>
+
+        <h1>Live Stream <small id="stream-updated"></small></h1>
+
+        <div id="stream"></div>
+      <% else %>
+        <p>No data</p>
+        <pre>
+          <code>
+            Item.search "apple", track: true
+          </code>
+        </pre>
+      <% end %>
+    </div>
+  </body>
+</html>

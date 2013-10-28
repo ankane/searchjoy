@@ -46,14 +46,27 @@ Intel::Search.all
 Add the dashboards to your `config/routes.rb`.
 
 ```ruby
-mount Intel::Engine => "admin/searches"
+mount Intel::Engine, at: "admin/intel"
 ```
 
 Be sure to protect the endpoint in production.
 
-[show basic auth]
+#### Basic Authentication
 
-[show devise]
+Set the following variables in your environment or an initializer.
+
+```ruby
+ENV["INTEL_USERNAME"] = "andrew"
+ENV["INTEL_PASSWORD"] = "secret"
+```
+
+#### Devise
+
+```ruby
+authenticate :user, lambda{|u| u.admin? } do
+  mount Intel::Engine, at: "admin/intel"
+end
+```
 
 ## Contributing
 

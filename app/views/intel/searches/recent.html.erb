@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Query</th>
+      <th>Time</th>
+      <th>Results</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @searches.each do |search| %>
+      <tr>
+        <td><%= search.searchable_type %></td>
+        <td><%= search.query %></td>
+        <td><%= time_ago_in_words search.created_at %> ago</td>
+        <td><%= search.results_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
