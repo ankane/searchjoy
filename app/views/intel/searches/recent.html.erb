@@ -1,14 +1,20 @@
 <% @searches.each do |search| %>
-  <li class="cf">
-    <div style="float: right; text-align: right;">
+  <tr>
+    <td style="width: 15%;">
+      <span style="background-color: #428bca; color: #fff; padding: 8px; border-radius: 4px;"><%= search.search_type %></span>
+    </td>
+    <td><%= search.query %></td>
+    <td style="width: 35%;">
+      <% if search.converted_at %>
+        <span style="color: green;">
+          <span style="font-weight: bold;">✓</span>
+          <%= search.convertable.respond_to?(:name) && search.convertable.try(:name) || "Success" %>
+        </span>
+      <% end %>
+    </td>
+    <td style="width: 20%;" class="num">
       <%= time_ago_in_words search.created_at %> ago
-      <div><%= pluralize search.results_count, "result" %></div>
-    </div>
-    <span style="background-color: #428bca; color: #fff; padding: 4px; border-radius: 4px;"><%= search.search_type %></span>
-    <div><%= search.query %></div>
-    <% if search.converted_at %>
-      <%= (search.converted_at - search.created_at).round %> sec
-      <%= search.convertable.try(:name) %>
-    <% end %>
-  </li>
+      <div style="color: #999;"><%= pluralize search.results_count, "result" %></div>
+    </td>
+  </tr>
 <% end %>

@@ -27,7 +27,7 @@
       }
 
       h1 {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       ul {
@@ -117,6 +117,7 @@
         <% end %>
 
         <%= link_to "Live Stream", intel.root_path %>
+        <span style="color: #999; margin-left: 20px; margin-right: 20px;">Dig Deeper</span>
         <ul class="nav">
           <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
             <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
