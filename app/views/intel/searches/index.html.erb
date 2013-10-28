@@ -2,9 +2,9 @@
   <thead>
     <tr>
       <th>Query</th>
-      <th>Searches</th>
-      <th>Conversions</th>
-      <th>Conversion Rate</th>
+      <th><%= link_to "Searches", params.except(:sort) %></th>
+      <th><%= link_to "Conversions", params.merge(sort: "conversion_rate") %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

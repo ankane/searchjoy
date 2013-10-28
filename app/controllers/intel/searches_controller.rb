@@ -8,7 +8,9 @@ module Intel
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
       end
-      @searches.sort_by!{|s| s["conversion_rate"].to_f }
+      if params[:sort] == "conversion_rate"
+        @searches.sort_by!{|s| [s["conversion_rate"].to_f, s["query"]] }
+      end
     end
 
     def overview
