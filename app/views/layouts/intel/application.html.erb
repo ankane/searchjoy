@@ -73,6 +73,16 @@
   </head>
   <body>
     <div class="container">
+      <div id="header">
+        <%= link_to "Intel", intel.root_path %>
+        Dig Deeper
+        <ul>
+          <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
+            <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
+          <% end %>
+        </ul>
+      </div>
+
       <%= yield %>
     </div>
   </body>

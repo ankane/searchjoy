@@ -30,7 +30,7 @@ module Intel
 
     def recent
       @searches = Intel::Search.order("created_at desc").limit(10)
-      # render json: Intel::Search.order("created_at desc").where("id > ?", params[:since_id]).as_json
+      render layout: false
     end
 
     protected

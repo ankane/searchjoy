@@ -1,10 +1,4 @@
 <% if Intel::Search.count > 0 %>
-  Dig Deeper
-  <ul>
-    <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
-      <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
-    <% end %>
-  </ul>
   <ul id="stream"></ul>
 <% else %>
   <p>No data</p>
@@ -16,18 +10,8 @@
 <% end %>
 
 <script>
-  // var sinceId = 0;
   function fetchRecentSearches() {
     $("#stream").load("<%= intel.searches_recent_path %>");
-    // $("#stream-updated").text(new Date())
-    // $.getJSON("<%= intel.searches_recent_path %>", {since_id: sinceId}, function(response) {
-    //   sinceId = response[0] && response[0].id;
-    //   for (var i = 0; i < response.length; i++) {
-    //     console.log(response[i]);
-    //     var li = $("<li>").html(JSON.stringify(response[i]));
-    //     $("#stream").prepend(li);
-    //   }
-    // });
     setTimeout(fetchRecentSearches, 5 * 1000);
   }
   $( function() {
