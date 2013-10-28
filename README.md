@@ -6,7 +6,7 @@ Search analytics made easy
 
 - track searches and conversions
 - watch searches in real-time
-- view searches with low conversions or no results
+- view searches with low conversions
 
 ## Get Started
 
