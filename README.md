@@ -1,10 +1,12 @@
 # Intel
 
+[not ready for prime time]
+
 Search analytics made easy
 
 - track searches and conversions
-- watch searches in real-time [coming soon]
-- view searches with low conversions or no results [coming soon]
+- watch searches in real-time
+- view searches with low conversions or no results
 
 ## Get Started
 
@@ -41,7 +43,7 @@ Query the searches with:
 Intel::Search.all
 ```
 
-## View the Data [coming soon]
+## View the Data
 
 Add the dashboards to your `config/routes.rb`.
 
