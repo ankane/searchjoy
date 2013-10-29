@@ -91,7 +91,17 @@ authenticate :user, lambda{|user| user.admin? } do
 end
 ```
 
-## Customize [coming soon]
+## Customize
+
+#### Time Zone [coming soon]
+
+By default, Intel use `Time.zone`. To set a specific zone, create an initializer `config/initializers/intel.rb` with:
+
+```ruby
+Intel.default_time_zone = "Pacific Time (US & Canada)"
+```
+
+#### Views [coming soon]
 
 Add the controllers and views to your app and customize away.
 
