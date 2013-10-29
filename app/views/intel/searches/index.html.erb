@@ -1,4 +1,7 @@
-<h1>Top <%= @limit %> Searches</h1>
+<h1>
+  <%= params[:search_type] %> Searches
+  <small style="color: #999; font-weight: normal;">Top <%= @limit %></small>
+</h1>
 
 <table>
   <thead>

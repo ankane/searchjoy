@@ -27,7 +27,11 @@
       }
 
       h1 {
-        font-size: 18px;
+        font-size: 20px;
+      }
+
+      h2 {
+        font-size: 16px;
       }
 
       ul {
@@ -52,9 +56,12 @@
         display: inline;
       }
 
-      #stream li {
+      .nav li {
+        margin-right: 20px;
+      }
+
+      #stream {
         border-bottom: solid 1px #ddd;
-        padding: 20px 0;
       }
 
       a, a:visited, a:active {
@@ -118,9 +125,8 @@
             </div>
           <% end %>
 
-          <%= link_to "Live Stream", intel.root_path %>
-          <span style="color: #999; margin-left: 20px; margin-right: 20px;">Dig Deeper</span>
           <ul class="nav">
+            <li><%= link_to "Live Stream", intel.root_path %></li>
             <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
               <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
             <% end %>

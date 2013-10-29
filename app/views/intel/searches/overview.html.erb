@@ -1,8 +1,10 @@
-<h1>Conversion Rate</h1>
+<h1><%= params[:search_type] %> Overview</h1>
+
+<h2>Conversion Rate</h2>
 
 <%= line_chart @conversion_rate_by_week %>
 
-<h1>Volume</h1>
+<h2>Volume</h2>
 
 <%= line_chart [{name: "Searches", data: @searches_by_week}, {name: "Conversions", data: @conversions_by_week}] %>
 
