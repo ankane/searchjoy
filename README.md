@@ -93,6 +93,16 @@ end
 
 ## Customize
 
+#### Live Stream
+
+Want to see the a better conversion name than "Item 123"? Add the `intel_name` method in your model.
+
+```ruby
+def intel_name
+  title # use the title method
+end
+```
+
 #### Time Zone [coming soon]
 
 By default, Intel use `Time.zone`. To set a specific zone, create an initializer `config/initializers/intel.rb` with:
