@@ -95,7 +95,7 @@ end
 
 #### Live Stream
 
-Want to see the a better conversion name than "Item 123"? Add the `intel_name` method in your model.
+What is “Item 123”? Add the `intel_name` method in your model.
 
 ```ruby
 def intel_name
