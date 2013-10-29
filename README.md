@@ -8,7 +8,7 @@ Search analytics made easy
 - watch searches in real-time
 - view searches with low conversions
 
-:cupid: Works beautifully with [Searchkick](https://github.com/ankane/searchkick)
+:cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
 Works with Rails 3.1 or greater
 
@@ -20,7 +20,7 @@ Add this line to your application’s Gemfile:
 gem "intel"
 ```
 
-And run the generator.  This creates a table to keep track of searches.
+And run the generator. This creates a migration for a table to keep track of searches.
 
 ```sh
 rails generate intel:install
