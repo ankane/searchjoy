@@ -10,6 +10,8 @@ Search analytics made easy
 
 :cupid: Works beautifully with [Searchkick](https://github.com/ankane/searchkick)
 
+Works with Rails 3.1 or greater
+
 ## Get Started
 
 Add this line to your application’s Gemfile:
@@ -18,7 +20,7 @@ Add this line to your application’s Gemfile:
 gem "intel"
 ```
 
-Create a table to keep track of searches.
+And run the generator.  This creates a table to keep track of searches.
 
 ```sh
 rails generate intel:install
