@@ -15,7 +15,6 @@ module Intel
     end
 
     def overview
-      @time_range = 12.weeks.ago.beginning_of_week(:sunday)..Time.now
       relation = Intel::Search.where(search_type: params[:search_type])
       @searches_by_week = relation.group_by_week(:created_at, Time.zone, @time_range).count
       @conversions_by_week = relation.where("converted_at is not null").group_by_week(:created_at, Time.zone, @time_range).count
@@ -49,7 +48,7 @@ module Intel
     end
 
     def set_time_range
-      @time_range = 12.weeks.ago.beginning_of_week(:sunday)..Time.now
+      @time_range = 8.weeks.ago.beginning_of_week(:sunday)..Time.now
     end
 
     def set_searches
