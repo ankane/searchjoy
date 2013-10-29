@@ -4,9 +4,9 @@
 
 Search analytics made easy
 
-- track searches and conversions
-- watch searches in real-time
-- view searches with low conversions
+- watch users search in real-time
+- track searches and conversions week over week
+- monitor the performance of top searches
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
@@ -55,7 +55,7 @@ Intel::Search.create(
 
 ## Track Conversions
 
-Tracking search conversions is super important.  Intel makes this easy!
+Tracking conversions is super important, and now it’s super easy.
 
 ```ruby
 @items = Item.search "apple", track: true
