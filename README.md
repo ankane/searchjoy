@@ -25,7 +25,9 @@ rails generate intel:install
 rake db:migrate
 ```
 
-Use the `track` option to track searches.
+## Track Searches
+
+With Searchkick, use the `track` option.
 
 ```ruby
 Item.search "apple", track: true
@@ -39,10 +41,14 @@ Item.search "apple", track: {user_id: 1, source: "web"}
 
 It’s that easy!
 
-Query the searches with:
+Without Searchkick, create searches manually.
 
 ```ruby
-Intel::Search.all
+Intel::Search.create(
+  search_type: "Item", # typically the model name
+  query: "apple",
+  results_count: 12
+)
 ```
 
 ## Track Conversions
