@@ -4,8 +4,8 @@
 
 Search analytics made easy
 
-- watch users search in real-time
 - track searches and conversions week over week
+- watch users search in real-time
 - monitor the performance of top searches
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
@@ -55,23 +55,27 @@ Intel::Search.create(
 
 ## Track Conversions
 
-Tracking conversions is super important, and now it’s super easy.
+Tracking conversions is super important.
+
+First, define your conversion metric. This is specific to your application.
+
+Next, when a user searches, keep track of the search id.
 
 ```ruby
 @items = Item.search "apple", track: true
-@items.search # returns search object
+@items.search.id # returns search id
 ```
 
-Add an end point to track conversions to your `config/routes.rb`.
+When a user converts, mark it.
 
 ```ruby
-mount Intel::Conversions, at: "intel/conversions"
-```
-
-There are a few ways to hit this end point.
-
-```ruby
-intel.conversions_path(search_id: @items.search.id, convertable_id: 1, position: 3)
+search = Intel::Search.find params[:search_id]
+convertable = Item.find params[:convertable_id]
+if !search.converted?
+  search.converted_at = Time.now
+  search.convertable = item
+  search.save
+end
 ```
 
 ## View the Data

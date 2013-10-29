@@ -3,5 +3,9 @@ module Intel
     self.table_name = "searches"
 
     belongs_to :convertable, polymorphic: true
+
+    def converted?
+      converted_at.present?
+    end
   end
 end
