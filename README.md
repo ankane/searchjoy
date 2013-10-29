@@ -8,6 +8,8 @@ Search analytics made easy
 - watch searches in real-time
 - view searches with low conversions
 
+:cupid: Works beautifully with [Searchkick](https://github.com/ankane/searchkick)
+
 ## Get Started
 
 Add this line to your application’s Gemfile:
