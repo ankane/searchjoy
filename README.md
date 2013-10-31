@@ -125,18 +125,18 @@ end
 
 #### Time Zone
 
-By default, Intel uses `Time.zone`. To set a specific zone, create an initializer `config/initializers/intel.rb` with:
+To change the time zone, create an initializer `config/initializers/intel.rb` with:
 
 ```ruby
-Intel.time_zone = "Pacific Time (US & Canada)"
+Intel.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 ```
 
 #### Top Searches
 
-By default, Intel shows the top 100 searches.
+Change the number of top searches that are shown with:
 
 ```ruby
-Intel.top_count = 500
+Intel.top_count = 500 # defaults to 100
 ```
 
 ## TODO
