@@ -1,6 +1,6 @@
 # Intel
 
-:speak_no_evil: Search analytics made easy
+:monkey_face: Search analytics made easy
 
 [View demo](http://intel-demo.herokuapp.com/)
 
@@ -20,7 +20,7 @@ Add this line to your application’s Gemfile:
 gem "intel"
 ```
 
-And run the generator. This creates a migration for a table to keep track of searches.
+And run the generator. This creates a migration to store searches.
 
 ```sh
 rails generate intel:install
