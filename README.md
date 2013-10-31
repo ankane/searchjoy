@@ -2,7 +2,7 @@
 
 :monkey_face: Search analytics made easy
 
-[View demo](http://intel-demo.herokuapp.com/)
+[See it in action](http://intel-demo.herokuapp.com/)
 
 - view searches in real-time
 - track conversions week over week
@@ -10,7 +10,7 @@
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
-Works with Rails 3.1 or greater
+Works with Rails 3.1+ and any search engine, including Elasticsearch, Sphinx, and Solr
 
 ## Get Started
 
@@ -37,21 +37,7 @@ Be sure to protect the endpoint in production - see the [Authentication](#authen
 
 ### Track Searches
 
-With Searchkick, use the `track` option.
-
-```ruby
-Item.search "apple", track: true
-```
-
-Want to track more attributes? Use migrations to add them to the `searches` table. Then, pass the values to the `track` option.
-
-```ruby
-Item.search "apple", track: {user_id: 1, source: "web"}
-```
-
-It’s that easy!
-
-Without Searchkick, create searches manually.
+Track searches by creating a record in the database.
 
 ```ruby
 Intel::Search.create(
@@ -60,6 +46,20 @@ Intel::Search.create(
   results_count: 12
 )
 ```
+
+With [Searchkick](https://github.com/ankane/searchkick), you can use the `track` option to do this automatically.
+
+```ruby
+Item.search "apple", track: true
+```
+
+If you want to track more attributes, add them to the `intel_searches` table.  Then, pass the values to the `track` option.
+
+```ruby
+Item.search "apple", track: {user_id: 1, source: "web"}
+```
+
+It’s that easy.
 
 ### Track Conversions
 
