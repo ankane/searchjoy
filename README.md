@@ -1,8 +1,8 @@
 # Intel
 
-[not ready for prime time]
-
 Search analytics made easy
+
+[View demo](http://intel-demo.herokuapp.com/)
 
 - track searches and conversions week over week
 - watch users search in real-time
