@@ -1,11 +1,11 @@
 # Intel
 
-Search analytics made easy
+:speak_no_evil: Search analytics made easy
 
 [View demo](http://intel-demo.herokuapp.com/)
 
-- track searches and conversions week over week
-- watch users search in real-time
+- view searches in real-time
+- track conversions week over week
 - monitor the performance of top searches
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
