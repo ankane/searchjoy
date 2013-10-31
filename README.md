@@ -133,6 +133,7 @@ Intel.conversion_name = proc{|model| model.name }
 ## TODO
 
 - customize views
+- analytics for individual queries
 - group similar queries
 - track pagination, facets, sorting, etc
 
