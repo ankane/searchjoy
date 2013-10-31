@@ -1,6 +1,6 @@
 class <%= migration_class_name %> < ActiveRecord::Migration
   def change
-    create_table :searches do |t|
+    create_table :intel_searches do |t|
       t.string :search_type
       t.string :query
       t.integer :results_count
@@ -10,8 +10,8 @@ class <%= migration_class_name %> < ActiveRecord::Migration
       t.timestamp :converted_at
     end
 
-    add_index :searches, [:created_at]
-    add_index :searches, [:search_type, :created_at]
-    add_index :searches, [:convertable_id, :convertable_type]
+    add_index :intel_searches, [:created_at]
+    add_index :intel_searches, [:search_type, :created_at]
+    add_index :intel_searches, [:convertable_id, :convertable_type]
   end
 end

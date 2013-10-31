@@ -48,6 +48,13 @@
         border-top: solid 1px #ddd;
       }
 
+      #brand {
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: bold;
+        color: #999;
+      }
+
       #header {
         border-bottom: solid 1px #ddd;
         padding-bottom: 20px;
@@ -246,6 +253,7 @@
           <div class="grid">
             <div class="col-1-2">
               <ul class="nav">
+                <li id="brand">Intel</li>
                 <li><%= link_to "Live Stream", intel.root_path %></li>
                 <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
                   <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
