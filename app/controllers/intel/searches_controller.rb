@@ -32,7 +32,7 @@ module Intel
     end
 
     def recent
-      @searches = Intel::Search.order("created_at desc").limit(10)
+      @searches = Intel::Search.order("created_at desc").limit(50)
       render layout: false
     end
 
