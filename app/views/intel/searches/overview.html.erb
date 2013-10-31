@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th>Top Searches</th>
-          <th class="num"><%= link_to "View all", intel.searches_path(search_type: params[:search_type]) %></th>
+          <th class="num"><%= link_to "View all", intel.searches_path(search_type: @search_type) %></th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +24,7 @@
       <thead>
         <tr>
           <th>Low Conversions</th>
-          <th class="num"><%= link_to "View all", intel.searches_path(search_type: params[:search_type], sort: "conversion_rate") %></th>
+          <th class="num"><%= link_to "View all", intel.searches_path(search_type: @search_type, sort: "conversion_rate") %></th>
         </tr>
       </thead>
       <tbody>
