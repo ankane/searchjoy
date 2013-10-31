@@ -4,17 +4,15 @@
       <%= link_to search.search_type, intel.overview_searches_path(search_type: search.search_type), class: "type-link", style: "background-color: ##{@color[search.search_type]};" %>
     </td>
     <td><%= search.query %></td>
-    <td style="width: 35%;">
+    <td style="width: 35%; color: #5cb85c;">
       <% if search.converted_at %>
-        <span style="color: #5cb85c;">
-          <span style="font-weight: bold;">✓</span>
-          <%= search.convertable ? (search.convertable.respond_to?(:intel_name) ? search.convertable.intel_name : "#{search.convertable_type} #{search.convertable_id}") : "Converted" %>
-        </span>
+        <strong>✓</strong>
+        <%= search.convertable ? (search.convertable.respond_to?(:intel_name) ? search.convertable.intel_name : "#{search.convertable_type} #{search.convertable_id}") : "Converted" %>
       <% end %>
     </td>
     <td style="width: 20%;" class="num">
       <%= time_ago_in_words search.created_at %> ago
-      <div style="color: #999;"><%= pluralize search.results_count, "result" %></div>
+      <div class="text-muted"><%= pluralize search.results_count, "result" %></div>
     </td>
   </tr>
 <% end %>

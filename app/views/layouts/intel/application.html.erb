@@ -62,6 +62,10 @@
         border-top: solid 1px #ddd;
       }
 
+      .text-muted {
+        color: #999;
+      }
+
       #brand {
         font-size: 18px;
         line-height: 20px;
@@ -280,9 +284,9 @@
           </div>
 
           <div class="col-1-2" style="text-align: right;">
-            <% if %w[overview index].include?(params[:action]) and @time_range %>
+            <% if @time_range %>
               <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
-              <span style="color: #999;"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
+              <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
             <% end %>
           </div>
         </div>
