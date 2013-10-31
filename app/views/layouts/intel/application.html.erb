@@ -268,9 +268,9 @@
             <div class="col-1-2">
               <ul class="nav">
                 <li id="brand">Intel</li>
-                <li><%= link_to "Live Stream", intel.root_path, class: ("active" if !params[:search_type]) %></li>
+                <li><%= link_to "Live Stream", intel.root_path, class: ("active" if !@search_type) %></li>
                 <% @search_types.each do |search_type| %>
-                  <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type), class: ("active" if params[:search_type] == search_type) %></li>
+                  <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type), class: ("active" if @search_type == search_type) %></li>
                 <% end %>
               </ul>
             </div>
