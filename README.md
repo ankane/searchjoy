@@ -142,7 +142,7 @@ Intel.top_count = 500
 ## TODO
 
 - customize views
-- normalize queries
+- group similar queries
 - track pagination, facets, sorting, etc
 
 ## Contributing
