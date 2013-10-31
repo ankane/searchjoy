@@ -6,7 +6,6 @@ module Intel
 
     before_filter :set_time_zone
     before_filter :set_search_types
-    before_filter :check_data, only: [:index, :overview, :stream]
     before_filter :set_search_type, only: [:index, :overview]
     before_filter :set_time_range, only: [:index, :overview]
     before_filter :set_searches, only: [:index, :overview]
@@ -45,17 +44,6 @@ module Intel
     end
 
     protected
-
-    def check_data
-      begin
-        if Intel::Search.count == 0
-          @skip_header = true
-          render "no_data"
-        end
-      rescue ActiveRecord::StatementInvalid
-        render text: "Be sure to run rails generate intel:install"
-      end
-    end
 
     def set_search_types
       @search_types = Intel::Search.uniq.pluck(:search_type).sort
