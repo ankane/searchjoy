@@ -4,8 +4,9 @@ module Intel
 
     http_basic_authenticate_with name: ENV["INTEL_USERNAME"], password: ENV["INTEL_PASSWORD"] if ENV["INTEL_PASSWORD"]
 
-    before_filter :check_data, only: [:index, :overview, :stream]
+    before_filter :set_time_zone
     before_filter :set_search_types
+    before_filter :check_data, only: [:index, :overview, :stream]
     before_filter :set_time_range, only: [:index, :overview]
     before_filter :set_searches, only: [:index, :overview]
 
@@ -59,12 +60,16 @@ module Intel
       @search_types = Intel::Search.uniq.pluck(:search_type).sort
     end
 
+    def set_time_zone
+      @time_zone = Intel.time_zone
+    end
+
     def set_time_range
-      @time_range = 8.weeks.ago.beginning_of_week(:sunday)..Time.now
+      @time_range = 8.weeks.ago.in_time_zone(@time_zone).beginning_of_week(:sunday)..Time.now
     end
 
     def set_searches
-      @limit = params[:limit] || 100
+      @limit = params[:limit] || Intel.top_count
       @searches = Intel::Search.connection.select_all(Intel::Search.select("query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: params[:search_type]).group("query").order("searches_count desc, query asc").limit(@limit).to_sql).to_a
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
