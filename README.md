@@ -63,31 +63,22 @@ It’s that easy.
 
 ### Track Conversions
 
-Tracking conversions is super important.
+First, choose a conversion metric. At [Instacart](https://www.instacart.com/), an item added to the cart from the search results page is a conversion.
 
-First, define your conversion metric. This is specific to your application.
-
-Next, when a user searches, keep track of the search id.
-
-```ruby
-@items = Item.search "apple", track: true
-@items.search.id # returns search id
-```
+Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with `@results.search.id`.
 
 When a user converts, mark it.
 
 ```ruby
-search = Intel::Search.find params[:search_id]
-search.converted_at = Time.now
-search.save
+search = Intel::Search.find params[:id]
+search.converted
 ```
 
 Better yet, record the result that converted.
 
 ```ruby
 item = Item.find params[:item_id]
-search.convertable = item
-search.save
+search.converted(item)
 ```
 
 ### Authentication
