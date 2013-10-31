@@ -27,7 +27,15 @@ rails generate intel:install
 rake db:migrate
 ```
 
-## Track Searches
+Next, add the dashboard to your `config/routes.rb`.
+
+```ruby
+mount Intel::Engine, at: "admin/intel"
+```
+
+Be sure to protect the endpoint in production - see the [Authentication](#authentication) section for ways to do this.
+
+### Track Searches
 
 With Searchkick, use the `track` option.
 
@@ -53,7 +61,7 @@ Intel::Search.create(
 )
 ```
 
-## Track Conversions
+### Track Conversions
 
 Tracking conversions is super important.
 
@@ -92,15 +100,9 @@ class Item < ActiveRecord::Base
 end
 ```
 
-## View the Data
+### Authentication
 
-Add the dashboards to your `config/routes.rb`.
-
-```ruby
-mount Intel::Engine, at: "admin/intel"
-```
-
-Be sure to protect the endpoint in production.
+Don’t forget to protect the dashboard in production.
 
 #### Basic Authentication
 
@@ -119,7 +121,7 @@ authenticate :user, lambda{|user| user.admin? } do
 end
 ```
 
-## Customize
+### Customize
 
 #### Time Zone
 
