@@ -139,13 +139,9 @@ By default, Intel shows the top 100 searches.
 Intel.top_count = 500
 ```
 
-#### Views [coming soon]
+#### Views
 
-Add the controllers and views to your app and customize away.
-
-```ruby
-rails generate intel:engine
-```
+Coming soon
 
 ## Contributing
 
