@@ -70,7 +70,7 @@ module Intel
 
     def set_searches
       @limit = params[:limit] || Intel.top_searches
-      @searches = Intel::Search.connection.select_all(Intel::Search.select("query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: params[:search_type]).group("query").order("searches_count desc, query asc").limit(@limit).to_sql).to_a
+      @searches = Intel::Search.connection.select_all(Intel::Search.select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: params[:search_type]).group("normalized_query").order("searches_count desc, normalized_query asc").limit(@limit).to_sql).to_a
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
       end

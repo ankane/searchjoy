@@ -12,7 +12,7 @@
       <tbody>
         <% @top_searches.each do |row| %>
           <tr>
-            <td><%= row["query"] %></td>
+            <td><%= row["normalized_query"] %></td>
             <td class="num"><%= row["searches_count"] %></td>
           </tr>
         <% end %>
@@ -30,7 +30,7 @@
       <tbody>
         <% @bad_conversion_rate.each do |row| %>
           <tr>
-            <td><%= row["query"] %></td>
+            <td><%= row["normalized_query"] %></td>
             <td class="num"><%= number_to_percentage row["conversion_rate"], precision: 0 %></td>
           </tr>
         <% end %>

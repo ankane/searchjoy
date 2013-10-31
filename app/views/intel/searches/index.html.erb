@@ -16,7 +16,7 @@
   <tbody>
     <% @searches.each do |search| %>
       <tr>
-        <td><%= search["query"] %></td>
+        <td><%= search["normalized_query"] %></td>
         <td class="num"><%= search["searches_count"] %></td>
         <td class="num"><%= search["conversions_count"] %></td>
         <td class="num"><%= number_to_percentage search["conversion_rate"].to_f, precision: 0 %></td>
