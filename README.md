@@ -12,6 +12,8 @@
 
 Works with Rails 3.1+ and any search engine, including Elasticsearch, Sphinx, and Solr
 
+:tangerine: Battle-tested at [Instacart](https://www.instacart.com)
+
 ## Get Started
 
 Add this line to your application’s Gemfile:
@@ -63,7 +65,7 @@ It’s that easy.
 
 ### Track Conversions
 
-First, choose a conversion metric. At [Instacart](https://www.instacart.com/), an item added to the cart from the search results page counts as a conversion.
+First, choose a conversion metric. At Instacart, an item added to the cart from the search results page counts as a conversion.
 
 Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with `@results.search.id`.
 
