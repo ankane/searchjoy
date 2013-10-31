@@ -139,9 +139,10 @@ By default, Intel shows the top 100 searches.
 Intel.top_count = 500
 ```
 
-#### Views
+## TODO
 
-Coming soon
+- customize views
+- track pagination, facets, sorting, etc
 
 ## Contributing
 
