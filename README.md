@@ -69,18 +69,18 @@ First, choose a conversion metric. At Instacart, an item added to the cart from 
 
 Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with `@results.search.id`.
 
-When a user converts, find the record and call `converted`.
+When a user converts, find the record and call `convert`.
 
 ```ruby
 search = Intel::Search.find params[:id]
-search.converted
+search.convert
 ```
 
 Better yet, record the model that converted.
 
 ```ruby
 item = Item.find params[:item_id]
-search.converted(item)
+search.convert(item)
 ```
 
 ### Authentication

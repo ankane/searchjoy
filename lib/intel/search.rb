@@ -4,7 +4,7 @@ module Intel
 
     before_save :set_normalized_query
 
-    def converted(convertable = nil)
+    def convert(convertable = nil)
       if !converted?
         self.converted_at = Time.now
         self.convertable = convertable
