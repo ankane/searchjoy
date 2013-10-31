@@ -8,7 +8,7 @@
       <% if search.converted_at %>
         <span style="color: #5cb85c;">
           <span style="font-weight: bold;">✓</span>
-          <%= search.convertable ? (search.convertable.respond_to?(:intel_name) ? search.convertable.intel_name : "#{search.convertable_type} #{search.convertable_id}") : "Success" %>
+          <%= search.convertable ? (search.convertable.respond_to?(:intel_name) ? search.convertable.intel_name : "#{search.convertable_type} #{search.convertable_id}") : "Converted" %>
         </span>
       <% end %>
     </td>
