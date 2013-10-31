@@ -13,9 +13,9 @@ module Intel
     @@time_zone = time_zone.is_a?(String) ? ActiveSupport::TimeZone.new(time_zone) : time_zone
   end
 
-  # top count
-  mattr_accessor :top_count
-  self.top_count = 100
+  # top searches
+  mattr_accessor :top_searches
+  self.top_searches = 100
 end
 
 if defined?(Searchkick)

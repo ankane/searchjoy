@@ -136,7 +136,7 @@ Intel.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 Change the number of top searches that are shown with:
 
 ```ruby
-Intel.top_count = 500 # defaults to 100
+Intel.top_searches = 500 # defaults to 100
 ```
 
 ## TODO
