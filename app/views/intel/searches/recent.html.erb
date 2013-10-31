@@ -7,7 +7,7 @@
     <td style="width: 35%; color: #5cb85c;">
       <% if search.converted_at %>
         <strong>✓</strong>
-        <%= search.convertable ? (search.convertable.respond_to?(:intel_name) ? search.convertable.intel_name : "#{search.convertable_type} #{search.convertable_id}") : "Converted" %>
+        <%= search.convertable ? (Intel.conversion_name ? Intel.conversion_name.call(search.convertable) : "#{search.convertable_type} #{search.convertable_id}") : "Converted" %>
       <% end %>
     </td>
     <td style="width: 20%;" class="num">

@@ -90,16 +90,6 @@ search.convertable = item
 search.save
 ```
 
-The item will appear in the live stream. Add the `intel_name` method to your model to change what is displayed.
-
-```ruby
-class Item < ActiveRecord::Base
-  def intel_name
-    title # use the title method
-  end
-end
-```
-
 ### Authentication
 
 Don’t forget to protect the dashboard in production.
@@ -137,6 +127,14 @@ Change the number of top searches shown with:
 
 ```ruby
 Intel.top_searches = 500 # defaults to 100
+```
+
+#### Live Conversions
+
+Show the conversion name in the live stream.
+
+```ruby
+Intel.conversion_name = proc{|model| model.name }
 ```
 
 ## TODO

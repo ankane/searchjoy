@@ -16,6 +16,9 @@ module Intel
   # top searches
   mattr_accessor :top_searches
   self.top_searches = 100
+
+  # conversion name
+  mattr_accessor :conversion_name
 end
 
 if defined?(Searchkick)

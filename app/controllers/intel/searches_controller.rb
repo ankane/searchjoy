@@ -47,7 +47,7 @@ module Intel
     end
 
     def set_time_zone
-      @time_zone = Intel.time_zone
+      @time_zone = Intel.time_zone || Time.zone
     end
 
     def set_time_range
