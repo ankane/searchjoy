@@ -262,28 +262,26 @@
   </head>
   <body>
     <div class="container">
-      <% if !@skip_header %>
-        <div id="header">
-          <div class="grid">
-            <div class="col-1-2">
-              <ul class="nav">
-                <li id="brand">Intel</li>
-                <li><%= link_to "Live Stream", intel.root_path, class: ("active" if !@search_type) %></li>
-                <% @search_types.each do |search_type| %>
-                  <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type), class: ("active" if @search_type == search_type) %></li>
-                <% end %>
-              </ul>
-            </div>
-
-            <div class="col-1-2" style="text-align: right;">
-              <% if %w[overview index].include?(params[:action]) and @time_range %>
-                <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
-                <span style="color: #999;"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
+      <div id="header">
+        <div class="grid">
+          <div class="col-1-2">
+            <ul class="nav">
+              <li id="brand">Intel</li>
+              <li><%= link_to "Live Stream", intel.root_path, class: ("active" if !@search_type) %></li>
+              <% @search_types.each do |search_type| %>
+                <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type), class: ("active" if @search_type == search_type) %></li>
               <% end %>
-            </div>
+            </ul>
+          </div>
+
+          <div class="col-1-2" style="text-align: right;">
+            <% if %w[overview index].include?(params[:action]) and @time_range %>
+              <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
+              <span style="color: #999;"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
+            <% end %>
           </div>
         </div>
-      <% end %>
+      </div>
 
       <%= yield %>
     </div>
