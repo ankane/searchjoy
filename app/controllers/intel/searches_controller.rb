@@ -31,15 +31,8 @@ module Intel
     def stream
     end
 
-    # suspiciously similar to bootstrap 3
-    COLORS = %w[5bc0de d9534f 5cb85c f0ad4e]
-
     def recent
       @searches = Intel::Search.order("created_at desc").limit(10)
-      @color = {}
-      @search_types.each_with_index do |search_type, i|
-        @color[search_type] = COLORS[i % COLORS.size]
-      end
       render layout: false
     end
 

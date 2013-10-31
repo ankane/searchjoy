@@ -1,7 +1,7 @@
 <% @searches.each do |search| %>
   <tr>
     <td style="width: 15%;">
-      <%= link_to search.search_type, intel.overview_searches_path(search_type: search.search_type), class: "type-link", style: "background-color: ##{@color[search.search_type]};" %>
+      <%= link_to search.search_type, intel.overview_searches_path(search_type: search.search_type), class: "type-link type-link-#{@search_types.index(search.search_type)}" %>
     </td>
     <td><%= search.query %></td>
     <td style="width: 35%; color: #5cb85c;">
