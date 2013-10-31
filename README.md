@@ -133,7 +133,7 @@ Intel.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 
 #### Top Searches
 
-Change the number of top searches that are shown with:
+Change the number of top searches shown with:
 
 ```ruby
 Intel.top_searches = 500 # defaults to 100
