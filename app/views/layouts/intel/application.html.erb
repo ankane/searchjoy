@@ -64,6 +64,10 @@
         color: #999;
       }
 
+      a.active {
+        color: #5cb85c;
+      }
+
       a.type-link {
          color: #fff;
          padding: 8px;
@@ -264,9 +268,9 @@
             <div class="col-1-2">
               <ul class="nav">
                 <li id="brand">Intel</li>
-                <li><%= link_to "Live Stream", intel.root_path %></li>
+                <li><%= link_to "Live Stream", intel.root_path, class: ("active" if !params[:search_type]) %></li>
                 <% @search_types.each do |search_type| %>
-                  <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
+                  <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type), class: ("active" if params[:search_type] == search_type) %></li>
                 <% end %>
               </ul>
             </div>
