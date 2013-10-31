@@ -49,7 +49,7 @@ module Intel
     def check_data
       begin
         if Intel::Search.count == 0
-          @no_data = true
+          @skip_header = true
           render "no_data"
         end
       rescue ActiveRecord::StatementInvalid
