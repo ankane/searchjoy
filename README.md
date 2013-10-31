@@ -70,11 +70,25 @@ When a user converts, mark it.
 
 ```ruby
 search = Intel::Search.find params[:search_id]
-convertable = Item.find params[:convertable_id]
-if !search.converted?
-  search.converted_at = Time.now
-  search.convertable = item
-  search.save
+search.converted_at = Time.now
+search.save
+```
+
+Better yet, record the result that converted.
+
+```ruby
+item = Item.find params[:item_id]
+search.convertable = item
+search.save
+```
+
+The item will appear in the live stream. Add the `intel_name` method to your model to change what is displayed.
+
+```ruby
+class Item < ActiveRecord::Base
+  def intel_name
+    title # use the title method
+  end
 end
 ```
 
@@ -106,16 +120,6 @@ end
 ```
 
 ## Customize
-
-#### Live Stream
-
-What is “Item 123”? Add the `intel_name` method in your model.
-
-```ruby
-def intel_name
-  title # use the title method
-end
-```
 
 #### Time Zone [coming soon]
 
