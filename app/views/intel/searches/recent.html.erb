@@ -1,12 +1,12 @@
 <% @searches.each do |search| %>
   <tr>
     <td style="width: 15%;">
-      <span style="background-color: #428bca; color: #fff; padding: 8px; border-radius: 4px;"><%= search.search_type %></span>
+      <%= link_to search.search_type, intel.overview_searches_path(search_type: search.search_type), class: "type-link", style: "background-color: ##{@color[search.search_type]};" %>
     </td>
     <td><%= search.query %></td>
     <td style="width: 35%;">
       <% if search.converted_at %>
-        <span style="color: green;">
+        <span style="color: #5cb85c;">
           <span style="font-weight: bold;">✓</span>
           <%= search.convertable ? (search.convertable.respond_to?(:intel_name) ? search.convertable.intel_name : "#{search.convertable_type} #{search.convertable_id}") : "Success" %>
         </span>

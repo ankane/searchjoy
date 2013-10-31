@@ -5,6 +5,7 @@ module Intel
     http_basic_authenticate_with name: ENV["INTEL_USERNAME"], password: ENV["INTEL_PASSWORD"] if ENV["INTEL_PASSWORD"]
 
     before_filter :check_data, only: [:index, :overview, :stream]
+    before_filter :set_search_types
     before_filter :set_time_range, only: [:index, :overview]
     before_filter :set_searches, only: [:index, :overview]
 
@@ -29,8 +30,15 @@ module Intel
     def stream
     end
 
+    # suspiciously similar to bootstrap 3
+    COLORS = %w[5bc0de d9534f 5cb85c f0ad4e]
+
     def recent
       @searches = Intel::Search.order("created_at desc").limit(10)
+      @color = {}
+      @search_types.each_with_index do |search_type, i|
+        @color[search_type] = COLORS[i % COLORS.size]
+      end
       render layout: false
     end
 
@@ -45,6 +53,10 @@ module Intel
       rescue ActiveRecord::StatementInvalid
         render text: "Be sure to run rails generate intel:install"
       end
+    end
+
+    def set_search_types
+      @search_types = Intel::Search.uniq.pluck(:search_type).sort
     end
 
     def set_time_range

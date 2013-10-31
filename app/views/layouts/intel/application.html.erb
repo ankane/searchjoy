@@ -15,6 +15,15 @@
         color: #333;
       }
 
+      a, a:visited, a:active {
+        color: #428bca;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
       table {
         width: 100%;
         border-collapse: collapse;
@@ -55,6 +64,16 @@
         color: #999;
       }
 
+      a.type-link {
+         color: #fff;
+         padding: 8px;
+         border-radius: 4px;
+      }
+
+      a.type-link:hover {
+        text-decoration: none;
+      }
+
       #header {
         border-bottom: solid 1px #ddd;
         padding-bottom: 20px;
@@ -70,15 +89,6 @@
 
       #stream {
         border-bottom: solid 1px #ddd;
-      }
-
-      a, a:visited, a:active {
-        color: #428bca;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
       }
 
       .num {
@@ -255,7 +265,7 @@
               <ul class="nav">
                 <li id="brand">Intel</li>
                 <li><%= link_to "Live Stream", intel.root_path %></li>
-                <% Intel::Search.uniq.pluck(:search_type).each do |search_type| %>
+                <% @search_types.each do |search_type| %>
                   <li><%= link_to search_type, intel.overview_searches_path(search_type: search_type) %></li>
                 <% end %>
               </ul>
