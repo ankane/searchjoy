@@ -8,9 +8,9 @@
 - track conversions week over week
 - monitor the performance of top searches
 
-:cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
-
 Works with Rails 3.1+ and any search engine, including Elasticsearch, Sphinx, and Solr
+
+:cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
 :tangerine: Battle-tested at [Instacart](https://www.instacart.com)
 
