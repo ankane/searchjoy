@@ -4,7 +4,7 @@ require "rails/generators/migration"
 require "active_record"
 require "rails/generators/active_record"
 
-module Intel
+module Searchjoy
   module Generators
     class InstallGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
@@ -22,7 +22,7 @@ module Intel
       end
 
       def copy_migration
-        migration_template "install.rb", "db/migrate/install_intel.rb"
+        migration_template "install.rb", "db/migrate/install_searchjoy.rb"
       end
     end
   end

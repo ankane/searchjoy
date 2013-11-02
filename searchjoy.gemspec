@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'intel/version'
+require 'searchjoy/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "intel"
-  spec.version       = Intel::VERSION
+  spec.name          = "searchjoy"
+  spec.version       = Searchjoy::VERSION
   spec.authors       = ["Andrew Kane"]
   spec.email         = ["andrew@chartkick.com"]
   spec.description   = %q{Search analytics made easy}
   spec.summary       = %q{Search analytics made easy}
-  spec.homepage      = "https://github.com/ankane/intel"
+  spec.homepage      = "https://github.com/ankane/searchjoy"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

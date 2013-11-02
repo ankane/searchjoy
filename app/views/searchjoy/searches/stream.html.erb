@@ -4,7 +4,7 @@
 
 <script>
   function fetchRecentSearches() {
-    $("#stream").load("<%= intel.searches_recent_path %>");
+    $("#stream").load("<%= searchjoy.searches_recent_path %>");
     setTimeout(fetchRecentSearches, 5 * 1000);
   }
   $( function() {

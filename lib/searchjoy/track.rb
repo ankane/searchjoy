@@ -1,4 +1,4 @@
-module Intel
+module Searchjoy
   module Track
 
     def search_with_track(term, options = {})
@@ -6,7 +6,7 @@ module Intel
 
       if options[:track]
         attributes = options[:track] == true ? {} : options[:track]
-        results.search = Intel::Search.create({search_type: self.name, query: term, results_count: results.total_count}.merge(attributes))
+        results.search = Searchjoy::Search.create({search_type: self.name, query: term, results_count: results.total_count}.merge(attributes))
       end
 
       results

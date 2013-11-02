@@ -1,8 +1,8 @@
-module Intel
+module Searchjoy
   class SearchesController < ActionController::Base
-    layout "intel/application"
+    layout "searchjoy/application"
 
-    http_basic_authenticate_with name: ENV["INTEL_USERNAME"], password: ENV["INTEL_PASSWORD"] if ENV["INTEL_PASSWORD"]
+    http_basic_authenticate_with name: ENV["SEARCHJOY_USERNAME"], password: ENV["SEARCHJOY_PASSWORD"] if ENV["SEARCHJOY_PASSWORD"]
 
     before_filter :set_time_zone
     before_filter :set_search_types
@@ -17,7 +17,7 @@ module Intel
     end
 
     def overview
-      relation = Intel::Search.where(search_type: params[:search_type])
+      relation = Searchjoy::Search.where(search_type: params[:search_type])
       @searches_by_week = relation.group_by_week(:created_at, Time.zone, @time_range).count
       @conversions_by_week = relation.where("converted_at is not null").group_by_week(:created_at, Time.zone, @time_range).count
       @top_searches = @searches.first(5)
@@ -32,14 +32,14 @@ module Intel
     end
 
     def recent
-      @searches = Intel::Search.order("created_at desc").limit(50)
+      @searches = Searchjoy::Search.order("created_at desc").limit(50)
       render layout: false
     end
 
     protected
 
     def set_search_types
-      @search_types = Intel::Search.uniq.pluck(:search_type).sort
+      @search_types = Searchjoy::Search.uniq.pluck(:search_type).sort
     end
 
     def set_search_type
@@ -47,7 +47,7 @@ module Intel
     end
 
     def set_time_zone
-      @time_zone = Intel.time_zone || Time.zone
+      @time_zone = Searchjoy.time_zone || Time.zone
     end
 
     def set_time_range
@@ -55,8 +55,8 @@ module Intel
     end
 
     def set_searches
-      @limit = params[:limit] || Intel.top_searches
-      @searches = Intel::Search.connection.select_all(Intel::Search.select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: @search_type).group("normalized_query").order("searches_count desc, normalized_query asc").limit(@limit).to_sql).to_a
+      @limit = params[:limit] || Searchjoy.top_searches
+      @searches = Searchjoy::Search.connection.select_all(Searchjoy::Search.select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: @search_type).group("normalized_query").order("searches_count desc, normalized_query asc").limit(@limit).to_sql).to_a
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
       end

@@ -1,4 +1,4 @@
-Intel::Engine.routes.draw do
+Searchjoy::Engine.routes.draw do
   resources :searches, only: [:index] do
     get "overview", on: :collection
   end

@@ -1,12 +1,12 @@
-require "intel/search"
-require "intel/track"
-require "intel/engine"
-require "intel/version"
+require "searchjoy/search"
+require "searchjoy/track"
+require "searchjoy/engine"
+require "searchjoy/version"
 
 require "chartkick"
 require "groupdate"
 
-module Intel
+module Searchjoy
   # time zone
   mattr_reader :time_zone
   def self.time_zone=(time_zone)
@@ -24,7 +24,7 @@ end
 if defined?(Searchkick)
   module Searchkick
     module Search
-      include Intel::Track
+      include Searchjoy::Track
 
       alias_method :search_without_track, :search
       alias_method :search, :search_with_track

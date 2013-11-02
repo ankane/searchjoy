@@ -1,4 +1,4 @@
-module Intel
+module Searchjoy
   class Search < ActiveRecord::Base
     belongs_to :convertable, polymorphic: true
 
