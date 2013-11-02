@@ -2,7 +2,7 @@
 
 :monkey_face: Search analytics made easy
 
-[See it in action](http://searchjoy-demo.herokuapp.com/)
+[See it in action](http://searchjoy.herokuapp.com/)
 
 - view searches in real-time
 - track conversions week over week
