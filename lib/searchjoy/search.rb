@@ -2,6 +2,11 @@ module Searchjoy
   class Search < ActiveRecord::Base
     belongs_to :convertable, polymorphic: true
 
+    # the devise way
+    if Rails::VERSION::MAJOR == 3 and !defined?(ActionController::StrongParameters)
+      attr_accessible :search_type, :query, :results_count
+    end
+
     before_save :set_normalized_query
 
     def convert(convertable = nil)
