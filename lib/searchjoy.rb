@@ -23,11 +23,13 @@ end
 
 if defined?(Searchkick)
   module Searchkick
-    module Search
-      include Searchjoy::Track
-
-      alias_method :search_without_track, :search
-      alias_method :search, :search_with_track
+    module Reindex
+      def self.extended(base)
+        base.send(:extend, Searchjoy::Track)
+        method_name = Searchkick.respond_to?(:search_method_name) ? Searchkick.search_method_name : :search
+        base.define_singleton_method(:search_without_track, base.method(method_name))
+        base.define_singleton_method(method_name, base.method(:search_with_track))
+      end
     end
 
     class Results
