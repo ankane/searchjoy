@@ -1,6 +1,6 @@
 # Searchjoy
 
-:monkey_face: Search analytics made easy
+Search analytics made easy
 
 [See it in action](http://searchjoy.herokuapp.com/)
 
