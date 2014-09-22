@@ -3,7 +3,7 @@ module Searchjoy
     belongs_to :convertable, polymorphic: true
 
     # the devise way
-    if Rails::VERSION::MAJOR == 3 and !defined?(ActionController::StrongParameters)
+    if (Rails::VERSION::MAJOR == 3 and !defined?(ActionController::StrongParameters)) or defined?(ActiveModel::MassAssignmentSecurity)
       attr_accessible :search_type, :query, :results_count
     end
 
