@@ -14,6 +14,7 @@ module Searchjoy
         self.converted_at = Time.now
         self.convertable = convertable
         save(validate: false)
+        convertable.reindex
       end
     end
 
