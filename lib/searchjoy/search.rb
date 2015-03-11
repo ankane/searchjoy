@@ -3,14 +3,14 @@ module Searchjoy
     belongs_to :convertable, polymorphic: true
 
     # the devise way
-    if (Rails::VERSION::MAJOR == 3 and !defined?(ActionController::StrongParameters)) or defined?(ActiveModel::MassAssignmentSecurity)
+    if (Rails::VERSION::MAJOR == 3 && !defined?(ActionController::StrongParameters)) || defined?(ActiveModel::MassAssignmentSecurity)
       attr_accessible :search_type, :query, :results_count
     end
 
     before_save :set_normalized_query
 
     def convert(convertable = nil)
-      if !converted?
+      unless converted?
         self.converted_at = Time.now
         self.convertable = convertable
         save(validate: false)
@@ -26,6 +26,5 @@ module Searchjoy
     def set_normalized_query
       self.normalized_query = query.downcase if query
     end
-
   end
 end
