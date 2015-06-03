@@ -12,7 +12,7 @@ Works with Rails 3.1+ and any search engine, including Elasticsearch, Sphinx, an
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
-:tangerine: Battle-tested at [Instacart](https://www.instacart.com)
+:tangerine: Battle-tested at [Instacart](https://www.instacart.com/opensource)
 
 ## Get Started
 
