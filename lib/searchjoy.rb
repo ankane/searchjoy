@@ -19,6 +19,7 @@ module Searchjoy
 
   # conversion name
   mattr_accessor :conversion_name
+  mattr_accessor :recent_query
 end
 
 if defined?(Searchkick)
