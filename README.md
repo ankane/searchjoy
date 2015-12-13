@@ -45,14 +45,15 @@ Track searches by creating a record in the database.
 Searchjoy::Search.create(
   search_type: "Item", # typically the model name
   query: "apple",
-  results_count: 12
+  results_count: 12,
+  user_id: 1
 )
 ```
 
 With [Searchkick](https://github.com/ankane/searchkick), you can use the `track` option to do this automatically.
 
 ```ruby
-Item.search "apple", track: true
+Item.search "apple", track: {user_id: 1}
 ```
 
 If you want to track more attributes, add them to the `searchjoy_searches` table.  Then, pass the values to the `track` option.

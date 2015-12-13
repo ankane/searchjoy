@@ -1,6 +1,7 @@
 class <%= migration_class_name %> < ActiveRecord::Migration
   def change
     create_table :searchjoy_searches do |t|
+      t.integer :user_id
       t.string :search_type
       t.string :query
       t.string :normalized_query
