@@ -16,7 +16,7 @@ Works with Rails 3.1+ and any search engine, including Elasticsearch, Sphinx, an
 
 ## Get Started
 
-Add this line to your application’s Gemfile:
+Add this line to your application’s Gemfile, it should be placed after the searchkick gem has been loaded:
 
 ```ruby
 gem "searchjoy"
