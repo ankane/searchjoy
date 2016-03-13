@@ -21,6 +21,12 @@ module Searchjoy
   mattr_accessor :conversion_name
 end
 
+begin
+  require "searchkick"
+rescue LoadError
+  # do nothing
+end
+
 if defined?(Searchkick)
   module Searchkick
     module Reindex
