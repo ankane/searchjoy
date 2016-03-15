@@ -32,7 +32,7 @@ module Searchjoy
     end
 
     def recent
-      @searches = Searchjoy::Search.order("created_at desc").limit(50)
+      @searches = Searchjoy::Search.includes(:convertable).order("created_at desc").limit(50)
       render layout: false
     end
 
