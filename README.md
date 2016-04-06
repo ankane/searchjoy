@@ -99,6 +99,8 @@ ENV["SEARCHJOY_PASSWORD"] = "secret"
 
 #### Devise
 
+In your `config/routes.rb`:
+
 ```ruby
 authenticate :user, lambda{|user| user.admin? } do
   mount Searchjoy::Engine, at: "admin/searchjoy"
