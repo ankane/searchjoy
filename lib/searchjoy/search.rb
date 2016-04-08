@@ -1,3 +1,6 @@
+require 'active_record'
+require 'rails'
+
 module Searchjoy
   class Search < ActiveRecord::Base
     belongs_to :convertable, polymorphic: true
