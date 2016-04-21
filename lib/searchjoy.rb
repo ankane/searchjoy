@@ -1,10 +1,10 @@
-require "searchjoy/search"
-require "searchjoy/track"
-require "searchjoy/engine"
-require "searchjoy/version"
-
+require "active_record"
 require "chartkick"
 require "groupdate"
+
+require "searchjoy/track"
+require "searchjoy/engine" if defined?(Rails)
+require "searchjoy/version"
 
 module Searchjoy
   # time zone
