@@ -4,7 +4,7 @@ require 'groupdate'
 
 require 'searchjoy/track'
 require 'searchjoy/engine' if defined?(Rails)
-require 'searchjoy/conversions'
+require 'searchjoy/conversions' if defined?(Searchkick)
 require 'searchjoy/version'
 
 module Searchjoy

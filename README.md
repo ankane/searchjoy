@@ -85,21 +85,22 @@ search.convert(item)
 ```
 ### Reindexing Conversions
 
-Just call Searchjoy::Conversions.reindex from ruby or from a rails runner
+If used together with `Searchkick` you can reindex only those objects that have a conversion instead of the entire model.
+Just call `Searchjoy::Conversions.reindex` from within Rails or from `rails runner`.
 
 ```shellsession
 $ rails runner 'Searchjoy::Conversions.reindex'
 ```
 
-You can specify the following options as a parameter hash to `Searchjoy::Conversions.reindex`.
+You can also specify the following options to Searchjoy::Conversions.reindex` as a parameter hash.
 
-| Symbol      | Value/Type     | Description                                                          |
+| Symbol      | Value or Type  | Description                                                          |
 |------------ |--------------- |--------------------------------------------------------------------- |
 | :debug      | true           | ActiveRecord and Searchkick log to stdout                            |
 | :debug      | :active_record | ActiveRecord log to stdout                                           |
 | :debug      | :searchkick    | Searchkick log to stdout                                             |
 | :batch_size | Integer        | Override the default :batch_size or the :batch_size set in the model |
-| :callback   | Symbol         | Override the callback during reindex. (defaults to :bulk)            |
+| :callback   | Symbol         | Override the default :bulk callback during reindex                   |
 
 ### Authentication
 

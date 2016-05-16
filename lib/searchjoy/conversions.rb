@@ -10,20 +10,21 @@ module Searchjoy
       options.keys.each do |key|
         case options[key]
         when :debug
+          log_output = Logger.new(STDOUT)
+
           case options[:debug]
           when :active_record
-            ActiveRecord::Base.logger = l
+            ActiveRecord::Base.logger = log_output
           when :searchkick
-            Searchkick::LogSubscriber.logger = l if defined?(Searchkick)
+            Searchkick::LogSubscriber.logger = log_output if defined?(Searchkick)
           when true
-            l = Logger.new(STDOUT)
-            ActiveRecord::Base.logger = l
-            Searchkick::LogSubscriber.logger = l if defined?(Searchkick)
+            ActiveRecord::Base.logger = log_output
+            Searchkick::LogSubscriber.logger = log_output if defined?(Searchkick)
           end
         when :batch_size
           batch_size = options[:batch_size]
         when :callback
-          batch_size = options[:callback]
+          callback = options[:callback]
         end
       end
 
@@ -35,7 +36,7 @@ module Searchjoy
 
         Searchkick.callbacks(callback) do
           klass.where(id: reindex_map[klass_name]).find_in_batches(batch_size: batch_size) do |group|
-            group.map(&:reindex)
+            group.each(&:reindex)
           end
         end
       end # reindex_hash.keys
@@ -57,7 +58,7 @@ module Searchjoy
         reindex_ids[klass] << conversion.convertable_id.to_i
       end
 
-      Hash[reindex_ids { |key, value| [key, value.sort.uniq] }]
+      Hash[reindex_ids.map { |key, value| [key, value.sort.uniq] }]
     end
   end
 end
