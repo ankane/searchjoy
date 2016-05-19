@@ -29,7 +29,7 @@ module Searchjoy
           stats_map[klass_name] = 0 unless stats_map[klass_name]
           stats_map[klass_name] += id_list.count
 
-          klass.where(id: id_list).find_in_batches(batch_size: batch_size) do |group|
+          klass.where(id: id_list).find_in_batches(batch_size: options[:batch_size]) do |group|
             Searchkick.callbacks(options[:callback]) do
               group.each(&:reindex)
             end
@@ -46,7 +46,7 @@ module Searchjoy
       stats_map
     end # self.conversions
 
-    def batch_size(klass)
+    def self.batch_size(klass)
       klass = klass.constantize if klass.is_a?(String)
       num = nil
       num ||= klass.searchkick_options[:batch_size] if klass.respond_to?(:searchkick_options)
