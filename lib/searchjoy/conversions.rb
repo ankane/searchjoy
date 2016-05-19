@@ -48,8 +48,9 @@ module Searchjoy
 
     def batch_size(klass)
       klass = klass.constantize if klass.is_a?(String)
-      batch_size ||= klass.searchkick_options[:batch_size] if klass.respond_to?(:searchkick_options)
-      batch_size || 1_000
+      num = nil
+      num ||= klass.searchkick_options[:batch_size] if klass.respond_to?(:searchkick_options)
+      num || 1_000
     end
 
     def self.arel(col)
