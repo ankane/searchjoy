@@ -2,54 +2,35 @@ module Searchjoy
   # smart reindexing of conversions
   module Conversions
     def self.reindex(options = {})
-      batch_size = nil
-      type       = nil
-      from       = nil
-      callback   = :bulk
       original_logger = {
         active_record: ActiveRecord::Base.logger,
         searchkick:    Searchkick::LogSubscriber.logger
       }
-      stats_map = {}
 
       debug_logger = Logger.new(STDOUT)
 
-      options.keys.each do |key|
-        case key
-        when :debug
-          case options[:debug]
-          when :active_record
-            ActiveRecord::Base.logger = debug_logger
-          when :searchkick
-            Searchkick::LogSubscriber.logger = debug_logger
-          when true
-            ActiveRecord::Base.logger = debug_logger
-            Searchkick::LogSubscriber.logger = debug_logger
-          end
-        when :batch_size
-          batch_size = options[:batch_size]
-        when :callback
-          callback = options[:callback]
-        when :from
-          from = options[:from]
-        when :type
-          type = options[:type]
-          type = [type] unless type.is_a?(Array)
-          type = type.map(&:to_s) # coerce eventual classes to string
-        end
+      if options[:debug]
+        ActiveRecord::Base.logger = debug_logger        if [:active_record, true].include?(options[:debug])
+        Searchkick::LogSubscriber.logger = debug_logger if [:searchkick, true].include?(options[:debug])
+      end
+      if options[:type]
+        options[:type] = [options[:type]] unless options[:type].is_a?(Array)
+        options[:type] = options[:type].map(&:to_s) # coerce eventual classes to string
       end
 
-      reindex_map(type, from) do |obj_map|
+      options[:callback] ||= :bulk
+      stats_map = {}
+
+      reindex_map(options.select { |k, _v| [:type, :from, :batch_size].include?(k) }) do |obj_map|
         obj_map.each do |klass_name, id_list|
+          klass = klass_name.constantize
+          options[:batch_size] ||= batch_size(klass)
+
           stats_map[klass_name] = 0 unless stats_map[klass_name]
           stats_map[klass_name] += id_list.count
 
-          klass = klass_name.constantize
-          batch_size ||= klass.searchkick_options[:batch_size] if klass.respond_to?(:searchkick_options)
-          batch_size ||= 1_000
-
           klass.where(id: id_list).find_in_batches(batch_size: batch_size) do |group|
-            Searchkick.callbacks(callback) do
+            Searchkick.callbacks(options[:callback]) do
               group.each(&:reindex)
             end
           end # klass.where
@@ -65,26 +46,52 @@ module Searchjoy
       stats_map
     end # self.conversions
 
-    def self.reindex_map(type = nil, from = nil)
+    def batch_size(klass)
+      klass = klass.constantize if klass.is_a?(String)
+      batch_size ||= klass.searchkick_options[:batch_size] if klass.respond_to?(:searchkick_options)
+      batch_size || 1_000
+    end
+
+    def self.arel(col)
+      Searchjoy::Search.arel_table[col]
+    end
+
+    def self.not_null(col)
+      arel(col).not_eq(nil)
+    end
+
+    def self.uniq_convertable_types(type = nil)
+      query = Searchjoy::Search
+              .select(:convertable_type).uniq
+              .where(not_null(:convertable_type))
+      query = query.where(convertable_type: type) if type
+      query.pluck(:convertable_type)
+    end
+
+    def self.uniq_convertable_ids(type)
       query = Searchjoy::Search
               .select(:convertable_id).uniq
-              .select(:convertable_type)
-              .where('convertable_id IS NOT NULL')
-              .where('convertable_type IS NOT NULL')
-
-      query = query.where(convertable_type: type)  if type
-      query = query.where('created_at >= ?', from) if from
-
-      query.find_in_batches do |group|
-        reindex_ids = {}
-        group.each do |conversion|
-          klass = conversion.convertable_type.to_s
-          reindex_ids[klass] = [] unless reindex_ids[klass]
-          reindex_ids[klass] << conversion.convertable_id.to_i
-        end
-
-        yield Hash[reindex_ids.map { |klass_name, id_list| [klass_name, id_list.sort.uniq] }]
-      end
+              .select(:id)
+              .where(not_null(:convertable_id))
+              .where(convertable_type: type)
+      query
     end
-  end
-end
+
+    def self.reindex_map(options = {})
+      uniq_convertable_types(options[:type]).each do |convertable_type|
+        ids_query = uniq_convertable_ids(convertable_type)
+        ids_query = ids_query.where(arel(:created_at).gteq(options[:from])) if options[:from]
+
+        ids_query.find_in_batches(batch_size: options[:batch_size] || batch_size(convertable_type)) do |group|
+          reindex_ids = {}
+          group.each do |conversion|
+            reindex_ids[convertable_type] = [] unless reindex_ids[convertable_type]
+            reindex_ids[convertable_type] << conversion.convertable_id.to_i
+          end
+
+          yield Hash[reindex_ids.map { |klass_name, id_list| [klass_name, id_list.sort.uniq] }]
+        end # find_in_batches
+      end # uniq_convertable_types.each
+    end # def self.reindex_map
+  end # module Conversions
+end # module Searchjoy
