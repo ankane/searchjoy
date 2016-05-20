@@ -142,6 +142,15 @@
         box-sizing: border-box;
       }
 
+      form {
+        font-size: 12px;
+      }
+
+      form input {
+        font-size: 12px;
+        margin-top: 8px;
+      }
+
       body {
         margin: 0px;
       }
@@ -280,32 +289,28 @@
       }
     </style>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+ 
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+    <script>
+      $(function() {
+        $('input[name="daterange"]').daterangepicker();
+        $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+          $('.date_picker_form').submit();
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="container">
-      <div id="header">
-        <div class="grid">
-          <div class="col-1-2">
-            <ul class="nav">
-              <li id="brand">Searchjoy</li>
-              <li><%= link_to "Live Stream", root_path, class: ("active" if !@search_type) %></li>
-              <% @search_types.each do |search_type| %>
-                <li><%= link_to search_type, overview_searches_path(search_type: search_type), class: ("active" if @search_type == search_type) %></li>
-              <% end %>
-            </ul>
-          </div>
-
-          <div class="col-1-2" style="text-align: right;">
-            <% if @time_range %>
-              <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
-              <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
+      <%= render "searchjoy/shared/header" %>
       <%= yield %>
     </div>
   </body>

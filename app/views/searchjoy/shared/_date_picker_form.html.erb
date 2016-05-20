@@ -1,0 +1,4 @@
+<%= label_tag 'daterange' %>
+<%= text_field_tag 'daterange', @time_range.first.strftime("%m/%d/%Y") %>
+<%= hidden_field_tag 'search_type', @search_type %>
+<%= submit_tag 'apply' %>
