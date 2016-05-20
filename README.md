@@ -86,21 +86,20 @@ search.convert(item)
 ### Reindexing Conversions
 
 If used together with `Searchkick` you can reindex only those objects that have a conversion instead of the entire model.
-Just call `Searchjoy::Conversions.reindex` from within Rails or from `rails runner`.
+Just call `Searchjoy.reindex_conversions` from within Rails or from `rails runner`.
 
 ```shellsession
-$ rails runner 'Searchjoy::Conversions.reindex'
+$ rails runner 'Searchjoy.reindex_conversions'
 ```
 
-You can also specify the following options to Searchjoy::Conversions.reindex` as a parameter hash.
+You can also specify the following options to `Searchjoy.reindex_conversions` as a parameter hash.
 
-| Symbol      | Value or Type  | Description                                                          |
-|------------ |--------------- |--------------------------------------------------------------------- |
-| :debug      | true           | ActiveRecord and Searchkick log to stdout                            |
-| :debug      | :active_record | ActiveRecord log to stdout                                           |
-| :debug      | :searchkick    | Searchkick log to stdout                                             |
-| :batch_size | Integer        | Override the default :batch_size or the :batch_size set in the model |
-| :callback   | Symbol         | Override the default :bulk callback during reindex                   |
+Valid options are:
+  * `:debug` - Turns on debugging to STDOUT can be `:active_record`, `:searchkick` or `true` for both
+  * `:callback` - A `Symbol` to override default of `:bulk` for `Searchkick.callbacks`
+  * `:batch_size` - An `Integer` to override batch_size in find_in_batches and searchkick model setting
+  * `:type` - A `Class` or `String`, or `Array` of both to only reindex those models
+  * `:from` - A `DateTime` or `Time` object to reindex only from that point in time
 
 ### Authentication
 
