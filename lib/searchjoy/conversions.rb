@@ -55,14 +55,14 @@ module Searchjoy
       end # obj_map.each
     end # reindex_map
 
+    # return statistics of { 'ModelName' => N_conversions }
+    stats_map
+  ensure
     # reset logger back to original
     if options[:debug]
       ActiveRecord::Base.logger = original_logger[:active_record] if ActiveRecord::Base.logger == debug_logger
       Searchkick::LogSubscriber.logger = original_logger[:searchkick] if Searchkick::LogSubscriber.logger == debug_logger
     end
-
-    # return statistics of { 'ModelName' => N_conversions }
-    stats_map
   end # self.reindex_conversions
 
   # returns batch_size from model searchkick options or default to 1000
