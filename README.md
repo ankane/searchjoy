@@ -95,11 +95,16 @@ $ rails runner 'Searchjoy.reindex_conversions'
 You can also specify the following options to `Searchjoy.reindex_conversions` as a parameter hash.
 
 Valid options are:
-  * `:debug` - Turns on debugging to STDOUT can be `:active_record`, `:searchkick` or `true` for both
-  * `:callback` - A `Symbol` to override default of `:bulk` for `Searchkick.callbacks`
-  * `:batch_size` - An `Integer` to override batch_size in find_in_batches and searchkick model setting
-  * `:type` - A `Class` or `String`, or `Array` of both to only reindex those models
-  * `:from` - A `DateTime` or `Time` object to reindex only from that point in time
+  * `:debug` - `Symbol` or `TrueClass`/`FalseClass` to turn on/off debugging to STDOUT. Valid Symbol values are `:active_record`, `:searchkick` or `true` for both.
+  * `:callback` - `Symbol`/`FalseClass` to override default of `:bulk` for `Searchkick.callbacks`.
+  * `:batch_size` - `Integer` to override batch_size in find_in_batches and searchkick model setting.
+  * `:type` - `Class` or `String`, or `Array` of `Class`/`String` to reindex only those models.
+  * `:from` - `Date`/`Time`/`DateTime`/`ActiveSupport::TimeWithZone` object to reindex only from that point in time.
+
+Example to reindex conversions of only models `Item` and `OtherItem` from 4 hours ago, with debug logging enabled for searchkick.
+```ruby
+Searchjoy.reindex_conversions(type: ['Item', 'OtherItem'], from: 4.hours.ago, debug: :searchkick)
+```
 
 ### Authentication
 

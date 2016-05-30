@@ -8,15 +8,35 @@ module Searchjoy
   #
   # ==== Options
   #
-  # * +:debug:+ - Turns on debugging to STDOUT can be :active_record, :searchkick or true for both
-  # * +:callback:+ - A Symbol to override default of :bulk for Searchkick.callbacks
-  # * +:batch_size:+ - An Integer to override batch_size in find_in_batches and searchkick model setting
-  # * +:type:+ - A Class or String, or Array of both to only reindex those models
-  # * +:from:+ - A DateTime object to reindex only from that point in time
+  # * +:debug:+ - Symbol or TrueClass/FalseClass to turn on/off debugging to STDOUT. Valid Symbol values are :active_record, :searchkick or true for both.
+  # * +:callback:+ - Symbol/FalseClass to override default of :bulk for Searchkick.callbacks.
+  # * +:batch_size:+ - Integer to override batch_size in find_in_batches and searchkick model setting.
+  # * +:type:+ - Class/String or Array of Class/String to reindex only those models.
+  # * +:from:+ - Date/Time/DateTime/ActiveSupport::TimeWithZone object to reindex only from that point in time.
   #
   # ==== Examples
   #
-  #   Searchkick.reindex_conversions(from: 4.hours.ago)
+  # Without options:
+  #   Searchjoy.reindex_conversions
+  #
+  # With all debug options set to true (full debug logging):
+  #   Searchjoy.reindex_conversions(debug: true)
+  #
+  # With callback option set to false (dry-run):
+  #   Searchjoy.reindex_conversions(callback: false)
+  #
+  # With batch_size option set to 10000:
+  #   Searchjoy.reindex_conversions(batch_size: 10000)
+  #
+  # With type option specifying one or several models:
+  #   Searchjoy.reindex_conversions(type: Item)
+  #   Searchjoy.reindex_conversions(type: 'Item')
+  #   Searchjoy.reindex_conversions(type: ['Item', OtherItem])
+  #
+  # With from option set in different ways:
+  #   Searchjoy.reindex_conversions(from: 4.hours.ago)
+  #   Searchjoy.reindex_conversions(from: Time.current.beginning_of_month)
+  #   Searchjoy.reindex_conversions(from: Date.yesterday)
   #
   def self.reindex_conversions(options = {})
     original_logger = {
