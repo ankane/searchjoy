@@ -39,8 +39,7 @@ module Searchjoy
     protected
 
     def set_search_types
-      @search_types = Searchjoy::Search.uniq.pluck(:search_type)
-      @search_types = @search_types.reject(&:blank?).sort + @search_types.select(&:blank?)
+      @search_types = Searchjoy::Search.uniq.order(search_type: :desc).pluck(:search_type).uniq
     end
 
     def set_search_type
