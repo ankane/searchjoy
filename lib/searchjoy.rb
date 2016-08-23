@@ -9,7 +9,6 @@ require "searchjoy/version"
 module Searchjoy
   # time zone
   mattr_reader :time_zone
-
   def self.time_zone=(time_zone)
     @@time_zone = time_zone.is_a?(String) ? ActiveSupport::TimeZone.new(time_zone) : time_zone
   end
