@@ -39,7 +39,7 @@ module Searchjoy
     protected
 
     def set_search_types
-      @search_types = Searchjoy::Search.uniq.order(search_type: :desc).pluck(:search_type).uniq
+      @search_types = Searchjoy::Search.uniq.pluck(:search_type).sort
     end
 
     def set_search_type
