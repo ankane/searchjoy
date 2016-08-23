@@ -73,14 +73,14 @@ Next, when a user searches, keep track of the search id. With Searchkick, you ca
 When a user converts, find the record and call `convert`.
 
 ```ruby
-search = Searchjoy::Search.find params[:id]
+search = Searchjoy::Search.find(params[:id])
 search.convert
 ```
 
 Better yet, record the model that converted.
 
 ```ruby
-item = Item.find params[:item_id]
+item = Item.find(params[:item_id])
 search.convert(item)
 ```
 
@@ -102,7 +102,7 @@ ENV["SEARCHJOY_PASSWORD"] = "secret"
 In your `config/routes.rb`:
 
 ```ruby
-authenticate :user, lambda{|user| user.admin? } do
+authenticate :user, -> (user) { user.admin? } do
   mount Searchjoy::Engine, at: "admin/searchjoy"
 end
 ```
@@ -130,7 +130,7 @@ Searchjoy.top_searches = 500 # defaults to 100
 Show the conversion name in the live stream.
 
 ```ruby
-Searchjoy.conversion_name = proc{|model| model.name }
+Searchjoy.conversion_name = -> (model) { model.name }
 ```
 
 ## TODO
