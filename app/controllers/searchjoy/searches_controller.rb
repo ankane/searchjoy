@@ -4,11 +4,11 @@ module Searchjoy
 
     http_basic_authenticate_with name: ENV["SEARCHJOY_USERNAME"], password: ENV["SEARCHJOY_PASSWORD"] if ENV["SEARCHJOY_PASSWORD"]
 
-    before_filter :set_time_zone
-    before_filter :set_search_types
-    before_filter :set_search_type, only: [:index, :overview]
-    before_filter :set_time_range, only: [:index, :overview]
-    before_filter :set_searches, only: [:index, :overview]
+    before_action :set_time_zone
+    before_action :set_search_types
+    before_action :set_search_type, only: [:index, :overview]
+    before_action :set_time_range, only: [:index, :overview]
+    before_action :set_searches, only: [:index, :overview]
 
     def index
       if params[:sort] == "conversion_rate"
