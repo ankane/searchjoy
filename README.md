@@ -12,8 +12,6 @@ Works with any search platform, including Elasticsearch, Sphinx, and Solr
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
-:tangerine: Battle-tested at [Instacart](https://www.instacart.com/opensource)
-
 ## Get Started
 
 Add this line to your application’s Gemfile:
