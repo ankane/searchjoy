@@ -18,13 +18,13 @@ module Searchjoy
 
     def overview
       relation = Searchjoy::Search.where(search_type: params[:search_type])
-      @searches_by_week = relation.group_by_week(:created_at, Time.zone, @time_range).count
-      @conversions_by_week = relation.where("converted_at is not null").group_by_week(:created_at, Time.zone, @time_range).count
+      @searches_by_day = relation.group_by_day(:created_at, Time.zone, @time_range).count
+      @conversions_by_day = relation.where("converted_at is not null").group_by_day(:created_at, Time.zone, @time_range).count
       @top_searches = @searches.first(5)
       @bad_conversion_rate = @searches.sort_by { |s| [s["conversion_rate"].to_f, s["query"]] }.first(5).select { |s| s["conversion_rate"] < 50 }
-      @conversion_rate_by_week = {}
-      @searches_by_week.each do |week, searches_count|
-        @conversion_rate_by_week[week] = searches_count > 0 ? (100.0 * @conversions_by_week[week] / searches_count).round : 0
+      @conversion_rate_by_day = {}
+        @searches_by_day.each do |day, searches_count|
+        @conversion_rate_by_day[day] = searches_count > 0 ? (100.0 * @conversions_by_day[day] / searches_count).round : 0
       end
     end
 
@@ -51,7 +51,12 @@ module Searchjoy
     end
 
     def set_time_range
-      @time_range = 8.weeks.ago.in_time_zone(@time_zone).beginning_of_week(:sunday)..Time.now
+      if params[:daterange].present?
+        from, to = params[:daterange].split(" - ")
+        @time_range = Time.strptime(from, "%m/%d/%Y").in_time_zone(@time_zone)..Time.strptime(to, "%m/%d/%Y").in_time_zone(@time_zone)
+      else
+        @time_range = 8.days.ago.in_time_zone(@time_zone).beginning_of_day..Time.now
+      end
     end
 
     def set_searches

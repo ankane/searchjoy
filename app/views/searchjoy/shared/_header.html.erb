@@ -1,0 +1,17 @@
+<div id="header">
+  <div class="grid">
+    <div class="col-1-2">
+      <ul class="nav">
+        <li id="brand">Searchjoy</li>
+        <li><%= link_to "Live Stream", root_path, class: ("active" if !@search_type) %></li>
+        <% @search_types.each do |search_type| %>
+          <li><%= link_to search_type, overview_searches_path(search_type: search_type), class: ("active" if @search_type == search_type) %></li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <div class="col-1-2" style="text-align: right;">
+      <%= yield :date_picker %>
+    </div>
+  </div>
+</div>

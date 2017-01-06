@@ -1,3 +1,7 @@
+<% content_for :date_picker do %>
+  <%= form_tag(searches_index_path, class: 'date_picker_form') %>
+  <%= render "searchjoy/shared/date_picker_form" %>
+<% end %>
 <h1>
   <%= @search_type %> Searches
   <small>Top <%= @limit %></small>

@@ -1,3 +1,7 @@
+<% content_for :date_picker do %>
+  <%= form_tag(searches_overview_path, class: 'date_picker_form') %>
+  <%= render "searchjoy/shared/date_picker_form" %>
+<% end %>
 <h1><%= @search_type %> Overview</h1>
 
 <div class="grid">
@@ -41,8 +45,8 @@
 
 <h2>Conversion Rate</h2>
 
-<%= line_chart @conversion_rate_by_week %>
+<%= line_chart @conversion_rate_by_day %>
 
 <h2>Volume</h2>
 
-<%= line_chart [{name: "Searches", data: @searches_by_week}, {name: "Conversions", data: @conversions_by_week}] %>
+<%= line_chart [{name: "Searches", data: @searches_by_day}, {name: "Conversions", data: @conversions_by_day}] %>
