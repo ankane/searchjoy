@@ -1,6 +1,7 @@
 ## 0.1.1 [unreleased]
 
-- Fixed `Index name too long` error
+- Fixed error with Rails 5
+- Fixed `Index name too long` error with SQLite
 
 ## 0.1.0
 
