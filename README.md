@@ -30,7 +30,7 @@ rake db:migrate
 Next, add the dashboard to your `config/routes.rb`.
 
 ```ruby
-mount Searchjoy::Engine, at: "admin/searchjoy"
+mount Searchjoy::Engine, at: "searchjoy"
 ```
 
 Be sure to protect the endpoint in production - see the [Authentication](#authentication) section for ways to do this.
@@ -86,6 +86,16 @@ search.convert(item)
 
 Don’t forget to protect the dashboard in production.
 
+#### Devise
+
+In your `config/routes.rb`:
+
+```ruby
+authenticate :user, -> (user) { user.admin? } do
+  mount Searchjoy::Engine, at: "searchjoy"
+end
+```
+
 #### Basic Authentication
 
 Set the following variables in your environment or an initializer.
@@ -93,16 +103,6 @@ Set the following variables in your environment or an initializer.
 ```ruby
 ENV["SEARCHJOY_USERNAME"] = "andrew"
 ENV["SEARCHJOY_PASSWORD"] = "secret"
-```
-
-#### Devise
-
-In your `config/routes.rb`:
-
-```ruby
-authenticate :user, -> (user) { user.admin? } do
-  mount Searchjoy::Engine, at: "admin/searchjoy"
-end
 ```
 
 ### Customize
