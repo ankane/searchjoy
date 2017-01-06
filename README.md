@@ -107,15 +107,11 @@ ENV["SEARCHJOY_PASSWORD"] = "secret"
 
 ### Customize
 
-#### Time Zone
-
 To change the time zone, create an initializer `config/initializers/searchjoy.rb` with:
 
 ```ruby
 Searchjoy.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 ```
-
-#### Top Searches
 
 Change the number of top searches shown with:
 
@@ -123,7 +119,11 @@ Change the number of top searches shown with:
 Searchjoy.top_searches = 500 # defaults to 100
 ```
 
-#### Live Conversions
+Add additional info to the query in the live stream. [master]
+
+```ruby
+Searchjoy.query_name = -> (search) { "#{search.query} "#{search.city}" }
+```
 
 Show the conversion name in the live stream.
 
