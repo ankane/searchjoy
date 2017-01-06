@@ -122,7 +122,7 @@ Searchjoy.top_searches = 500 # defaults to 100
 Add additional info to the query in the live stream. [master]
 
 ```ruby
-Searchjoy.query_name = -> (search) { "#{search.query} "#{search.city}" }
+Searchjoy.query_name = -> (search) { "#{search.query} #{search.city}" }
 ```
 
 Show the conversion name in the live stream.
