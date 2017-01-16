@@ -3,7 +3,14 @@
     <td style="width: 15%;">
       <%= link_to search.search_type, overview_searches_path(search_type: search.search_type), class: "type-link type-link-#{@search_types.index(search.search_type)}" %>
     </td>
-    <td><%= Searchjoy.query_name ? Searchjoy.query_name.call(search) : search.query %></td>
+    <td>
+      <% name = Searchjoy.query_name ? Searchjoy.query_name.call(search) : search.query %>
+      <% if Searchjoy.query_url %>
+        <%= link_to name, Searchjoy.query_url.call(search), target: "_blank" %>
+      <% else %>
+        <%= name %>
+      <% end %>
+    </td>
 
     <td style="width: 35%; color: #5cb85c;">
       <% if search.converted_at %>

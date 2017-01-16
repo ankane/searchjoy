@@ -1,3 +1,7 @@
+## 0.2.1 [unreleased]
+
+- Added `query_url` option
+
 ## 0.2.0
 
 - Fixed error with Rails 5

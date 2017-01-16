@@ -119,7 +119,13 @@ Change the number of top searches shown with:
 Searchjoy.top_searches = 500 # defaults to 100
 ```
 
-Add additional info to the query in the live stream. [master]
+Link to the search results [master]
+
+```ruby
+Searchjoy.query_url = -> (search) { Rails.application.routes.url_helpers.items_path(q: search.query) }
+```
+
+Add additional info to the query in the live stream.
 
 ```ruby
 Searchjoy.query_name = -> (search) { "#{search.query} #{search.city}" }
