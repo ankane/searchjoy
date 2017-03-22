@@ -1,3 +1,7 @@
+## 0.2.2 [unreleased]
+
+- Fixed `belongs_to` issue with Rails 5
+
 ## 0.2.1
 
 - Added `query_url` option
