@@ -1,4 +1,4 @@
-class <%= migration_class_name %> < ActiveRecord::Migration
+class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :searchjoy_searches do |t|
       t.integer :user_id
