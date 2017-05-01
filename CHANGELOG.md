@@ -1,4 +1,4 @@
-## 0.3.0 [unreleased]
+## 0.3.0
 
 - Added support for Rails 5.1
 - Fixed `belongs_to` issue with Rails 5
