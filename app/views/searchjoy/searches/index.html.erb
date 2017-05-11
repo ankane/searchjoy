@@ -7,9 +7,9 @@
   <thead>
     <tr>
       <th>Query</th>
-      <th class="num" style="width: 20%;"><%= link_to "Searches", params.except(:sort), class: ("active" if params[:sort] != "conversion_rate") %></th>
+      <th class="num" style="width: 20%;"><%= link_to "Searches", searches_path(search_type: params[:search_type]), class: ("active" if params[:sort] != "conversion_rate") %></th>
       <th class="num" style="width: 20%;">Conversions</th>
-      <th class="num" style="width: 20%;"><%= link_to "%", params.merge(sort: "conversion_rate"), class: ("active" if params[:sort] == "conversion_rate") %></th>
+      <th class="num" style="width: 20%;"><%= link_to "%", searches_path(search_type: params[:search_type], sort: "conversion_rate"), class: ("active" if params[:sort] == "conversion_rate") %></th>
       <th class="num" style="width: 20%;">Avg Results</th>
     </tr>
   </thead>

@@ -2,7 +2,7 @@
 
 Search analytics made easy
 
-[See it in action](http://searchjoy.herokuapp.com/)
+[See it in action](https://searchjoy.herokuapp.com/)
 
 - view searches in real-time
 - track conversions week over week
@@ -30,7 +30,7 @@ rake db:migrate
 Next, add the dashboard to your `config/routes.rb`.
 
 ```ruby
-mount Searchjoy::Engine, at: "admin/searchjoy"
+mount Searchjoy::Engine, at: "searchjoy"
 ```
 
 Be sure to protect the endpoint in production - see the [Authentication](#authentication) section for ways to do this.
@@ -86,6 +86,16 @@ search.convert(item)
 
 Don’t forget to protect the dashboard in production.
 
+#### Devise
+
+In your `config/routes.rb`:
+
+```ruby
+authenticate :user, -> (user) { user.admin? } do
+  mount Searchjoy::Engine, at: "searchjoy"
+end
+```
+
 #### Basic Authentication
 
 Set the following variables in your environment or an initializer.
@@ -95,19 +105,7 @@ ENV["SEARCHJOY_USERNAME"] = "andrew"
 ENV["SEARCHJOY_PASSWORD"] = "secret"
 ```
 
-#### Devise
-
-In your `config/routes.rb`:
-
-```ruby
-authenticate :user, -> (user) { user.admin? } do
-  mount Searchjoy::Engine, at: "admin/searchjoy"
-end
-```
-
 ### Customize
-
-#### Time Zone
 
 To change the time zone, create an initializer `config/initializers/searchjoy.rb` with:
 
@@ -115,15 +113,23 @@ To change the time zone, create an initializer `config/initializers/searchjoy.rb
 Searchjoy.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 ```
 
-#### Top Searches
-
 Change the number of top searches shown with:
 
 ```ruby
 Searchjoy.top_searches = 500 # defaults to 100
 ```
 
-#### Live Conversions
+Link to the search results [master]
+
+```ruby
+Searchjoy.query_url = -> (search) { Rails.application.routes.url_helpers.items_path(q: search.query) }
+```
+
+Add additional info to the query in the live stream.
+
+```ruby
+Searchjoy.query_name = -> (search) { "#{search.query} #{search.city}" }
+```
 
 Show the conversion name in the live stream.
 

@@ -19,6 +19,8 @@ module Searchjoy
 
   # conversion name
   mattr_accessor :conversion_name
+  mattr_accessor :query_name
+  mattr_accessor :query_url
 end
 
 begin

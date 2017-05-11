@@ -1,5 +1,7 @@
 module Searchjoy
   class SearchesController < ActionController::Base
+    protect_from_forgery with: :exception
+
     layout "searchjoy/application"
 
     http_basic_authenticate_with name: ENV["SEARCHJOY_USERNAME"], password: ENV["SEARCHJOY_PASSWORD"] if ENV["SEARCHJOY_PASSWORD"]
