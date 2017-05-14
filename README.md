@@ -14,7 +14,7 @@ Works with any search platform, including Elasticsearch, Sphinx, and Solr
 
 ## Get Started
 
-Add this line to your application’s Gemfile:
+Add this line to your application’s Gemfile, it should be placed after the searchkick gem has been loaded:
 
 ```ruby
 gem "searchjoy"
