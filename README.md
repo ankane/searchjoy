@@ -81,6 +81,28 @@ Better yet, record the model that converted.
 item = Item.find(params[:item_id])
 search.convert(item)
 ```
+### Reindexing Conversions
+
+If used together with `Searchkick` you can reindex only those objects that have a conversion instead of the entire model.
+Just call `Searchjoy.reindex_conversions` from within Rails or from `rails runner`.
+
+```shellsession
+$ rails runner 'Searchjoy.reindex_conversions'
+```
+
+You can also specify the following options to `Searchjoy.reindex_conversions` as a parameter hash.
+
+Valid options are:
+  * `:debug` - `Symbol` or `TrueClass`/`FalseClass` to turn on/off debugging to STDOUT. Valid Symbol values are `:active_record`, `:searchkick` or `true` for both.
+  * `:callback` - `Symbol`/`FalseClass` to override default of `:bulk` for `Searchkick.callbacks`.
+  * `:batch_size` - `Integer` to override batch_size in find_in_batches and searchkick model setting.
+  * `:type` - `Class` or `String`, or `Array` of `Class`/`String` to reindex only those models.
+  * `:from` - `Date`/`Time`/`DateTime`/`ActiveSupport::TimeWithZone` object to reindex only from that point in time.
+
+Example to reindex conversions of only models `Item` and `OtherItem` from 4 hours ago, with debug logging enabled for searchkick.
+```ruby
+Searchjoy.reindex_conversions(type: ['Item', 'OtherItem'], from: 4.hours.ago, debug: :searchkick)
+```
 
 ### Authentication
 
