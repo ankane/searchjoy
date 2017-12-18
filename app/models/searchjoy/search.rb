@@ -28,7 +28,7 @@ module Searchjoy
     protected
 
     def set_normalized_query
-      self.normalized_query = query.downcase if query
+      self.normalized_query ||= query.downcase if query
     end
   end
 end
