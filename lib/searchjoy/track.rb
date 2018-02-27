@@ -1,7 +1,7 @@
 module Searchjoy
   module Track
-    def execute_with_track
-      results = execute_without_track
+    def execute
+      results = super
 
       if options[:track]
         attributes = options[:track] == true ? {} : options[:track]

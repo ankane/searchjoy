@@ -30,15 +30,8 @@ rescue LoadError
 end
 
 if defined?(Searchkick)
-  module Searchkick
-    class Query
-      include Searchjoy::Track
-      define_method(:execute_without_track, instance_method(:execute))
-      define_method(:execute, instance_method(:execute_with_track))
-    end
-
-    class Results
-      attr_accessor :search
-    end
+  Searchkick::Query.prepend(Searchjoy::Track)
+  class Searchkick::Results
+    attr_accessor :search
   end
 end
