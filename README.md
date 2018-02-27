@@ -24,7 +24,7 @@ And run the generator. This creates a migration to store searches.
 
 ```sh
 rails generate searchjoy:install
-rake db:migrate
+rails db:migrate
 ```
 
 Next, add the dashboard to your `config/routes.rb`.
@@ -91,7 +91,7 @@ Don’t forget to protect the dashboard in production.
 In your `config/routes.rb`:
 
 ```ruby
-authenticate :user, -> (user) { user.admin? } do
+authenticate :user, ->(user) { user.admin? } do
   mount Searchjoy::Engine, at: "searchjoy"
 end
 ```
@@ -122,19 +122,19 @@ Searchjoy.top_searches = 500 # defaults to 100
 Link to the search results [master]
 
 ```ruby
-Searchjoy.query_url = -> (search) { Rails.application.routes.url_helpers.items_path(q: search.query) }
+Searchjoy.query_url = ->(search) { Rails.application.routes.url_helpers.items_path(q: search.query) }
 ```
 
 Add additional info to the query in the live stream.
 
 ```ruby
-Searchjoy.query_name = -> (search) { "#{search.query} #{search.city}" }
+Searchjoy.query_name = ->(search) { "#{search.query} #{search.city}" }
 ```
 
 Show the conversion name in the live stream.
 
 ```ruby
-Searchjoy.conversion_name = -> (model) { model.name }
+Searchjoy.conversion_name = ->(model) { model.name }
 ```
 
 ## TODO
