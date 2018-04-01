@@ -1,3 +1,7 @@
+## 0.3.3 [unreleased]
+
+- Fixed migration for SQLite (again)
+
 ## 0.3.2
 
 - Use `references` in migration
