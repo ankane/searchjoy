@@ -1,4 +1,4 @@
-require "active_record"
+require "active_support/core_ext/module/attribute_accessors"
 require "chartkick"
 require "groupdate"
 
@@ -21,17 +21,4 @@ module Searchjoy
   mattr_accessor :conversion_name
   mattr_accessor :query_name
   mattr_accessor :query_url
-end
-
-begin
-  require "searchkick"
-rescue LoadError
-  # do nothing
-end
-
-if defined?(Searchkick)
-  Searchkick::Query.prepend(Searchjoy::Track)
-  class Searchkick::Results
-    attr_accessor :search
-  end
 end
