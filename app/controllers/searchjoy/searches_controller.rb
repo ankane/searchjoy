@@ -53,7 +53,9 @@ module Searchjoy
     end
 
     def set_time_range
-      @time_range = 8.weeks.ago.in_time_zone(@time_zone).beginning_of_week(:sunday)..Time.now
+      @start_date = params[:start_date] ? Time.at(params[:start_date].to_i/1000).in_time_zone(@time_zone) : 8.weeks.ago.in_time_zone(@time_zone).beginning_of_week(:sunday)
+      @end_date = params[:end_date] ? Time.at(params[:end_date].to_i/1000).in_time_zone(@time_zone) : Time.now
+      @time_range = @start_date..@end_date
     end
 
     def set_searches

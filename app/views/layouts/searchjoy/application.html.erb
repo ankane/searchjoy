@@ -281,6 +281,30 @@
     </style>
 
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js", "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js", "chartkick" %>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" %>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" %>
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" %>
+
+    <script>
+      function updateQueryStringParameter(uri, key, value) {
+        let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        let separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+          return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+          return uri + separator + key + "=" + value;
+        }
+      }
+
+      $( document ).on('ready', function(){
+        $('input[name="dates"]').daterangepicker({}, function(start, end, label){
+          let uri = window.location.href
+          uri = updateQueryStringParameter( uri, "start_date", start )
+          window.location.href = updateQueryStringParameter( uri, "end_date", end )
+        })
+      })
+    </script>
   </head>
   <body>
     <div class="container">
@@ -297,8 +321,8 @@
           </div>
 
           <div class="col-1-2" style="text-align: right;">
-            <% if @time_range %>
-              <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
+            <% if @start_date and @end_date %>
+              <%= text_field_tag :dates, "#{@start_date.strftime("%m/%d/%Y")} - #{@end_date.strftime("%m/%d/%Y")}" %>
               <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
             <% end %>
           </div>
