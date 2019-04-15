@@ -111,7 +111,9 @@ ENV["SEARCHJOY_PASSWORD"] = "secret"
 
 ### Customize
 
-To change the time zone, create an initializer `config/initializers/searchjoy.rb` with:
+To customize, create an initializer `config/initializers/searchjoy.rb`.
+
+Change the time zone
 
 ```ruby
 Searchjoy.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
