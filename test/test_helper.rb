@@ -1,6 +1,44 @@
 require "bundler/setup"
+require "active_record"
+require "searchkick"
 Bundler.require(:default)
 require "minitest/autorun"
 require "minitest/pride"
 
-Minitest::Test = Minitest::Unit::TestCase unless defined?(Minitest::Test)
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
+
+if ENV["VERBOSE"]
+  ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
+end
+
+ActiveRecord::Migration.create_table :products do |t|
+  t.string :name
+end
+
+ActiveRecord::Migration.create_table :stores do |t|
+  t.string :name
+end
+
+ActiveRecord::Migration.create_table :searchjoy_searches do |t|
+  t.references :user
+  t.string :search_type
+  t.string :query
+  t.string :normalized_query
+  t.integer :results_count
+  t.timestamp :created_at
+  t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_searches_on_convertable"}
+  t.timestamp :converted_at
+end
+
+class Product < ActiveRecord::Base
+  searchkick
+end
+
+class Store < ActiveRecord::Base
+  searchkick
+end
+
+Product.reindex
+Store.reindex
+
+require_relative "../app/models/searchjoy/search"

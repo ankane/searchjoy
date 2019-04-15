@@ -1,15 +1,62 @@
 require_relative "test_helper"
 
 class SearchjoyTest < Minitest::Test
-  def test_must_respond_to_top_searches
-    assert_respond_to Searchjoy, :top_searches
+  def setup
+    Product.destroy_all
+    Searchjoy::Search.destroy_all
   end
 
-  def test_must_respond_to_conversion_name
-    assert_respond_to Searchjoy, :conversion_name
+  def test_track
+    store_names ["Apple", "Banana"]
+    products = Product.search("APPLE", track: true)
+    assert_equal 1, Searchjoy::Search.count
+    search = Searchjoy::Search.last
+    assert_equal products.search, search
+    assert_equal "Product", search.search_type
+    assert_equal "APPLE", search.query
+    assert_equal "apple", search.normalized_query
+    assert_equal 1, search.results_count
   end
 
-  def test_must_respond_to_time_zone
-    assert_respond_to Searchjoy, :time_zone
+  def test_models
+    Searchkick.search("APPLE", models: [Product, Store], track: true)
+    assert_equal 1, Searchjoy::Search.count
+    search = Searchjoy::Search.last
+    assert_equal "Product Store", search.search_type
+  end
+
+  def test_index_name
+    Searchkick.search("APPLE", index_name: [Product, Store], track: true)
+    assert_equal 1, Searchjoy::Search.count
+    search = Searchjoy::Search.last
+    assert_equal "Product Store", search.search_type
+  end
+
+  def test_all_indices
+    Searchkick.search("APPLE", track: true)
+    assert_equal 1, Searchjoy::Search.count
+    search = Searchjoy::Search.last
+    assert_equal "All Indices", search.search_type
+  end
+
+  def test_no_track
+    Product.search("apple")
+    assert_equal 0, Searchjoy::Search.count
+  end
+
+  def test_multisearch
+    query = Product.search("APPLE", track: true, execute: false)
+    assert_equal 0, Searchjoy::Search.count
+    Searchkick.multi_search([query])
+    assert_equal 0, Searchjoy::Search.count
+  end
+
+  private
+
+  def store_names(names)
+    names.each do |name|
+      Product.create!(name: name)
+    end
+    Product.search_index.refresh
   end
 end

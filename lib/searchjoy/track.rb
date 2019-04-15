@@ -9,6 +9,8 @@ module Searchjoy
         search_type =
           if klass.respond_to?(:name) && klass.name.present?
             klass.name
+          elsif options[:models]
+            Array(options[:models]).map(&:to_s).sort.join(" ")
           elsif options[:index_name]
             Array(options[:index_name]).map(&:to_s).sort.join(" ")
           else

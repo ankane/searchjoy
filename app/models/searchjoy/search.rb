@@ -1,15 +1,9 @@
 module Searchjoy
   class Search < ActiveRecord::Base
-    if Rails::VERSION::MAJOR == 5
-      belongs_to :convertable, polymorphic: true, optional: true
-    else
-      belongs_to :convertable, polymorphic: true
-    end
+    self.table_name = "searchjoy_searches"
 
-    # the devise way
-    if (Rails::VERSION::MAJOR == 3 && !defined?(ActionController::StrongParameters)) || defined?(ActiveModel::MassAssignmentSecurity)
-      attr_accessible :search_type, :query, :results_count
-    end
+    options = ActiveRecord::VERSION::MAJOR == 5 ? {optional: true} : {}
+    belongs_to :convertable, polymorphic: true, **options
 
     before_save :set_normalized_query
 

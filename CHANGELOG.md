@@ -1,6 +1,11 @@
-## 0.3.3 [unreleased]
+## 0.4.0 [unreleased]
 
+- Added support for `models` option
 - Fixed migration for SQLite (again)
+
+Breaking
+
+- Removed support for Rails < 5
 
 ## 0.3.2
 
