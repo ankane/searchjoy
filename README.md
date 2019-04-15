@@ -12,7 +12,7 @@ Works with any search platform, including Elasticsearch, Sphinx, and Solr
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
-## Get Started
+## Installation
 
 Add this line to your application’s Gemfile:
 
@@ -35,7 +35,7 @@ mount Searchjoy::Engine, at: "searchjoy"
 
 Be sure to protect the endpoint in production - see the [Authentication](#authentication) section for ways to do this.
 
-### Track Searches
+## Track Searches
 
 Track searches by creating a record in the database.
 
@@ -62,7 +62,7 @@ Item.search("apple", track: {user_id: 1, source: "web"})
 
 It’s that easy.
 
-### Track Conversions
+## Track Conversions
 
 First, choose a conversion metric. At Instacart, an item added to the cart from the search results page counts as a conversion.
 
@@ -86,11 +86,11 @@ Better yet, record the model that converted.
 search.convert(item)
 ```
 
-### Authentication
+## Authentication
 
 Don’t forget to protect the dashboard in production.
 
-#### Devise
+### Devise
 
 In your `config/routes.rb`:
 
@@ -100,7 +100,7 @@ authenticate :user, ->(user) { user.admin? } do
 end
 ```
 
-#### Basic Authentication
+### Basic Authentication
 
 Set the following variables in your environment or an initializer.
 
@@ -109,7 +109,7 @@ ENV["SEARCHJOY_USERNAME"] = "andrew"
 ENV["SEARCHJOY_PASSWORD"] = "secret"
 ```
 
-### Customize
+## Customize
 
 To customize, create an initializer `config/initializers/searchjoy.rb`.
 
