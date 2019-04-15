@@ -1,4 +1,4 @@
-## 0.4.0 [unreleased]
+## 0.4.0
 
 - Added support for `models` option
 - Added tracking for `Searchkick.multi_search`
