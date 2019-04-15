@@ -143,13 +143,6 @@ Show the conversion name in the live stream
 Searchjoy.conversion_name = ->(model) { model.name }
 ```
 
-## TODO
-
-- customize views
-- analytics for individual queries
-- group similar queries
-- track pagination, facets, sorting, etc
-
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
