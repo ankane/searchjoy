@@ -51,12 +51,35 @@ class SearchjoyTest < Minitest::Test
     assert_equal "Item", search.search_type
   end
 
+  def test_convert
+    store_names ["Apple", "Banana"]
+    products = Product.search("APPLE", track: true)
+    search = Searchjoy::Search.last
+    search.convert(products.first)
+    assert_equal products.first, search.convertable
+  end
+
+  def test_convert_once
+    store_names ["Apple", "Banana"]
+    products = Product.search("APPLE", track: true)
+    search = Searchjoy::Search.last
+
+    # first convert
+    search.convert
+    assert search.converted?
+    assert_nil search.convertable
+
+    # should not update
+    search.convert(products.first)
+    assert_nil search.convertable
+  end
+
   def test_no_track
     Product.search("apple")
     assert_equal 0, Searchjoy::Search.count
   end
 
-  def test_multisearch
+  def test_multi_search
     query = Product.search("APPLE", track: true, execute: false)
     assert_equal 0, Searchjoy::Search.count
     Searchkick.multi_search([query])
