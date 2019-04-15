@@ -39,6 +39,18 @@ class SearchjoyTest < Minitest::Test
     assert_equal "All Indices", search.search_type
   end
 
+  def test_additional_attributes
+    Product.search("APPLE", track: {source: "web"})
+    search = Searchjoy::Search.last
+    assert_equal "web", search.source
+  end
+
+  def test_override_attributes
+    Product.search("APPLE", track: {search_type: "Item"})
+    search = Searchjoy::Search.last
+    assert_equal "Item", search.search_type
+  end
+
   def test_no_track
     Product.search("apple")
     assert_equal 0, Searchjoy::Search.count

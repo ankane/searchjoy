@@ -28,6 +28,7 @@ ActiveRecord::Migration.create_table :searchjoy_searches do |t|
   t.timestamp :created_at
   t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_searches_on_convertable"}
   t.timestamp :converted_at
+  t.string :source
 end
 
 class Product < ActiveRecord::Base
