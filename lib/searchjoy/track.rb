@@ -4,7 +4,7 @@ module Searchjoy
       def track
         results = @execute
 
-        if options[:track]
+        if options[:track] && !results.search
           attributes = options[:track] == true ? {} : options[:track]
 
           search_type =
