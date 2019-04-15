@@ -113,25 +113,25 @@ To change the time zone, create an initializer `config/initializers/searchjoy.rb
 Searchjoy.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 ```
 
-Change the number of top searches shown with:
+Change the number of top searches shown
 
 ```ruby
 Searchjoy.top_searches = 500 # defaults to 100
 ```
 
-Link to the search results [master]
+Link to the search results
 
 ```ruby
 Searchjoy.query_url = ->(search) { Rails.application.routes.url_helpers.items_path(q: search.query) }
 ```
 
-Add additional info to the query in the live stream.
+Add additional info to the query in the live stream
 
 ```ruby
 Searchjoy.query_name = ->(search) { "#{search.query} #{search.city}" }
 ```
 
-Show the conversion name in the live stream.
+Show the conversion name in the live stream
 
 ```ruby
 Searchjoy.conversion_name = ->(model) { model.name }
