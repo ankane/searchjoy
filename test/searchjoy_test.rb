@@ -94,9 +94,12 @@ class SearchjoyTest < Minitest::Test
 
   def test_multi_search
     query = Product.search("APPLE", track: true, execute: false)
+    query2 = Store.search("APPLE", track: true, execute: false)
     assert_equal 0, Searchjoy::Search.count
-    Searchkick.multi_search([query])
-    assert_equal 0, Searchjoy::Search.count
+    Searchkick.multi_search([query, query2])
+    assert_equal 2, Searchjoy::Search.count
+    assert_equal "Product", query.search.search_type
+    assert_equal "Store", query2.search.search_type
   end
 
   private

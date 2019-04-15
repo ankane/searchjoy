@@ -1,6 +1,7 @@
 ## 0.4.0 [unreleased]
 
 - Added support for `models` option
+- Added tracking for `Searchkick.multi_search`
 - Fixed migration for SQLite (again)
 
 Breaking
