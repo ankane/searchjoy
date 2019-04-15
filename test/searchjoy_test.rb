@@ -39,6 +39,13 @@ class SearchjoyTest < Minitest::Test
     assert_equal "All Indices", search.search_type
   end
 
+  def test_user
+    user = User.create!
+    Product.search("APPLE", track: {user: user})
+    search = Searchjoy::Search.last
+    assert_equal user, search.user
+  end
+
   def test_additional_attributes
     Product.search("APPLE", track: {source: "web"})
     search = Searchjoy::Search.last
@@ -55,7 +62,13 @@ class SearchjoyTest < Minitest::Test
     store_names ["Apple", "Banana"]
     products = Product.search("APPLE", track: true)
     search = Searchjoy::Search.last
+
+    assert_nil search.converted_at
+    assert_nil search.convertable
+
     search.convert(products.first)
+
+    assert search.converted_at
     assert_equal products.first, search.convertable
   end
 

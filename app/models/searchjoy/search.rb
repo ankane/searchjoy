@@ -4,6 +4,7 @@ module Searchjoy
 
     options = ActiveRecord::VERSION::MAJOR == 5 ? {optional: true} : {}
     belongs_to :convertable, polymorphic: true, **options
+    belongs_to :user, **options
 
     before_save :set_normalized_query
 

@@ -19,6 +19,9 @@ ActiveRecord::Migration.create_table :stores do |t|
   t.string :name
 end
 
+ActiveRecord::Migration.create_table :users do |t|
+end
+
 ActiveRecord::Migration.create_table :searchjoy_searches do |t|
   t.references :user
   t.string :search_type
@@ -37,6 +40,9 @@ end
 
 class Store < ActiveRecord::Base
   searchkick
+end
+
+class User < ActiveRecord::Base
 end
 
 Product.reindex
