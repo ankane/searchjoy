@@ -51,13 +51,13 @@ Searchjoy::Search.create(
 With [Searchkick](https://github.com/ankane/searchkick), you can use the `track` option to do this automatically.
 
 ```ruby
-Item.search "apple", track: {user_id: 1}
+Item.search("apple", track: {user_id: 1})
 ```
 
 If you want to track more attributes, add them to the `searchjoy_searches` table.  Then, pass the values to the `track` option.
 
 ```ruby
-Item.search "apple", track: {user_id: 1, source: "web"}
+Item.search("apple", track: {user_id: 1, source: "web"})
 ```
 
 It’s that easy.
@@ -66,7 +66,12 @@ It’s that easy.
 
 First, choose a conversion metric. At Instacart, an item added to the cart from the search results page counts as a conversion.
 
-Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with `@results.search.id`.
+Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with:
+
+```ruby
+results = Item.search("apple", track: true)
+results.search.id
+```
 
 When a user converts, find the record and call `convert`.
 
