@@ -83,7 +83,6 @@ search.convert
 Better yet, record the model that converted.
 
 ```ruby
-item = Item.find(params[:item_id])
 search.convert(item)
 ```
 
