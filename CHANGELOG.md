@@ -1,3 +1,7 @@
+## 0.4.1 [unreleased]
+
+- Added support for Rails 6
+
 ## 0.4.0
 
 - Added support for `models` option

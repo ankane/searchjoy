@@ -2,7 +2,7 @@ module Searchjoy
   class Search < ActiveRecord::Base
     self.table_name = "searchjoy_searches"
 
-    options = ActiveRecord::VERSION::MAJOR == 5 ? {optional: true} : {}
+    options = ActiveRecord::VERSION::MAJOR >= 5 ? {optional: true} : {}
     belongs_to :convertable, polymorphic: true, **options
     belongs_to :user, **options
 
