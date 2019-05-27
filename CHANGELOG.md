@@ -1,4 +1,4 @@
-## 0.4.1 [unreleased]
+## 0.4.1
 
 - Added support for Rails 6
 
