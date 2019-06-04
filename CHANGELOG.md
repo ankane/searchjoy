@@ -1,3 +1,7 @@
+## 0.4.2 [unreleased]
+
+- Require latest version of Chartkick
+
 ## 0.4.1
 
 - Added support for Rails 6
