@@ -3,11 +3,21 @@
 <table id="stream"></table>
 
 <script>
+  function load(element, path) {
+    var request = new XMLHttpRequest();
+    request.open("GET", path, true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        var resp = request.responseText;
+        element.innerHTML = resp;
+      }
+    };
+    request.send();
+  }
+
   function fetchRecentSearches() {
-    $("#stream").load("<%= searches_recent_path %>");
+    load(document.getElementById("stream"), "<%= searches_recent_path %>")
     setTimeout(fetchRecentSearches, 5 * 1000);
   }
-  $( function() {
-    fetchRecentSearches();
-  });
+  fetchRecentSearches();
 </script>

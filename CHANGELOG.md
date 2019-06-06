@@ -1,6 +1,20 @@
-## 0.3.3 [unreleased]
+## 0.4.2 [unreleased]
 
+- Require latest version of Chartkick
+
+## 0.4.1
+
+- Added support for Rails 6
+
+## 0.4.0
+
+- Added support for `models` option
+- Added tracking for `Searchkick.multi_search`
 - Fixed migration for SQLite (again)
+
+Breaking
+
+- Removed support for Rails < 5
 
 ## 0.3.2
 

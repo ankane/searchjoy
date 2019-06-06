@@ -2,11 +2,11 @@ module Searchjoy
   class Engine < ::Rails::Engine
     isolate_namespace Searchjoy
 
-    initializer "searchjoy" do
-      if defined?(Searchkick)
-        Searchkick::Query.prepend(Searchjoy::Track)
-        Searchkick::Results.send(:attr_accessor, :search)
-      end
+    initializer "searchjoy" do |app|
+      # use a proc instead of a string
+      app.config.assets.precompile << proc { |path| path == "searchjoy.js" }
+
+      Searchjoy.attach_to_searchkick! if defined?(Searchkick)
     end
   end
 end

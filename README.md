@@ -12,7 +12,9 @@ Works with any search platform, including Elasticsearch, Sphinx, and Solr
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
-## Get Started
+[![Build Status](https://travis-ci.org/ankane/searchjoy.svg?branch=master)](https://travis-ci.org/ankane/searchjoy)
+
+## Installation
 
 Add this line to your application’s Gemfile:
 
@@ -35,7 +37,7 @@ mount Searchjoy::Engine, at: "searchjoy"
 
 Be sure to protect the endpoint in production - see the [Authentication](#authentication) section for ways to do this.
 
-### Track Searches
+## Track Searches
 
 Track searches by creating a record in the database.
 
@@ -51,22 +53,27 @@ Searchjoy::Search.create(
 With [Searchkick](https://github.com/ankane/searchkick), you can use the `track` option to do this automatically.
 
 ```ruby
-Item.search "apple", track: {user_id: 1}
+Item.search("apple", track: {user_id: 1})
 ```
 
 If you want to track more attributes, add them to the `searchjoy_searches` table.  Then, pass the values to the `track` option.
 
 ```ruby
-Item.search "apple", track: {user_id: 1, source: "web"}
+Item.search("apple", track: {user_id: 1, source: "web"})
 ```
 
 It’s that easy.
 
-### Track Conversions
+## Track Conversions
 
 First, choose a conversion metric. At Instacart, an item added to the cart from the search results page counts as a conversion.
 
-Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with `@results.search.id`.
+Next, when a user searches, keep track of the search id. With Searchkick, you can get the id with:
+
+```ruby
+results = Item.search("apple", track: true)
+results.search.id
+```
 
 When a user converts, find the record and call `convert`.
 
@@ -78,15 +85,14 @@ search.convert
 Better yet, record the model that converted.
 
 ```ruby
-item = Item.find(params[:item_id])
 search.convert(item)
 ```
 
-### Authentication
+## Authentication
 
 Don’t forget to protect the dashboard in production.
 
-#### Devise
+### Devise
 
 In your `config/routes.rb`:
 
@@ -96,7 +102,7 @@ authenticate :user, ->(user) { user.admin? } do
 end
 ```
 
-#### Basic Authentication
+### Basic Authentication
 
 Set the following variables in your environment or an initializer.
 
@@ -105,44 +111,39 @@ ENV["SEARCHJOY_USERNAME"] = "andrew"
 ENV["SEARCHJOY_PASSWORD"] = "secret"
 ```
 
-### Customize
+## Customize
 
-To change the time zone, create an initializer `config/initializers/searchjoy.rb` with:
+To customize, create an initializer `config/initializers/searchjoy.rb`.
+
+Change the time zone
 
 ```ruby
 Searchjoy.time_zone = "Pacific Time (US & Canada)" # defaults to Time.zone
 ```
 
-Change the number of top searches shown with:
+Change the number of top searches shown
 
 ```ruby
 Searchjoy.top_searches = 500 # defaults to 100
 ```
 
-Link to the search results [master]
+Link to the search results
 
 ```ruby
 Searchjoy.query_url = ->(search) { Rails.application.routes.url_helpers.items_path(q: search.query) }
 ```
 
-Add additional info to the query in the live stream.
+Add additional info to the query in the live stream
 
 ```ruby
 Searchjoy.query_name = ->(search) { "#{search.query} #{search.city}" }
 ```
 
-Show the conversion name in the live stream.
+Show the conversion name in the live stream
 
 ```ruby
 Searchjoy.conversion_name = ->(model) { model.name }
 ```
-
-## TODO
-
-- customize views
-- analytics for individual queries
-- group similar queries
-- track pagination, facets, sorting, etc
 
 ## Contributing
 

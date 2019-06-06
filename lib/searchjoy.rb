@@ -3,7 +3,6 @@ require "chartkick"
 require "groupdate"
 
 require "searchjoy/track"
-require "searchjoy/engine" if defined?(Rails)
 require "searchjoy/version"
 
 module Searchjoy
@@ -21,4 +20,16 @@ module Searchjoy
   mattr_accessor :conversion_name
   mattr_accessor :query_name
   mattr_accessor :query_url
+
+  def self.attach_to_searchkick!
+    Searchkick::Query.prepend(Searchjoy::Track::Query)
+    Searchkick::MultiSearch.prepend(Searchjoy::Track::MultiSearch)
+    Searchkick::Results.send(:attr_accessor, :search)
+  end
+end
+
+if defined?(Rails)
+  require "searchjoy/engine"
+else
+  Searchjoy.attach_to_searchkick! if defined?(Searchkick)
 end

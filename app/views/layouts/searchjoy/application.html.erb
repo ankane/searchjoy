@@ -279,31 +279,31 @@
         }
       }
     </style>
-
+    <%= javascript_include_tag "searchjoy" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js", "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js", "chartkick" %>
     <%= javascript_include_tag "https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" %>
     <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" %>
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" %>
 
     <script>
-      function updateQueryStringParameter(uri, key, value) {
-        let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        let separator = uri.indexOf('?') !== -1 ? "&" : "?";
-        if (uri.match(re)) {
-          return uri.replace(re, '$1' + key + "=" + value + '$2');
+        function updateQueryStringParameter(uri, key, value) {
+            let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            let separator = uri.indexOf('?') !== -1 ? "&" : "?";
+            if (uri.match(re)) {
+                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            }
+            else {
+                return uri + separator + key + "=" + value;
+            }
         }
-        else {
-          return uri + separator + key + "=" + value;
-        }
-      }
 
-      $( document ).on('ready', function(){
-        $('input[name="dates"]').daterangepicker({}, function(start, end, label){
-          let uri = window.location.href
-          uri = updateQueryStringParameter( uri, "start_date", start )
-          window.location.href = updateQueryStringParameter( uri, "end_date", end )
+        $( document ).on('ready', function(){
+            $('input[name="dates"]').daterangepicker({}, function(start, end, label){
+                let uri = window.location.href
+                uri = updateQueryStringParameter( uri, "start_date", start )
+                window.location.href = updateQueryStringParameter( uri, "end_date", end )
+            })
         })
-      })
     </script>
   </head>
   <body>
