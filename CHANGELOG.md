@@ -1,4 +1,4 @@
-## 0.4.2 [unreleased]
+## 0.4.2
 
 - Added support for Sprockets 4
 - Require latest version of Chartkick
