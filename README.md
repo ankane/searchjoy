@@ -153,3 +153,12 @@ Everyone is encouraged to help improve this project. Here are a few ways you can
 - Fix bugs and [submit pull requests](https://github.com/ankane/searchjoy/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new feature
+
+To get started with development and testing:
+
+```sh
+git clone https://github.com/ankane/searchjoy.git
+cd searchjoy
+bundle install
+bundle exec rake test
+```
