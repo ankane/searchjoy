@@ -1,3 +1,7 @@
+## 0.4.3 (unreleased)
+
+- Fixed error with Groupdate 5
+
 ## 0.4.2 (2019-10-08)
 
 - Added support for Sprockets 4
