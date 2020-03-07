@@ -1,4 +1,4 @@
-## 0.4.3 (unreleased)
+## 0.4.3 (2020-03-06)
 
 - Fixed error with Groupdate 5
 
