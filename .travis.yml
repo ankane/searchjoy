@@ -1,6 +1,6 @@
-dist: xenial
+dist: bionic
 language: ruby
-rvm: 2.6.2
+rvm: 2.7
 script: bundle exec rake test
 before_install:
   - ./test/ci/install_elasticsearch.sh
