@@ -2,7 +2,7 @@
 
 Search analytics made easy
 
-[See it in action](https://searchjoy.herokuapp.com/)
+[See it in action](https://searchjoy.dokkuapp.com/)
 
 - view searches in real-time
 - track conversions week over week
