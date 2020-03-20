@@ -278,28 +278,62 @@
           padding-left: 0px;
         }
       }
+
+      div.litepicker {
+        font-size: 0.8rem;
+      }
+
+      :root {
+        --litepickerDayIsTodayColor: #5cb85c !important;
+      }
     </style>
 
-    <%= javascript_include_tag "searchjoy" %>
+    <%= javascript_include_tag "searchjoy/application" %>
   </head>
   <body>
     <div class="container">
-      <div id="header">
+      <div id="header" style="padding-bottom: 10px;">
         <div class="grid">
-          <div class="col-1-2">
+          <div class="col-1-2" style="padding-bottom: 10px;">
             <ul class="nav">
               <li id="brand">Searchjoy</li>
               <li><%= link_to "Live Stream", root_path, class: ("active" if !@search_type) %></li>
               <% @search_types.each do |search_type| %>
-                <li><%= link_to search_type, overview_searches_path(search_type: search_type), class: ("active" if @search_type == search_type) %></li>
+                <li><%= link_to search_type, overview_searches_path(search_type: search_type, **(@time_params || {})), class: ("active" if @search_type == search_type) %></li>
               <% end %>
             </ul>
           </div>
 
           <div class="col-1-2" style="text-align: right;">
             <% if @time_range %>
-              <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
+              <span id="time-range" style="cursor: pointer; line-height: 26px; padding-bottom: 10px;">
+                <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
+              </span>
               <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
+              <script>
+                var startDate = <%= raw json_escape(@time_range.first.to_json) %>;
+                var endDate = <%= raw json_escape(@time_range.last.to_json) %>;
+                new Litepicker({
+                  element: document.getElementById('time-range'),
+                  firstDay: 0,
+                  numberOfMonths: 2,
+                  numberOfColumns: 2,
+                  autoApply: true,
+                  singleMode: false,
+                  mobileFriendly: false,
+                  startDate: new Date(startDate),
+                  endDate: new Date(endDate),
+                  maxDate: new Date(),
+                  onSelect: function(date1, date2) {
+                    var currentParams = new URLSearchParams(window.location.search);
+                    var params = new URLSearchParams();
+                    params.set('search_type', currentParams.get('search_type'));
+                    params.set('start_date', date1.toISOString().slice(0, 10));
+                    params.set('end_date', date2.toISOString().slice(0, 10));
+                    window.location.href = window.location.pathname + "?" + params.toString();
+                  }
+                });
+              </script>
             <% end %>
           </div>
         </div>

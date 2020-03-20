@@ -19,9 +19,22 @@ module Searchjoy
     end
 
     def overview
+      # determine period
+      duration = @time_range.last - @time_range.first
+      period =
+        if duration < 3.days
+          "hour"
+        elsif duration < 30.days
+          "day"
+        elsif duration < 30.weeks
+          "week"
+        else
+          "month"
+        end
+
       relation = Searchjoy::Search.where(search_type: params[:search_type])
-      @searches_by_week = relation.group_by_week(:created_at, time_zone: Time.zone, range: @time_range).count
-      @conversions_by_week = relation.where("converted_at is not null").group_by_week(:created_at, time_zone: Time.zone, range: @time_range).count
+      @searches_by_week = relation.group_by_period(period, :created_at, time_zone: @time_zone, range: @time_range).count
+      @conversions_by_week = relation.where("converted_at is not null").group_by_period(period, :created_at, time_zone: @time_zone, range: @time_range).count
       @top_searches = @searches.first(5)
       @bad_conversion_rate = @searches.sort_by { |s| [s["conversion_rate"].to_f, s["query"]] }.first(5).select { |s| s["conversion_rate"] < 50 }
       @conversion_rate_by_week = {}
@@ -53,7 +66,17 @@ module Searchjoy
     end
 
     def set_time_range
-      @time_range = 8.weeks.ago.in_time_zone(@time_zone).beginning_of_week(:sunday)..Time.now
+      now = @time_zone.now
+      start_at = Date.parse(params[:start_date]).in_time_zone(@time_zone) rescue (now - 8.weeks).in_time_zone(@time_zone).beginning_of_week(:sunday)
+      end_at = Date.parse(params[:end_date]).in_time_zone(@time_zone).end_of_day rescue now
+      start_at, end_at = end_at, start_at if start_at > end_at
+      end_at = now if end_at > now
+      @time_range = start_at..end_at
+
+      # add time params if specified
+      @time_params = {}
+      @time_params[:start_date] = start_at.to_date if params[:start_date]
+      @time_params[:end_date] = end_at.to_date if params[:end_date]
     end
 
     def set_searches
