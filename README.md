@@ -56,7 +56,13 @@ With [Searchkick](https://github.com/ankane/searchkick), you can use the `track`
 Item.search("apple", track: {user_id: 1})
 ```
 
-If you want to track more attributes, add them to the `searchjoy_searches` table.  Then, pass the values to the `track` option.
+If you want to track more attributes, add them to the `searchjoy_searches` table.
+
+```ruby
+add_column :searchjoy_searches, :source, :string
+```
+
+Then, pass the values to the `track` option.
 
 ```ruby
 Item.search("apple", track: {user_id: 1, source: "web"})
