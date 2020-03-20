@@ -1,3 +1,7 @@
+## 0.5.0 (unreleased)
+
+- Added date range picker
+
 ## 0.4.3 (2020-03-06)
 
 - Fixed error with Groupdate 5
