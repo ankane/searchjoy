@@ -24,9 +24,9 @@ module Searchjoy
       period =
         if duration < 3.days
           "hour"
-        elsif duration < 30.days
+        elsif duration < 60.days
           "day"
-        elsif duration < 30.weeks
+        elsif duration < 60.weeks
           "week"
         else
           "month"
@@ -67,7 +67,7 @@ module Searchjoy
 
     def set_time_range
       now = @time_zone.now
-      start_at = Date.parse(params[:start_date]).in_time_zone(@time_zone) rescue (now - 8.weeks).in_time_zone(@time_zone).beginning_of_week(:sunday)
+      start_at = Date.parse(params[:start_date]).in_time_zone(@time_zone) rescue (now - 12.weeks).in_time_zone(@time_zone).beginning_of_week(:sunday)
       end_at = Date.parse(params[:end_date]).in_time_zone(@time_zone).end_of_day rescue now
       start_at, end_at = end_at, start_at if start_at > end_at
       end_at = now if end_at > now
