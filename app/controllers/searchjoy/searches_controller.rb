@@ -22,7 +22,7 @@ module Searchjoy
       # determine period
       duration = @time_range.last - @time_range.first
       period =
-        if duration < 3.days
+        if duration < 3.days # shows 48-72 data points (ends at current time)
           "hour"
         elsif duration < 60.days
           "day"
