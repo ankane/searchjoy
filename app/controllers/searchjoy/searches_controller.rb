@@ -26,7 +26,7 @@ module Searchjoy
           "hour"
         elsif duration < 60.days
           "day"
-        elsif duration < 60.weeks
+        elsif duration < 60.weeks # to make it easy to compare to same time last year
           "week"
         else
           "month"
