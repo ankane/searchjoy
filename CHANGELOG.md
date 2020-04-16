@@ -1,4 +1,4 @@
-## 0.5.0 (unreleased)
+## 0.5.0 (2020-04-16)
 
 - Added date range picker
 
