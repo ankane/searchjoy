@@ -1,7 +1,9 @@
+# dependencies
 require "active_support/core_ext/module/attribute_accessors"
 require "chartkick"
 require "groupdate"
 
+# modules
 require "searchjoy/track"
 require "searchjoy/version"
 
