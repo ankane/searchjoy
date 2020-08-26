@@ -1,3 +1,7 @@
+## 0.5.1 (unreleased)
+
+- Updated assets
+
 ## 0.5.0 (2020-04-16)
 
 - Added date range picker
