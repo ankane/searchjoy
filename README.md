@@ -101,13 +101,13 @@ search.convert(item)
 Delete older data with:
 
 ```ruby
-Searchjoy::Search.where("created_at < ?", 2.years.ago).delete_all
+Searchjoy::Search.where("created_at < ?", 1.year.ago).in_batches.delete_all
 ```
 
 Delete data for a specific user with:
 
 ```ruby
-Searchjoy::Search.where(user_id: 123).delete_all
+Searchjoy::Search.where(user_id: 1).in_batches.delete_all
 ```
 
 ## Authentication
