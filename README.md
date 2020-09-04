@@ -96,20 +96,6 @@ Better yet, record the model that converted.
 search.convert(item)
 ```
 
-## Data Retention
-
-Delete older data with:
-
-```ruby
-Searchjoy::Search.where("created_at < ?", 1.year.ago).in_batches.delete_all
-```
-
-Delete data for a specific user with:
-
-```ruby
-Searchjoy::Search.where(user_id: 1).delete_all
-```
-
 ## Authentication
 
 Don’t forget to protect the dashboard in production.
@@ -131,6 +117,20 @@ Set the following variables in your environment or an initializer.
 ```ruby
 ENV["SEARCHJOY_USERNAME"] = "andrew"
 ENV["SEARCHJOY_PASSWORD"] = "secret"
+```
+
+## Data Retention
+
+Delete older data with:
+
+```ruby
+Searchjoy::Search.where("created_at < ?", 1.year.ago).in_batches.delete_all
+```
+
+Delete data for a specific user with:
+
+```ruby
+Searchjoy::Search.where(user_id: 1).delete_all
 ```
 
 ## Customize
