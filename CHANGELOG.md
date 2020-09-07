@@ -1,6 +1,6 @@
 ## 0.5.1 (unreleased)
 
-- Updated assets
+- Use `datetime` type in migration
 
 ## 0.5.0 (2020-04-16)
 

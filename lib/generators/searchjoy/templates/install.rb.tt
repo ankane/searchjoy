@@ -6,9 +6,9 @@ class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version
       t.string :query
       t.string :normalized_query
       t.integer :results_count
-      t.timestamp :created_at
+      t.datetime :created_at
       t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_searches_on_convertable"}
-      t.timestamp :converted_at
+      t.datetime :converted_at
     end
 
     add_index :searchjoy_searches, [:created_at]

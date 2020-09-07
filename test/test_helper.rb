@@ -28,9 +28,9 @@ ActiveRecord::Migration.create_table :searchjoy_searches do |t|
   t.string :query
   t.string :normalized_query
   t.integer :results_count
-  t.timestamp :created_at
+  t.datetime :created_at
   t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_searches_on_convertable"}
-  t.timestamp :converted_at
+  t.datetime :converted_at
   t.string :source
 end
 
