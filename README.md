@@ -121,10 +121,16 @@ ENV["SEARCHJOY_PASSWORD"] = "secret"
 
 ## Data Retention
 
-Delete older data with:
+Data should only be retained for as long as it’s needed. Delete older data with:
 
 ```ruby
 Searchjoy::Search.where("created_at < ?", 1.year.ago).in_batches.delete_all
+```
+
+You can use [Rollup](https://github.com/ankane/rollup) to aggregate important data before you do.
+
+```ruby
+Searchjoy::Search.rollup("Searches")
 ```
 
 Delete data for a specific user with:
