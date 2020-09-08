@@ -1,4 +1,4 @@
-## 0.5.1 (unreleased)
+## 0.5.1 (2020-09-07)
 
 - Use `datetime` type in migration
 
