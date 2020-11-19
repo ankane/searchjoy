@@ -14,7 +14,7 @@ Works with any search platform, including Elasticsearch, Sphinx, and Solr
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
-[![Build Status](https://travis-ci.org/ankane/searchjoy.svg?branch=master)](https://travis-ci.org/ankane/searchjoy)
+[![Build Status](https://github.com/ankane/searchjoy/workflows/build/badge.svg?branch=master)](https://github.com/ankane/searchjoy/actions)
 
 ## Installation
 
