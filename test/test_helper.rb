@@ -7,9 +7,8 @@ require "minitest/pride"
 
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 
-if ENV["VERBOSE"]
-  ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
-end
+logger = ActiveSupport::Logger.new(ENV["VERBOSE"] ? STDOUT : nil)
+ActiveRecord::Migration.verbose = ENV["VERBOSE"]
 
 ActiveRecord::Migration.create_table :products do |t|
   t.string :name
