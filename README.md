@@ -4,7 +4,7 @@ Search analytics made easy
 
 [See it in action](https://searchjoy.dokkuapp.com/)
 
-[![Screenshot](https://searchjoy.dokkuapp.com/assets/searchjoy-a9d4c01356a822bc1dba1eecf7ac76387de009fc9902eb9a880057069212be80.png)](https://searchjoy.dokkuapp.com/)
+[![Screenshot](https://searchjoy.dokkuapp.com/assets/searchjoy-7be12d922ca8b31b7d7440e618b0c666698a4b15752653a0c5c45e3dd2737142.png)](https://searchjoy.dokkuapp.com/)
 
 - view searches in real-time
 - track conversions week over week
