@@ -39,7 +39,7 @@ module Searchjoy
       @bad_conversion_rate = @searches.sort_by { |s| [s["conversion_rate"].to_f, s["query"]] }.first(5).select { |s| s["conversion_rate"] < 50 }
       @conversion_rate_by_week = {}
       @searches_by_week.each do |week, searches_count|
-        @conversion_rate_by_week[week] = searches_count > 0 ? (100.0 * @conversions_by_week[week] / searches_count).round : 0
+        @conversion_rate_by_week[week] = searches_count > 0 ? (100.0 * @conversions_by_week[week].to_f / searches_count).round : 0
       end
     end
 
