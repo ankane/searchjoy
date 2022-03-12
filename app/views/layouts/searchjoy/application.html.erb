@@ -288,7 +288,11 @@
       }
     </style>
 
-    <%= javascript_include_tag "searchjoy/application" %>
+    <% if defined?(Propshaft::Railtie) %>
+      <%= javascript_include_tag "chartkick", "Chart.bundle", "searchjoy/litepicker" %>
+    <% else %>
+      <%= javascript_include_tag "searchjoy/application" %>
+    <% end %>
   </head>
   <body>
     <div class="container">

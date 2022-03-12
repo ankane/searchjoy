@@ -1,3 +1,7 @@
+## 0.5.2 (unreleased)
+
+- Added experimental support for Propshaft
+
 ## 0.5.1 (2020-09-07)
 
 - Use `datetime` type in migration
