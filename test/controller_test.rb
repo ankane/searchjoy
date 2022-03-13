@@ -7,7 +7,8 @@ class ControllerTest < ActionDispatch::IntegrationTest
       search_type: "Item",
       query: "apple",
       results_count: 12,
-      user_id: 1
+      user_id: 1,
+      source: "web"
     )
   end
 
@@ -68,6 +69,17 @@ class ControllerTest < ActionDispatch::IntegrationTest
       get searchjoy.searches_recent_path
       assert_response :success
       assert_match 'href="/items?q=apple"', response.body
+    end
+  end
+
+  def test_query_name
+    query_name = lambda do |search|
+      "#{search.query} #{search.source}"
+    end
+    Searchjoy.stub(:query_name, -> { query_name }) do
+      get searchjoy.searches_recent_path
+      assert_response :success
+      assert_match "apple web", response.body
     end
   end
 end
