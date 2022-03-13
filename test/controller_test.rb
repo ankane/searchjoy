@@ -32,7 +32,16 @@ class ControllerTest < ActionDispatch::IntegrationTest
     get searchjoy.searches_path(search_type: "Item")
     assert_response :success
     assert_match "Item Searches", response.body
+    assert_match "Top 100", response.body
     assert_match "apple", response.body
+  end
+
+  def test_top_searches_option
+    with_options(top_searches: 500) do
+      get searchjoy.searches_path(search_type: "Item")
+      assert_response :success
+      assert_match "Top 500", response.body
+    end
   end
 
   def test_low_conversions
@@ -40,5 +49,24 @@ class ControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Item Searches", response.body
     assert_match "apple", response.body
+  end
+
+  private
+
+  def with_options(options)
+    previous_options = {}
+    options.each_key do |k|
+      previous_options[k] = Searchjoy.send(k)
+    end
+    begin
+      options.each do |k, v|
+        Searchjoy.send("#{k}=", v)
+      end
+      yield
+    ensure
+      previous_options.each do |k, v|
+        Searchjoy.send("#{k}=", v)
+      end
+    end
   end
 end
