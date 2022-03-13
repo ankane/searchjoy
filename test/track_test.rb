@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class SearchjoyTest < Minitest::Test
+class TrackTest < Minitest::Test
   def setup
     if Product.destroy_all.any?
       Product.search_index.refresh
