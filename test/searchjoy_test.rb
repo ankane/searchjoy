@@ -2,13 +2,16 @@ require_relative "test_helper"
 
 class SearchjoyTest < Minitest::Test
   def setup
-    Product.destroy_all
+    if Product.destroy_all.any?
+      Product.search_index.refresh
+    end
     Searchjoy::Search.destroy_all
   end
 
   def test_track
     store_names ["Apple", "Banana"]
     products = Product.search("APPLE", track: true)
+    products.to_a
     assert_equal 1, Searchjoy::Search.count
     search = Searchjoy::Search.last
     assert_equal products.search, search
@@ -19,21 +22,21 @@ class SearchjoyTest < Minitest::Test
   end
 
   def test_models
-    Searchkick.search("APPLE", models: [Product, Store], track: true)
+    Searchkick.search("APPLE", models: [Product, Store], track: true).to_a
     assert_equal 1, Searchjoy::Search.count
     search = Searchjoy::Search.last
     assert_equal "Product Store", search.search_type
   end
 
   def test_index_name
-    Searchkick.search("APPLE", index_name: [Product, Store], track: true)
+    Searchkick.search("APPLE", index_name: [Product, Store], track: true).to_a
     assert_equal 1, Searchjoy::Search.count
     search = Searchjoy::Search.last
     assert_equal "Product Store", search.search_type
   end
 
   def test_all_indices
-    Searchkick.search("APPLE", track: true)
+    Searchkick.search("APPLE", track: true).to_a
     assert_equal 1, Searchjoy::Search.count
     search = Searchjoy::Search.last
     assert_equal "All Indices", search.search_type
@@ -41,26 +44,26 @@ class SearchjoyTest < Minitest::Test
 
   def test_user
     user = User.create!
-    Product.search("APPLE", track: {user: user})
+    Product.search("APPLE", track: {user: user}).to_a
     search = Searchjoy::Search.last
     assert_equal user, search.user
   end
 
   def test_additional_attributes
-    Product.search("APPLE", track: {source: "web"})
+    Product.search("APPLE", track: {source: "web"}).to_a
     search = Searchjoy::Search.last
     assert_equal "web", search.source
   end
 
   def test_override_attributes
-    Product.search("APPLE", track: {search_type: "Item"})
+    Product.search("APPLE", track: {search_type: "Item"}).to_a
     search = Searchjoy::Search.last
     assert_equal "Item", search.search_type
   end
 
   def test_convert
     store_names ["Apple", "Banana"]
-    products = Product.search("APPLE", track: true)
+    products = Product.search("APPLE", track: true).to_a
     search = Searchjoy::Search.last
 
     assert_nil search.converted_at
@@ -74,7 +77,7 @@ class SearchjoyTest < Minitest::Test
 
   def test_convert_once
     store_names ["Apple", "Banana"]
-    products = Product.search("APPLE", track: true)
+    products = Product.search("APPLE", track: true).to_a
     search = Searchjoy::Search.last
 
     # first convert
@@ -88,13 +91,14 @@ class SearchjoyTest < Minitest::Test
   end
 
   def test_no_track
-    Product.search("apple")
+    Product.search("apple").to_a
     assert_equal 0, Searchjoy::Search.count
   end
 
   def test_multi_search
-    query = Product.search("APPLE", track: true, execute: false)
-    query2 = Store.search("APPLE", track: true, execute: false)
+    execute_options = Searchkick::VERSION.to_i >= 5 ? {} : {execute: false}
+    query = Product.search("APPLE", track: true, **execute_options)
+    query2 = Store.search("APPLE", track: true, **execute_options)
     assert_equal 0, Searchjoy::Search.count
     Searchkick.multi_search([query, query2])
     assert_equal 2, Searchjoy::Search.count
