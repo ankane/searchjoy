@@ -2,6 +2,7 @@ require_relative "test_helper"
 
 class ControllerTest < ActionDispatch::IntegrationTest
   def setup
+    Product.delete_all
     Searchjoy::Search.delete_all
     Searchjoy::Search.create(
       search_type: "Item",
@@ -80,6 +81,29 @@ class ControllerTest < ActionDispatch::IntegrationTest
       get searchjoy.searches_recent_path
       assert_response :success
       assert_match "apple web", response.body
+    end
+  end
+
+  def test_conversion
+    product = Product.create!(name: "Banana")
+    Searchjoy::Search.last.convert(product)
+
+    get searchjoy.searches_recent_path
+    assert_response :success
+    assert_match "Product #{product.id}", response.body
+  end
+
+  def test_conversion_name
+    product = Product.create!(name: "Banana")
+    Searchjoy::Search.last.convert(product)
+
+    conversion_name = lambda do |conversion|
+      conversion.name
+    end
+    Searchjoy.stub(:conversion_name, -> { conversion_name }) do
+      get searchjoy.searches_recent_path
+      assert_response :success
+      assert_match product.name, response.body
     end
   end
 end
