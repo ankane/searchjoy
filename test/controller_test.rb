@@ -51,6 +51,15 @@ class ControllerTest < ActionDispatch::IntegrationTest
     assert_match "apple", response.body
   end
 
+  def test_time_zone
+    time_zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
+    Searchjoy.stub(:time_zone, time_zone) do
+      get searchjoy.searches_path(search_type: "Item")
+      assert_response :success
+      assert_match "Pacific Time", response.body
+    end
+  end
+
   def test_query_url
     query_url = lambda do |search|
       "/items?q=#{search.query}"
