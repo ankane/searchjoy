@@ -289,7 +289,7 @@
     </style>
 
     <% if defined?(Propshaft::Railtie) %>
-      <%= javascript_include_tag "chartkick", "Chart.bundle", "searchjoy/litepicker" %>
+      <%= javascript_include_tag "chartkick", "Chart.bundle", "searchjoy/litepicker", "searchjoy/application" %>
     <% else %>
       <%= javascript_include_tag "searchjoy/application" %>
     <% end %>
