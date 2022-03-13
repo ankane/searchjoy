@@ -15,6 +15,10 @@ class ControllerTest < ActionDispatch::IntegrationTest
     get searchjoy.root_path
     assert_response :success
     assert_match "<h1>Live Stream</h1>", response.body
+
+    get searchjoy.searches_recent_path
+    assert_response :success
+    assert_match "less than a minute ago", response.body
   end
 
   def test_overview
