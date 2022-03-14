@@ -85,6 +85,14 @@ class ControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_conversion
+    Searchjoy::Search.last.convert
+
+    get searchjoy.searches_recent_path
+    assert_response :success
+    assert_match "Converted", response.body
+  end
+
+  def test_conversion_item
     product = Product.create!(name: "Banana")
     Searchjoy::Search.last.convert(product)
 
