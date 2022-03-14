@@ -11,10 +11,10 @@ class TrackTest < Minitest::Test
   def test_track
     store_names ["Apple", "Banana"]
     products = Product.search("APPLE", track: true)
-    products.to_a
+    result_search = products.search
     assert_equal 1, Searchjoy::Search.count
     search = Searchjoy::Search.last
-    assert_equal products.search, search
+    assert_equal result_search, search
     assert_equal "Product", search.search_type
     assert_equal "APPLE", search.query
     assert_equal "apple", search.normalized_query
