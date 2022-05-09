@@ -2,6 +2,7 @@
 
 - Added support for multiple conversions per search
 - Added experimental support for Propshaft
+- Dropped support for Ruby < 2.6 and Rails < 5.2
 
 ## 0.5.1 (2020-09-07)
 
