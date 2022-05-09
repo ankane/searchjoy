@@ -34,7 +34,7 @@ module Searchjoy
 
       relation = Searchjoy::Search.where(search_type: params[:search_type])
       @searches_by_week = relation.group_by_period(period, :created_at, time_zone: @time_zone, range: @time_range).count
-      @conversions_by_week = relation.where("converted_at is not null").group_by_period(period, :created_at, time_zone: @time_zone, range: @time_range).count
+      @conversions_by_week = relation.where.not(converted_at: nil).group_by_period(period, :created_at, time_zone: @time_zone, range: @time_range).count
       @top_searches = @searches.first(5)
       @bad_conversion_rate = @searches.sort_by { |s| [s["conversion_rate"].to_f, s["query"]] }.first(5).select { |s| s["conversion_rate"] < 50 }
       @conversion_rate_by_week = {}
@@ -88,7 +88,7 @@ module Searchjoy
 
     def set_searches
       @limit = params[:limit] || Searchjoy.top_searches
-      @searches = Searchjoy::Search.connection.select_all(Searchjoy::Search.select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: @search_type).group("normalized_query").order("searches_count desc, normalized_query asc").limit(@limit).to_sql).to_a
+      @searches = Searchjoy::Search.connection.select_all(Searchjoy::Search.select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: @search_type).group(:normalized_query).order(searches_count: :desc, normalized_query: :asc).limit(@limit).to_sql).to_a
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
       end
