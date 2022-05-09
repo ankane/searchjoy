@@ -111,10 +111,16 @@ And create an initializer `config/initializers/searchjoy.rb` with:
 Searchjoy.multiple_conversions = true
 ```
 
-You can optionally backfill the conversions table:
+You can optionally backfill the conversions table
 
 ```ruby
 Searchjoy.backfill_conversions
+```
+
+And remove `convertable` from searches
+
+```ruby
+remove_reference :searchjoy_searches, :convertable, polymorphic: true
 ```
 
 ## Authentication

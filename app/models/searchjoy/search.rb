@@ -25,7 +25,8 @@ module Searchjoy
 
         unless converted?
           self.converted_at = now
-          self.convertable = convertable if respond_to?(:convertable=)
+          # check id instead of association
+          self.convertable = convertable if respond_to?(:convertable_id=)
           save(validate: false)
         end
       end
