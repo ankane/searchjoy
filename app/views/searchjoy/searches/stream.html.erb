@@ -16,7 +16,7 @@
   }
 
   function fetchRecentSearches() {
-    load(document.getElementById("stream"), "<%= searches_recent_path %>")
+    load(document.getElementById("stream"), <%= raw json_escape(searches_recent_path.to_json) %>)
     setTimeout(fetchRecentSearches, 5 * 1000);
   }
   fetchRecentSearches();
