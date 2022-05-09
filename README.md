@@ -96,7 +96,7 @@ Better yet, record the model that converted.
 search.convert(item)
 ```
 
-## Multiple Conversions [unreleased]
+### Multiple Conversions [unreleased]
 
 By default, Searchjoy tracks the first conversion per search. To track all conversions, run:
 
