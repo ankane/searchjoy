@@ -23,13 +23,13 @@ module Searchjoy
       duration = @time_range.last - @time_range.first
       period =
         if duration < 3.days # shows 48-72 data points (ends at current time)
-          "hour"
+          :hour
         elsif duration < 60.days
-          "day"
+          :day
         elsif duration < 60.weeks # to make it easy to compare to same time last year
-          "week"
+          :week
         else
-          "month"
+          :month
         end
 
       relation = Searchjoy::Search.where(search_type: params[:search_type])
