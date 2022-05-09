@@ -70,8 +70,6 @@ Then, pass the values to the `track` option.
 Item.search("apple", track: {user_id: 1, source: "web"})
 ```
 
-It’s that easy.
-
 ## Track Conversions
 
 First, choose a conversion metric. At Instacart, an item added to the cart from the search results page counts as a conversion.
