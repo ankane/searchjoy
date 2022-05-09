@@ -5,8 +5,8 @@ class TrackTest < Minitest::Test
     if Product.destroy_all.any?
       Product.search_index.refresh
     end
-    Searchjoy::Search.destroy_all
-    Searchjoy::Conversion.destroy_all
+    Searchjoy::Search.delete_all
+    Searchjoy::Conversion.delete_all
   end
 
   def test_track
