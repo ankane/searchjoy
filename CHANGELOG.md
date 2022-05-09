@@ -63,3 +63,44 @@ Breaking
 ## 0.1.0 (2016-08-23)
 
 - Fixed Searchkick integration for `execute: false`
+
+## 0.0.10 (2016-04-20)
+
+- Fixed error when block passed to `search`
+
+## 0.0.9 (2016-03-12)
+
+- Fixed error with routes
+
+## 0.0.8 (2015-12-12)
+
+- Added `user_id` to searches
+
+## 0.0.7 (2014-08-18)
+
+- Fixed error with Searchkick 0.8
+
+## 0.0.6 (2013-12-19)
+
+- Fixed error with Rails 3
+
+## 0.0.5 (2013-11-01)
+
+- Renamed to Searchjoy
+
+## 0.0.4 (2013-10-31)
+
+- Renamed `converted` to `convert`
+
+## 0.0.3 (2013-10-31)
+
+- Added `conversion_name` option
+- Added `converted` method
+
+## 0.0.2 (2013-10-31)
+
+- Added dashboard
+
+## 0.0.1 (2013-10-24)
+
+- First release
