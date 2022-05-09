@@ -15,7 +15,7 @@
     <td style="width: 35%; color: #5cb85c;">
       <% if search.converted_at %>
         <strong>✓</strong>
-        <% convertable = @has_convertable_id ? search.convertable : search.conversions.min_by(&:created_at)&.convertable %>
+        <% convertable = Searchjoy.multiple_conversions ? search.conversions.min_by(&:created_at)&.convertable : search.convertable %>
         <%= convertable ? (Searchjoy.conversion_name ? Searchjoy.conversion_name.call(convertable) : "#{convertable.model_name.name} #{convertable.id}") : "Converted" %>
       <% end %>
     </td>

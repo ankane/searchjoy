@@ -48,12 +48,10 @@ module Searchjoy
 
     def recent
       @searches = Searchjoy::Search.order(created_at: :desc).limit(50)
-      @has_convertable_id = Searchjoy::Search.column_names.include?("convertable_id")
-      # get convertable directly from search when possible
-      if @has_convertable_id
-        @searches.includes!(:convertable)
-      else
+      if Searchjoy.multiple_conversions
         @searches.includes!(conversions: :convertable)
+      else
+        @searches.includes!(:convertable)
       end
       render layout: false
     end
