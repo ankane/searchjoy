@@ -121,6 +121,29 @@ class TrackTest < Minitest::Test
     end
   end
 
+  def test_backfill_conversions
+    store_names ["Apple", "Banana"]
+
+    search = nil
+    3.times do
+      products = Product.search("APPLE", track: true).to_a
+      search = Searchjoy::Search.last
+      search.convert(products.first)
+    end
+
+    Searchjoy.backfill_conversions
+
+    assert_equal 1, search.conversions.count
+
+    conversion = search.conversions.first
+    assert_equal search.convertable, conversion.convertable
+    assert_equal search.converted_at, conversion.created_at
+
+    Searchjoy.backfill_conversions
+
+    assert_equal 3, Searchjoy::Conversion.count
+  end
+
   def test_no_track
     Product.search("apple").to_a
     assert_equal 0, Searchjoy::Search.count

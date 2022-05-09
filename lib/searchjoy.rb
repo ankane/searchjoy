@@ -32,6 +32,27 @@ module Searchjoy
     Searchkick::MultiSearch.prepend(Searchjoy::Track::MultiSearch)
     Searchkick::Results.send(:attr_accessor, :search)
   end
+
+  def self.backfill_conversions
+    Searchjoy::Search.where.not(converted_at: nil).left_joins(:conversions).where(searchjoy_conversions: {id: nil}).find_in_batches do |searches|
+      conversions =
+        searches.map do |search|
+          {
+            search_id: search.id,
+            convertable_id: search.convertable_id,
+            convertable_type: search.convertable_type,
+            created_at: search.converted_at
+          }
+        end
+      if ActiveRecord::VERSION::MAJOR >= 6
+        Searchjoy::Conversion.insert_all(conversions)
+      else
+        Searchjoy::Conversion.transaction do
+          Searchjoy::Conversion.create!(conversions)
+        end
+      end
+    end
+  end
 end
 
 if defined?(Rails)

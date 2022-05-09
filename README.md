@@ -111,6 +111,12 @@ And create an initializer `config/initializers/searchjoy.rb` with:
 Searchjoy.multiple_conversions = true
 ```
 
+You can optionally backfill the conversions table:
+
+```ruby
+Searchjoy.backfill_conversions
+```
+
 ## Authentication
 
 Don’t forget to protect the dashboard in production.
