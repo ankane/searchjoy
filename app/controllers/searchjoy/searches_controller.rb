@@ -88,7 +88,14 @@ module Searchjoy
 
     def set_searches
       @limit = params[:limit] || Searchjoy.top_searches
-      @searches = Searchjoy::Search.connection.select_all(Searchjoy::Search.select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count").where(created_at: @time_range, search_type: @search_type).group(:normalized_query).order(searches_count: :desc, normalized_query: :asc).limit(@limit).to_sql).to_a
+      relation = Searchjoy::Search
+        .select("normalized_query, COUNT(*) as searches_count, COUNT(converted_at) as conversions_count, AVG(results_count) as avg_results_count")
+        .where(created_at: @time_range, search_type: @search_type)
+        .group(:normalized_query)
+        .order(searches_count: :desc, normalized_query: :asc)
+        .limit(@limit)
+      # get array of hashes for performance
+      @searches = Searchjoy::Search.connection.select_all(relation.to_sql).to_a
       @searches.each do |search|
         search["conversion_rate"] = 100 * search["conversions_count"].to_i / search["searches_count"].to_f
       end
