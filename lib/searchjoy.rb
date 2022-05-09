@@ -23,6 +23,10 @@ module Searchjoy
   mattr_accessor :query_name
   mattr_accessor :query_url
 
+  # multiple conversions
+  mattr_accessor :multiple_conversions
+  self.multiple_conversions = false
+
   def self.attach_to_searchkick!
     Searchkick::Query.prepend(Searchjoy::Track::Query)
     Searchkick::MultiSearch.prepend(Searchjoy::Track::MultiSearch)

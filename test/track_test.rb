@@ -6,6 +6,7 @@ class TrackTest < Minitest::Test
       Product.search_index.refresh
     end
     Searchjoy::Search.destroy_all
+    Searchjoy::Conversion.destroy_all
   end
 
   def test_track
@@ -73,6 +74,8 @@ class TrackTest < Minitest::Test
 
     assert search.converted_at
     assert_equal products.first, search.convertable
+
+    assert_equal 0, Searchjoy::Conversion.count
   end
 
   def test_convert_once
@@ -81,13 +84,41 @@ class TrackTest < Minitest::Test
     search = Searchjoy::Search.last
 
     # first convert
-    search.convert
+    assert_equal true, search.convert
     assert search.converted?
     assert_nil search.convertable
 
     # should not update
-    search.convert(products.first)
+    assert_nil search.convert(products.first)
     assert_nil search.convertable
+
+    assert_equal 0, Searchjoy::Conversion.count
+  end
+
+  def test_convert_multiple_conversions
+    Searchjoy.stub(:multiple_conversions, true) do
+      store_names ["Apple", "Banana"]
+      products = Product.search("APPLE BANANA", operator: "or", track: true).to_a
+      search = Searchjoy::Search.last
+
+      # maybe return conversion in future
+      assert_equal true, search.convert(products.first)
+
+      conversion = Searchjoy::Conversion.last
+      assert_equal search, conversion.search
+      assert_equal products.first, conversion.convertable
+      assert conversion.created_at
+
+      assert_nil search.convert(products.last)
+
+      conversion = Searchjoy::Conversion.last
+      assert_equal search, conversion.search
+      assert_equal products.last, conversion.convertable
+      assert conversion.created_at
+
+      assert_equal 2, Searchjoy::Conversion.count
+      assert_equal 2, search.conversions.count
+    end
   end
 
   def test_no_track

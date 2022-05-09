@@ -10,6 +10,12 @@ ActiveRecord::Schema.define do
   create_table :users do |t|
   end
 
+  create_table :searchjoy_conversions do |t|
+    t.references :search
+    t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_conversions_on_convertable"}
+    t.datetime :created_at
+  end
+
   create_table :searchjoy_searches do |t|
     t.references :user
     t.string :search_type

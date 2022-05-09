@@ -1,5 +1,6 @@
-## 0.5.2 (unreleased)
+## 0.6.0 (unreleased)
 
+- Added support for multiple conversions per search
 - Added experimental support for Propshaft
 
 ## 0.5.1 (2020-09-07)

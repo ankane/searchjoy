@@ -96,6 +96,21 @@ Better yet, record the model that converted.
 search.convert(item)
 ```
 
+## Multiple Conversions [unreleased]
+
+By default, Searchjoy tracks the first conversion per search. To track all conversions, run:
+
+```sh
+rails generate searchjoy:conversions
+rails db:migrate
+```
+
+And create an initializer `config/initializers/searchjoy.rb` with:
+
+```ruby
+Searchjoy.multiple_conversions = true
+```
+
 ## Authentication
 
 Don’t forget to protect the dashboard in production.

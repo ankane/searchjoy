@@ -4,14 +4,30 @@ module Searchjoy
 
     belongs_to :convertable, polymorphic: true, optional: true
     belongs_to :user, optional: true
+    has_many :conversions
 
     before_save :set_normalized_query
 
     def convert(convertable = nil)
-      unless converted?
-        self.converted_at = Time.now
-        self.convertable = convertable
-        save(validate: false)
+      return unless Searchjoy.multiple_conversions || !converted?
+
+      # use transaction to keep consistent
+      self.class.transaction do
+        # make time consistent
+        now = Time.now
+
+        if Searchjoy.multiple_conversions
+          conversions.create!(
+            convertable: convertable,
+            created_at: now
+          )
+        end
+
+        unless converted?
+          self.converted_at = now
+          self.convertable = convertable if respond_to?(:convertable=)
+          save(validate: false)
+        end
       end
     end
 
