@@ -1,3 +1,7 @@
+## 1.0.1 (unreleased)
+
+- Improved dashboard labels
+
 ## 1.0.0 (2022-05-10)
 
 - Added support for multiple conversions per search
