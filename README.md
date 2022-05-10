@@ -201,7 +201,7 @@ And optionally remove `convertable` from searches
 remove_reference :searchjoy_searches, :convertable, polymorphic: true
 ```
 
-Alternatively, you can stay with single conversions by creating an initializer with:
+You can stay with single conversions (and skip all the previous steps) by creating an initializer with:
 
 ```ruby
 Searchjoy.multiple_conversions = false
