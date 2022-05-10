@@ -124,7 +124,11 @@ ENV["SEARCHJOY_PASSWORD"] = "secret"
 Data should only be retained for as long as it’s needed. Delete older data with:
 
 ```ruby
-Searchjoy::Search.where("created_at < ?", 1.year.ago).in_batches.delete_all
+Searchjoy::Search.where("created_at < ?", 1.year.ago).find_in_batches do |searches|
+  search_ids = searches.map(&:id)
+  Searchjoy::Conversion.where(search_id: search_ids).delete_all
+  Searchjoy::Search.where(id: search_ids).delete_all
+end
 ```
 
 You can use [Rollup](https://github.com/ankane/rollup) to aggregate important data before you do.
@@ -136,7 +140,10 @@ Searchjoy::Search.rollup("Searches")
 Delete data for a specific user with:
 
 ```ruby
-Searchjoy::Search.where(user_id: 1).delete_all
+user_id = 123
+search_ids = Searchjoy::Search.where(user_id: user_id).pluck(:id)
+Searchjoy::Conversion.where(search_id: search_ids).delete_all
+Searchjoy::Search.where(id: search_ids).delete_all
 ```
 
 ## Customize
