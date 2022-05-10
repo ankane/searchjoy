@@ -4,6 +4,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
   def setup
     Product.destroy_all
     Searchjoy::Search.delete_all
+    Searchjoy::Conversion.delete_all
     Searchjoy::Search.create(
       search_type: "Item",
       query: "apple",
@@ -112,6 +113,17 @@ class ControllerTest < ActionDispatch::IntegrationTest
       get searchjoy.searches_recent_path
       assert_response :success
       assert_match product.name, response.body
+    end
+  end
+
+  def test_multiple_conversions
+    Searchjoy.stub(:multiple_conversions, true) do
+      product = Product.create!(name: "Banana")
+      Searchjoy::Search.last.convert(product)
+
+      get searchjoy.searches_recent_path
+      assert_response :success
+      assert_match "Product #{product.id}", response.body
     end
   end
 end
