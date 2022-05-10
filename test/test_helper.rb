@@ -12,5 +12,7 @@ Combustion.initialize! :active_record, :action_controller do
   config.active_record.logger = logger
 end
 
+Searchkick.index_prefix = "searchjoy"
+
 Product.reindex
 Store.reindex
