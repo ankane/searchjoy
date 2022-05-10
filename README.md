@@ -7,7 +7,7 @@ Search analytics made easy
 [![Screenshot](https://searchjoy.dokkuapp.com/assets/searchjoy-7be12d922ca8b31b7d7440e618b0c666698a4b15752653a0c5c45e3dd2737142.png)](https://searchjoy.dokkuapp.com/)
 
 - view searches in real-time
-- track conversions week over week
+- track conversion rate week over week
 - monitor the performance of top searches
 
 Works with any search platform, including Elasticsearch, Sphinx, and Solr
