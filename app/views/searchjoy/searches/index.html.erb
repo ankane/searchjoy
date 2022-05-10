@@ -18,7 +18,7 @@
       <tr>
         <td><%= search["normalized_query"] %></td>
         <td class="num"><%= search["searches_count"] %></td>
-        <td class="num"><%= search["conversions_count"] %></td>
+        <td class="num"><%= search["converted_count"] %></td>
         <td class="num"><%= number_to_percentage search["conversion_rate"].to_f, precision: 0 %></td>
         <td class="num"><%= search["avg_results_count"].to_f.round %></td>
       </tr>
