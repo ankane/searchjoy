@@ -2,7 +2,7 @@ require_relative "test_helper"
 
 class ControllerTest < ActionDispatch::IntegrationTest
   def setup
-    Product.delete_all
+    Product.destroy_all
     Searchjoy::Search.delete_all
     Searchjoy::Search.create(
       search_type: "Item",
