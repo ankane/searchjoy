@@ -12,6 +12,8 @@ Search analytics made easy
 
 Works with any search platform, including Elasticsearch, Sphinx, and Solr
 
+**Searchjoy 1.0 was recently released** - see [how to upgrade](#upgrading)
+
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
 [![Build Status](https://github.com/ankane/searchjoy/workflows/build/badge.svg?branch=master)](https://github.com/ankane/searchjoy/actions)
