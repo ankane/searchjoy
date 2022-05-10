@@ -64,18 +64,21 @@ class TrackTest < Minitest::Test
 
   def test_convert
     store_names ["Apple", "Banana"]
-    products = Product.search("APPLE", track: true).to_a
+    products = Product.search("APPLE BANANA", operator: "or", track: true).to_a
     search = Searchjoy::Search.last
 
-    assert_nil search.converted_at
-    assert_nil search.convertable
+    conversion = search.convert(products.first)
+    assert_equal search, conversion.search
+    assert_equal products.first, conversion.convertable
+    assert_equal search.converted_at, conversion.created_at
 
-    search.convert(products.first)
+    conversion = search.convert(products.last)
+    assert_equal search, conversion.search
+    assert_equal products.last, conversion.convertable
+    refute_equal search.converted_at, conversion.created_at
 
-    assert search.converted_at
-    assert_equal products.first, search.convertable
-
-    assert_equal 0, Searchjoy::Conversion.count
+    assert_equal 2, Searchjoy::Conversion.count
+    assert_equal 2, search.conversions.count
   end
 
   def test_convert_once
@@ -84,40 +87,32 @@ class TrackTest < Minitest::Test
     search = Searchjoy::Search.last
 
     # first convert
-    assert_equal true, search.convert
+    search.convert
     assert search.converted?
     assert_nil search.convertable
 
     # should not update
-    assert_nil search.convert(products.first)
+    search.convert(products.first)
     assert_nil search.convertable
 
-    assert_equal 0, Searchjoy::Conversion.count
+    assert_equal 2, Searchjoy::Conversion.count
   end
 
-  def test_convert_multiple_conversions
-    Searchjoy.stub(:multiple_conversions, true) do
+  def test_single_conversions
+    Searchjoy.stub(:multiple_conversions, false) do
       store_names ["Apple", "Banana"]
-      products = Product.search("APPLE BANANA", operator: "or", track: true).to_a
+      products = Product.search("APPLE", track: true).to_a
       search = Searchjoy::Search.last
 
-      # maybe return conversion in future
-      assert_equal true, search.convert(products.first)
+      assert_nil search.converted_at
+      assert_nil search.convertable
 
-      conversion = Searchjoy::Conversion.last
-      assert_equal search, conversion.search
-      assert_equal products.first, conversion.convertable
-      assert conversion.created_at
+      assert_nil search.convert(products.first)
 
-      assert_nil search.convert(products.last)
+      assert search.converted_at
+      assert_equal products.first, search.convertable
 
-      conversion = Searchjoy::Conversion.last
-      assert_equal search, conversion.search
-      assert_equal products.last, conversion.convertable
-      assert conversion.created_at
-
-      assert_equal 2, Searchjoy::Conversion.count
-      assert_equal 2, search.conversions.count
+      assert_equal 0, Searchjoy::Conversion.count
     end
   end
 
@@ -129,6 +124,8 @@ class TrackTest < Minitest::Test
       search = Searchjoy::Search.last
       search.convert(products.first)
     end
+
+    Searchjoy::Conversion.delete_all
 
     Searchjoy.backfill_conversions
 

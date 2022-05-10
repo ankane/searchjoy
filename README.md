@@ -94,33 +94,6 @@ Better yet, record the model that converted.
 search.convert(item)
 ```
 
-### Multiple Conversions [unreleased]
-
-By default, Searchjoy tracks the first conversion per search. To track all conversions, run:
-
-```sh
-rails generate searchjoy:conversions
-rails db:migrate
-```
-
-And create an initializer `config/initializers/searchjoy.rb` with:
-
-```ruby
-Searchjoy.multiple_conversions = true
-```
-
-You can optionally backfill the conversions table
-
-```ruby
-Searchjoy.backfill_conversions
-```
-
-And remove `convertable` from searches
-
-```ruby
-remove_reference :searchjoy_searches, :convertable, polymorphic: true
-```
-
 ## Authentication
 
 Don’t forget to protect the dashboard in production.
@@ -196,6 +169,42 @@ Show the conversion name in the live stream
 
 ```ruby
 Searchjoy.conversion_name = ->(model) { model.name }
+```
+
+## Upgrading
+
+### 1.0
+
+Searchjoy now supports multiple conversions per search :tada:
+
+Before updating the gem, create a migration with:
+
+```ruby
+create_table :searchjoy_conversions do |t|
+  t.references :search
+  t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_conversions_on_convertable"}
+  t.datetime :created_at
+end
+```
+
+Deploy and run the migration, then update the gem.
+
+You can optionally backfill the conversions table
+
+```ruby
+Searchjoy.backfill_conversions
+```
+
+And optionally remove `convertable` from searches
+
+```ruby
+remove_reference :searchjoy_searches, :convertable, polymorphic: true
+```
+
+Alternatively, you can stay with single conversions by creating an initializer with:
+
+```ruby
+Searchjoy.multiple_conversions = false
 ```
 
 ## History

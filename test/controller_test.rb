@@ -116,8 +116,8 @@ class ControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_multiple_conversions
-    Searchjoy.stub(:multiple_conversions, true) do
+  def test_single_conversions
+    Searchjoy.stub(:multiple_conversions, false) do
       product = Product.create!(name: "Banana")
       Searchjoy::Search.last.convert(product)
 

@@ -17,10 +17,11 @@ module Searchjoy
         now = Time.now
 
         if Searchjoy.multiple_conversions
-          conversions.create!(
-            convertable: convertable,
-            created_at: now
-          )
+          conversion =
+            conversions.create!(
+              convertable: convertable,
+              created_at: now
+            )
         end
 
         unless converted?
@@ -29,6 +30,8 @@ module Searchjoy
           self.convertable = convertable if respond_to?(:convertable_id=)
           save(validate: false)
         end
+
+        conversion
       end
     end
 

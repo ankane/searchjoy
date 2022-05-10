@@ -25,7 +25,7 @@ module Searchjoy
 
   # multiple conversions
   mattr_accessor :multiple_conversions
-  self.multiple_conversions = false
+  self.multiple_conversions = true
 
   def self.attach_to_searchkick!
     Searchkick::Query.prepend(Searchjoy::Track::Query)

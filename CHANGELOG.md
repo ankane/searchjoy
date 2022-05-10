@@ -1,4 +1,4 @@
-## 0.6.0 (unreleased)
+## 1.0.0 (unreleased)
 
 - Added support for multiple conversions per search
 - Added experimental support for Propshaft
