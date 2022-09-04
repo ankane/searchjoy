@@ -2,7 +2,7 @@
 
 <table id="stream"></table>
 
-<script>
+<%= javascript_tag nonce: true do %>
   function load(element, path) {
     var request = new XMLHttpRequest();
     request.open("GET", path, true);
@@ -20,4 +20,4 @@
     setTimeout(fetchRecentSearches, 5 * 1000);
   }
   fetchRecentSearches();
-</script>
+<% end %>
