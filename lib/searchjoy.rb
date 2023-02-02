@@ -57,6 +57,6 @@ end
 
 if defined?(Rails)
   require_relative "searchjoy/engine"
-else
-  Searchjoy.attach_to_searchkick! if defined?(Searchkick)
+elsif defined?(Searchkick)
+  Searchjoy.attach_to_searchkick!
 end
