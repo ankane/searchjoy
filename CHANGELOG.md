@@ -1,6 +1,7 @@
 ## 1.0.1 (unreleased)
 
 - Improved dashboard labels
+- Truncate queries longer than DB column size
 
 ## 1.0.0 (2022-05-10)
 
