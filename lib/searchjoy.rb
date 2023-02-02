@@ -4,8 +4,8 @@ require "chartkick"
 require "groupdate"
 
 # modules
-require "searchjoy/track"
-require "searchjoy/version"
+require_relative "searchjoy/track"
+require_relative "searchjoy/version"
 
 module Searchjoy
   # time zone
@@ -56,7 +56,7 @@ module Searchjoy
 end
 
 if defined?(Rails)
-  require "searchjoy/engine"
+  require_relative "searchjoy/engine"
 else
   Searchjoy.attach_to_searchkick! if defined?(Searchkick)
 end
