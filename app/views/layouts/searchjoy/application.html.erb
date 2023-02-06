@@ -4,6 +4,7 @@
     <title>Searchjoy</title>
 
     <meta charset="utf-8" />
+    <%= csp_meta_tag %>
 
     <style>
       body {
@@ -289,9 +290,9 @@
     </style>
 
     <% if defined?(Propshaft::Railtie) %>
-      <%= javascript_include_tag "chartkick", "Chart.bundle", "searchjoy/litepicker", "searchjoy/application" %>
+      <%= javascript_include_tag "chartkick", "Chart.bundle", "searchjoy/litepicker", "searchjoy/application", nonce: true %>
     <% else %>
-      <%= javascript_include_tag "searchjoy/application" %>
+      <%= javascript_include_tag "searchjoy/application", nonce: true %>
     <% end %>
   </head>
   <body>
@@ -314,7 +315,7 @@
                 <%= @time_range.first.strftime("%b %-e, %Y") %> to <%= @time_range.last.strftime("%b %-e, %Y") %>
               </span>
               <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
-              <script>
+              <%= javascript_tag nonce: true do %>
                 var startDate = <%= raw json_escape(@time_range.first.to_json) %>;
                 var endDate = <%= raw json_escape(@time_range.last.to_json) %>;
                 new Litepicker({
@@ -337,7 +338,7 @@
                     window.location.href = window.location.pathname + "?" + params.toString();
                   }
                 });
-              </script>
+              <% end %>
             <% end %>
           </div>
         </div>
