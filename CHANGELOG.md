@@ -1,7 +1,7 @@
-## 1.0.1 (unreleased)
+## 1.1.0 (unreleased)
 
 - Improved dashboard labels
-- CSP support
+- Improved CSP support
 
 ## 1.0.0 (2022-05-10)
 
