@@ -10,7 +10,7 @@ Search analytics made easy
 - track conversion rate week over week
 - monitor the performance of top searches
 
-Works with any search platform, including Elasticsearch, Sphinx, and Solr
+Works with any search platform, including Elasticsearch, OpenSearch, Sphinx, and Solr
 
 :cupid: An amazing companion to [Searchkick](https://github.com/ankane/searchkick)
 
