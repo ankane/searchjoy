@@ -44,13 +44,7 @@ module Searchjoy
             created_at: search.converted_at
           }
         end
-      if ActiveRecord::VERSION::MAJOR >= 6
-        Searchjoy::Conversion.insert_all(conversions)
-      else
-        Searchjoy::Conversion.transaction do
-          Searchjoy::Conversion.create!(conversions)
-        end
-      end
+      Searchjoy::Conversion.insert_all(conversions)
     end
   end
 end
