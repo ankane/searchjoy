@@ -157,6 +157,13 @@ class TrackTest < Minitest::Test
     assert_equal "Store", query2.search.search_type
   end
 
+  # TODO fix for mysql
+  def test_long_query
+    query = "APPLE" * 100
+    products = Product.search(query, track: true)
+    assert_equal query, products.search.query
+  end
+
   private
 
   def store_names(names)
