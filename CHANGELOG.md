@@ -2,6 +2,7 @@
 
 - Improved dashboard labels
 - Improved CSP support
+- Dropped support for Ruby < 2.7 and Rails < 6
 
 ## 1.0.0 (2022-05-10)
 

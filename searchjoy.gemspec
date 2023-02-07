@@ -13,9 +13,9 @@ Gem::Specification.new do |spec|
   spec.files         = Dir["*.{md,txt}", "{app,config,lib,licenses}/**/*"]
   spec.require_path  = "lib"
 
-  spec.required_ruby_version = ">= 2.6"
+  spec.required_ruby_version = ">= 2.7"
 
   spec.add_dependency "chartkick", ">= 3.2"
   spec.add_dependency "groupdate", ">= 3"
-  spec.add_dependency "activerecord", ">= 5.2"
+  spec.add_dependency "activerecord", ">= 6"
 end
