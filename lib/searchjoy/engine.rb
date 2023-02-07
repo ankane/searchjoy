@@ -4,7 +4,7 @@ module Searchjoy
 
     initializer "searchjoy" do |app|
       if app.config.respond_to?(:assets)
-        if defined?(Sprockets) && Sprockets::VERSION >= "4"
+        if defined?(Sprockets) && Sprockets::VERSION.to_i >= 4
           app.config.assets.precompile << "searchjoy/application.js"
         else
           # use a proc instead of a string
