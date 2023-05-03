@@ -18,8 +18,21 @@ module Searchjoy
               "All Indices"
             end
 
-          results.search = Searchjoy::Search.create({search_type: search_type, query: term, results_count: results.total_count}.merge(attributes))
+          results.search = create_search({search_type: search_type, query: term, results_count: results.total_count}.merge(attributes))
         end
+      end
+      
+      # pull this out to allow override for multi_db support. ie:
+      # module ReaderWrapper
+      #   def create_search(hash)
+      #     ActiveRecord::Base.connected_to(role: :writing) do
+      #       super
+      #     end
+      #   end
+      # end
+      # Searchjoy::Track::Query.prepend(ReaderWrapper)
+      def create_search(hash)
+        Searchjoy::Search.create(hash)
       end
 
       def execute
