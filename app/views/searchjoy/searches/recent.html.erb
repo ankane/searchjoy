@@ -1,6 +1,6 @@
 <% @searches.each do |search| %>
   <tr>
-    <td style="width: 15%;">
+    <td class="type-col">
       <%= link_to search.search_type, overview_searches_path(search_type: search.search_type), class: "type-link type-link-#{@search_types.index(search.search_type)}" %>
     </td>
     <td>
@@ -12,14 +12,14 @@
       <% end %>
     </td>
 
-    <td style="width: 35%; color: #5cb85c;">
+    <td class="conversion-col">
       <% if search.converted_at %>
         <strong>✓</strong>
         <% convertable = Searchjoy.multiple_conversions ? search.conversions.min_by(&:created_at)&.convertable : search.convertable %>
         <%= convertable ? (Searchjoy.conversion_name ? Searchjoy.conversion_name.call(convertable) : "#{convertable.model_name.name} #{convertable.id}") : "Converted" %>
       <% end %>
     </td>
-    <td style="width: 20%;" class="num">
+    <td class="num width-20">
       <%= time_ago_in_words search.created_at %> ago
       <div class="text-muted"><%= pluralize search.results_count, "result" %></div>
     </td>

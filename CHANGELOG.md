@@ -1,3 +1,7 @@
+## 1.3.0 (unreleased)
+
+- Improved CSP support
+
 ## 1.2.0 (2024-06-24)
 
 - Dropped support for Ruby < 3.1 and Rails < 6.1

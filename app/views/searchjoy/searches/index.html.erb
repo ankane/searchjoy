@@ -7,10 +7,10 @@
   <thead>
     <tr>
       <th>Query</th>
-      <th class="num" style="width: 20%;"><%= link_to "Searches", searches_path(search_type: params[:search_type], **@time_params), class: ("active" if params[:sort] != "conversion_rate") %></th>
-      <th class="num" style="width: 20%;">Converted</th>
-      <th class="num" style="width: 20%;"><%= link_to "%", searches_path(search_type: params[:search_type], sort: "conversion_rate", **@time_params), class: ("active" if params[:sort] == "conversion_rate") %></th>
-      <th class="num" style="width: 20%;">Avg Results</th>
+      <th class="num width-20"><%= link_to "Searches", searches_path(search_type: params[:search_type], **@time_params), class: ("active" if params[:sort] != "conversion_rate") %></th>
+      <th class="num width-20">Converted</th>
+      <th class="num width-20"><%= link_to "%", searches_path(search_type: params[:search_type], sort: "conversion_rate", **@time_params), class: ("active" if params[:sort] == "conversion_rate") %></th>
+      <th class="num width-20">Avg Results</th>
     </tr>
   </thead>
   <tbody>

@@ -1,0 +1,320 @@
+/*
+ *= require_self
+ *= require ./litepicker
+ */
+
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+a, a:visited, a:active {
+  color: #428bca;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+th {
+  text-align: left;
+  border-bottom: solid 2px #ddd;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 small {
+   color: #999;
+   font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+table td, table th {
+  padding: 8px;
+}
+
+td {
+  border-top: solid 1px #ddd;
+}
+
+.text-muted {
+  color: #999;
+}
+
+#brand {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  color: #999;
+}
+
+a.active {
+  color: #5cb85c;
+}
+
+a.type-link {
+  background-color: #f0ad4e;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+a.type-link:hover {
+  text-decoration: none;
+}
+
+/* suspiciously similar to bootstrap 3 */
+a.type-link-0 {
+  background-color: #5bc0de;
+}
+
+a.type-link-1 {
+  background-color: #d9534f;
+}
+
+a.type-link-2 {
+  background-color: #5cb85c;
+}
+
+#header {
+  border-bottom: solid 1px #ddd;
+  padding-bottom: 10px;
+}
+
+.nav, .nav li {
+  display: inline;
+}
+
+.nav li {
+  margin-right: 20px;
+}
+
+#stream {
+  border-bottom: solid 1px #ddd;
+}
+
+.num {
+  text-align: right;
+}
+
+.container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+  Simple Grid
+  Learn More - http://dallasbass.com/simple-grid-a-lightweight-responsive-css-grid/
+  Project Page - http://thisisdallas.github.com/Simple-Grid/
+  Author - Dallas Bass
+  Site - dallasbass.com
+*/
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+}
+
+[class*='col-'] {
+  float: left;
+  padding-right: 20px;
+}
+
+[class*='col-']:last-of-type {
+  padding-right: 0px;
+}
+
+.grid {
+  width: 100%;
+
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.grid-pad {
+  padding: 20px 0 0px 20px;
+}
+
+.grid-pad > [class*='col-']:last-of-type {
+  padding-right: 20px;
+}
+
+.push-right {
+  float: right;
+}
+
+/* Content Columns */
+
+.col-1-1 {
+  width: 100%;
+}
+.col-2-3, .col-8-12 {
+  width: 66.66%;
+}
+
+.col-1-2, .col-6-12 {
+  width: 50%;
+}
+
+.col-1-3, .col-4-12 {
+  width: 33.33%;
+}
+
+.col-1-4, .col-3-12 {
+  width: 25%;
+}
+
+.col-1-5 {
+  width: 20%;
+}
+
+.col-1-6, .col-2-12 {
+  width: 16.667%;
+}
+
+.col-1-7 {
+  width: 14.28%;
+}
+
+.col-1-8 {
+  width: 12.5%;
+}
+
+.col-1-9 {
+  width: 11.1%;
+}
+
+.col-1-10 {
+  width: 10%;
+}
+
+.col-1-11 {
+  width: 9.09%;
+}
+
+.col-1-12 {
+  width: 8.33%
+}
+
+/* Layout Columns */
+
+.col-11-12 {
+  width: 91.66%
+}
+
+.col-10-12 {
+  width: 83.333%;
+}
+
+.col-9-12 {
+  width: 75%;
+}
+
+.col-5-12 {
+  width: 41.66%;
+}
+
+.col-7-12 {
+  width: 58.33%
+}
+
+@media handheld, only screen and (max-width: 767px) {
+  .grid {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  [class*='col-'] {
+    width: auto;
+    float: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+}
+
+div.litepicker {
+  font-size: 0.8rem;
+}
+
+:root {
+  --litepickerDayIsTodayColor: #5cb85c !important;
+}
+
+.width-20 {
+  width: 20%;
+}
+
+#time-range {
+  cursor: pointer;
+  line-height: 26px;
+  padding-bottom: 10px;
+}
+
+.nav-col {
+  padding-bottom: 10px;
+}
+
+.time-range-col {
+  text-align: right;
+}
+
+.type-col {
+  width: 15%;
+}
+
+.conversion-col {
+  width: 35%;
+  color: #5cb85c;
+}
+
+.chart {
+  height: 300px;
+  width: 100%;
+  text-align: center;
+  color: #999;
+  line-height: 300px;
+  font-size: 14px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;
+}

@@ -39,10 +39,12 @@
   </div>
 </div>
 
+<% chart_html = '<div id="%{id}" class="chart">%{loading}</div>' %>
+
 <h2>Conversion Rate</h2>
 
-<%= line_chart @conversion_rate_by_week, suffix: "%" %>
+<%= line_chart @conversion_rate_by_week, suffix: "%", html: chart_html %>
 
 <h2>Volume</h2>
 
-<%= line_chart [{name: "Searches", data: @searches_by_week}, {name: "Converted", data: @converted_by_week}] %>
+<%= line_chart [{name: "Searches", data: @searches_by_week}, {name: "Converted", data: @converted_by_week}], html: chart_html %>
