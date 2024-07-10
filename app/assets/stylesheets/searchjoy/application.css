@@ -57,6 +57,7 @@ table td, table th {
 
 td {
   border-top: solid 1px #ddd;
+  word-wrap: break-word;
 }
 
 .text-muted {
@@ -79,6 +80,7 @@ a.type-link {
   color: #fff;
   padding: 8px;
   border-radius: 4px;
+  text-wrap: nowrap;
 }
 
 a.type-link:hover {
