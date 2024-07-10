@@ -57,7 +57,7 @@ table td, table th {
 
 td {
   border-top: solid 1px #ddd;
-  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .text-muted {
