@@ -1,4 +1,4 @@
-## 1.3.0 (unreleased)
+## 1.3.0 (2024-07-10)
 
 - Improved CSP support
 
