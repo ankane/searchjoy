@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <%= csp_meta_tag %>
 
-    <% if defined?(Propshaft::Railtie) %>
+    <% if defined?(Propshaft::Railtie) && Rails.application.assets.is_a?(Propshaft::Assembly) %>
       <%= stylesheet_link_tag "searchjoy/application", "searchjoy/litepicker" %>
       <%= javascript_include_tag "chartkick", "Chart.bundle", "searchjoy/application", "searchjoy/litepicker", nonce: true %>
     <% else %>
