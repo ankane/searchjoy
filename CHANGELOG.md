@@ -1,4 +1,4 @@
-## 1.3.1 (unreleased)
+## 1.3.1 (2024-10-14)
 
 - Fixed error when Propshaft is installed but not used
 
