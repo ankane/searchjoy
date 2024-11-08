@@ -7,10 +7,10 @@ jobs:
       matrix:
         include:
           - ruby: 3.3
-            gemfile: gemfiles/rails80.gemfile
+            gemfile: Gemfile
             elasticsearch: 8
           - ruby: 3.3
-            gemfile: Gemfile
+            gemfile: gemfiles/rails72.gemfile
             elasticsearch: 8
           - ruby: 3.2
             gemfile: gemfiles/rails71.gemfile
