@@ -1,3 +1,7 @@
+## 1.3.2 (unreleased)
+
+- Fixed date range picker for time zones with negative UTC offset
+
 ## 1.3.1 (2024-10-14)
 
 - Fixed error when Propshaft is installed but not used
