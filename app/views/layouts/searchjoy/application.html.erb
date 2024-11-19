@@ -35,6 +35,9 @@
               </span>
               <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
               <%= javascript_tag nonce: true do %>
+                function toDate(d) {
+                  return new Date(d - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
+                }
                 var startDate = <%= raw json_escape(@time_range.first.to_json) %>;
                 var endDate = <%= raw json_escape(@time_range.last.to_json) %>;
                 new Litepicker({
@@ -51,16 +54,9 @@
                   onSelect: function(date1, date2) {
                     var currentParams = new URLSearchParams(window.location.search);
                     var params = new URLSearchParams();
-
-                    var tzoffset1 = date1.getTimezoneOffset() * 60000;
-                    var startDateParam = new Date((date1 - tzoffset1)).toISOString().slice(0, 10);
-
-                    var tzoffset2 = date2.getTimezoneOffset() * 60000;
-                    var endDateParam = new Date((date2 - tzoffset2)).toISOString().slice(0, 10);
-
-                    params.set('start_date', startDateParam);
-                    params.set('end_date', endDateParam);
                     params.set('search_type', currentParams.get('search_type'));
+                    params.set('start_date', toDate(date1));
+                    params.set('end_date', toDate(date2));
                     window.location.href = window.location.pathname + "?" + params.toString();
                   }
                 });
