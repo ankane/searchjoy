@@ -36,7 +36,7 @@
               <span class="text-muted"><%= @time_zone.name.sub(" (US & Canada)", "") %></span>
               <%= javascript_tag nonce: true do %>
                 function toDate(d) {
-                  return new Date(d - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
+                  return (new Date(d - (d.getTimezoneOffset() * 60000))).toISOString().slice(0, 10);
                 }
                 var startDate = <%= raw json_escape(@time_range.first.to_json) %>;
                 var endDate = <%= raw json_escape(@time_range.last.to_json) %>;
