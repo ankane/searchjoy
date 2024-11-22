@@ -1,4 +1,4 @@
-## 1.3.2 (unreleased)
+## 1.3.2 (2024-11-21)
 
 - Fixed date range picker for time zones with negative UTC offset
 
