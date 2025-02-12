@@ -178,42 +178,6 @@ Show the conversion name in the live stream
 Searchjoy.conversion_name = ->(model) { model.name }
 ```
 
-## Upgrading
-
-### 1.0
-
-Searchjoy now supports multiple conversions per search :tada:
-
-Before updating the gem, create a migration with:
-
-```ruby
-create_table :searchjoy_conversions do |t|
-  t.references :search
-  t.references :convertable, polymorphic: true, index: {name: "index_searchjoy_conversions_on_convertable"}
-  t.datetime :created_at
-end
-```
-
-Deploy and run the migration, then update the gem.
-
-You can optionally backfill the conversions table
-
-```ruby
-Searchjoy.backfill_conversions
-```
-
-And optionally remove `convertable` from searches
-
-```ruby
-remove_reference :searchjoy_searches, :convertable, polymorphic: true
-```
-
-You can stay with single conversions (and skip all the previous steps) by creating an initializer with:
-
-```ruby
-Searchjoy.multiple_conversions = false
-```
-
 ## History
 
 View the [changelog](https://github.com/ankane/searchjoy/blob/master/CHANGELOG.md)
