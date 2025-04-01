@@ -1,3 +1,7 @@
+## 1.4.0 (unreleased)
+
+- Dropped support for Ruby < 3.2 and Rails < 7.1
+
 ## 1.3.2 (2024-11-21)
 
 - Fixed date range picker for time zones with negative UTC offset

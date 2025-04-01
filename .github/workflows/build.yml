@@ -14,12 +14,6 @@ jobs:
             elasticsearch: 8
           - ruby: 3.2
             gemfile: gemfiles/rails71.gemfile
-            elasticsearch: 8
-          - ruby: 3.1
-            gemfile: gemfiles/rails70.gemfile
-            elasticsearch: 8
-          - ruby: 3.1
-            gemfile: gemfiles/rails61.gemfile
             elasticsearch: 7
     runs-on: ubuntu-latest
     env:
