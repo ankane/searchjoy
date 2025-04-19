@@ -14,6 +14,8 @@ when "postgresql"
   gem "pg"
 when "mysql2"
   gem "mysql2"
+when "trilogy"
+  gem "trilogy"
 else
   gem "sqlite3"
 end
