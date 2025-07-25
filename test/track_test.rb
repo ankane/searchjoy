@@ -117,8 +117,6 @@ class TrackTest < Minitest::Test
   end
 
   def test_backfill_conversions
-    skip if RUBY_ENGINE == "jruby"
-
     store_names ["Apple", "Banana"]
 
     3.times do
