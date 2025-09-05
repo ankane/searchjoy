@@ -1,0 +1,12 @@
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+gem "rake"
+gem "minitest", ">= 5"
+gem "combustion"
+gem "activerecord", "~> 8.1.0.beta1"
+gem "sqlite3"
+gem "searchkick"
+gem "elasticsearch"
+gem "groupdate", ">= 6.5.0"
