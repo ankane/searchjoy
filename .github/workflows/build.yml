@@ -17,7 +17,7 @@ jobs:
             elasticsearch: 8
           - ruby: 3.2
             gemfile: gemfiles/rails71.gemfile
-            elasticsearch: 7
+            elasticsearch: 8
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
