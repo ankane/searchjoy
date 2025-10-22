@@ -3,7 +3,6 @@ require "combustion"
 require "searchkick"
 Bundler.require(:default)
 require "minitest/autorun"
-require "minitest/pride"
 
 logger = ActiveSupport::Logger.new(ENV["VERBOSE"] ? STDOUT : nil)
 
