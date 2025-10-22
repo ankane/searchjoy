@@ -5,7 +5,7 @@ gemspec
 gem "rake"
 gem "minitest"
 gem "combustion"
-gem "activerecord", "~> 8.0.0"
+gem "activerecord", "~> 8.1.0"
 gem "searchkick"
 gem "elasticsearch"
 
