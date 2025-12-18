@@ -99,7 +99,7 @@ class TrackTest < Minitest::Test
   end
 
   def test_single_conversions
-    Searchjoy.stub(:multiple_conversions, false) do
+    with_options(:multiple_conversions, false) do
       store_names ["Apple", "Banana"]
       products = Product.search("APPLE", track: true).to_a
       search = Searchjoy::Search.last

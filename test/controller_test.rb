@@ -40,7 +40,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_top_searches_option
-    Searchjoy.stub(:top_searches, 500) do
+    with_options(:top_searches, 500) do
       get searchjoy.searches_path(search_type: "Item")
       assert_response :success
       assert_match "Top 500", response.body
@@ -56,7 +56,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
 
   def test_time_zone
     time_zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
-    Searchjoy.stub(:time_zone, time_zone) do
+    with_options(:time_zone, time_zone) do
       get searchjoy.searches_path(search_type: "Item")
       assert_response :success
       assert_match "Pacific Time", response.body
@@ -64,10 +64,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_query_url
-    query_url = lambda do |search|
-      "/items?q=#{search.query}"
-    end
-    Searchjoy.stub(:query_url, -> { query_url }) do
+    with_options(:query_url, ->(search) { "/items?q=#{search.query}" }) do
       get searchjoy.searches_recent_path
       assert_response :success
       assert_match 'href="/items?q=apple"', response.body
@@ -75,10 +72,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_query_name
-    query_name = lambda do |search|
-      "#{search.query} #{search.source}"
-    end
-    Searchjoy.stub(:query_name, -> { query_name }) do
+    with_options(:query_name, ->(search) { "#{search.query} #{search.source}" }) do
       get searchjoy.searches_recent_path
       assert_response :success
       assert_match "apple web", response.body
@@ -106,10 +100,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
     product = Product.create!(name: "Banana")
     Searchjoy::Search.last.convert(product)
 
-    conversion_name = lambda do |conversion|
-      conversion.name
-    end
-    Searchjoy.stub(:conversion_name, -> { conversion_name }) do
+    with_options(:conversion_name, ->(conversion) { conversion.name }) do
       get searchjoy.searches_recent_path
       assert_response :success
       assert_match product.name, response.body
@@ -117,7 +108,7 @@ class ControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_single_conversions
-    Searchjoy.stub(:multiple_conversions, false) do
+    with_options(:multiple_conversions, false) do
       product = Product.create!(name: "Banana")
       Searchjoy::Search.last.convert(product)
 
