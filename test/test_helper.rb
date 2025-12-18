@@ -18,7 +18,7 @@ Product.reindex
 Store.reindex
 
 class Minitest::Test
-  def with_options(name, value)
+  def with_option(name, value)
     previous_value = Searchjoy.send(name)
     begin
       Searchjoy.send("#{name}=", value)
