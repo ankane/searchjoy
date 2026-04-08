@@ -1,4 +1,4 @@
-## 1.5.0 (unreleased)
+## 1.5.0 (2026-04-08)
 
 - Fixed error with long queries with MySQL
 - Dropped support for Ruby < 3.3 and Rails < 7.2
