@@ -158,7 +158,7 @@ class TrackTest < Minitest::Test
   end
 
   def test_long_query
-    query = "APPLE✓" * 100
+    query = "APPLE🍎" * 100
     products = Product.search(query, track: true)
     expected = mysql? ? query.first(255) : query
     assert_equal expected, products.search.query

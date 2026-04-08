@@ -3,6 +3,7 @@ test:
   database: <%= ["postgresql", "mysql2", "trilogy"].include?(ENV["ADAPTER"]) ? "searchjoy_test" : "db/combustion_test.sqlite" %>
   <% if ["mysql2", "trilogy"].include?(ENV["ADAPTER"]) %>
   encoding: utf8mb4
+  collation: utf8mb4_0900_ai_ci # TODO figure out why needed / not default like Rails
   <% end %>
   <% if ENV["ADAPTER"] == "trilogy" %>
   host: 127.0.0.1
