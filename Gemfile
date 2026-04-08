@@ -8,6 +8,7 @@ gem "combustion"
 gem "activerecord", "~> 8.1.0"
 gem "searchkick"
 gem "elasticsearch"
+gem "cgi" # for elasticsearch
 
 case ENV["ADAPTER"]
 when "postgresql"
