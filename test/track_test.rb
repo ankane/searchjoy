@@ -157,11 +157,11 @@ class TrackTest < Minitest::Test
     assert_equal "Store", query2.search.search_type
   end
 
-  # TODO fix for mysql2 and trilogy
   def test_long_query
     query = "APPLE" * 100
     products = Product.search(query, track: true)
-    assert_equal query, products.search.query
+    expected = mysql? ? query.first(255) : query
+    assert_equal expected, products.search.query
   end
 
   private

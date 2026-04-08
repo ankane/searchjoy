@@ -1,5 +1,6 @@
 ## 1.5.0 (unreleased)
 
+- Fixed error with long queries with MySQL
 - Dropped support for Ruby < 3.3 and Rails < 7.2
 
 ## 1.4.0 (2025-04-03)

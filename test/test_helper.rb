@@ -27,4 +27,8 @@ class Minitest::Test
       Searchjoy.send("#{name}=", previous_value)
     end
   end
+
+  def mysql?
+    ["mysql2", "trilogy"].include?(ENV["ADAPTER"])
+  end
 end

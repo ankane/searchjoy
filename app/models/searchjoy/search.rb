@@ -6,6 +6,7 @@ module Searchjoy
     belongs_to :user, optional: true
     has_many :conversions
 
+    before_save :truncate_query
     before_save :set_normalized_query
 
     def convert(convertable = nil)
@@ -40,6 +41,11 @@ module Searchjoy
     end
 
     protected
+
+    def truncate_query
+      limit = self.class.type_for_attribute(:query).limit rescue nil
+      self.query = query.first(limit) if query && limit
+    end
 
     def set_normalized_query
       self.normalized_query = query.downcase if query
